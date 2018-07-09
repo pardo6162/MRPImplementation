@@ -1,4 +1,8 @@
 package com.coding.mrpImplementation.MRP;
 
-public class MRP {
+import com.coding.mrpImplementation.exceptions.MRPException;
+
+public interface MRP {
+    int[] execute() throws MRPException;
 }
+
