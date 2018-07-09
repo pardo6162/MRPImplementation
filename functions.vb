@@ -499,6 +499,7 @@ Sub mrp()
 		
 	    
 			'POQ
+			'Tiene encuenta el periodo
 	    		ElseIf Cells(fu + 3 + (n * 15), 9) = 4 Then
 	    
 				peri = Cells(1, 3)
@@ -529,7 +530,7 @@ Sub mrp()
 					Cells(fu + 9 + (n * 15), t + 6) = 0
 	    			End If
 		
-			'Balanceo de periodo balanceado
+			'Balanceo de periodo fragmentado
 	    		ElseIf Cells(fu + 3 + (n * 15), 9) = 5 Then
 	    
 				If Cells(fu + 8 + (n * 15), t	 + 6) <> 0 Then
