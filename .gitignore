@@ -1,2 +1,5 @@
 .idea
 diagrams/*.lock
+
+MRPImplementation/target
+MRPImplementation/.idea

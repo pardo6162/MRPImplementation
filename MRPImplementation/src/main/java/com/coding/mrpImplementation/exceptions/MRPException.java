@@ -7,8 +7,12 @@ public class MRPException extends Exception {
 
 
     public MRPException(String message){
+
         super(message);
     }
 
+    public MRPException(Throwable cause) {
+        super(cause);
+    }
 
 }
