@@ -3,25 +3,25 @@ package com.coding.mrpImplementation.entities;
 public class Material {
     private String id;
     private String name;
-    private int inventoryOnHand;
+    private int initialInventoryOnHand;
     private int orderingCost;
     private int maintainCost;
 
 
-    public Material(String id, String name,int inventoryOnHand,int orderingCost,int maintainCost){
+    public Material(String id, String name,int initialInventoryOnHand,int orderingCost,int maintainCost){
         this.id=id;
         this.name=name;
-        this.inventoryOnHand=inventoryOnHand;
+        this.initialInventoryOnHand=initialInventoryOnHand;
         this.orderingCost=orderingCost;
         this.maintainCost=maintainCost;
     }
 
-    public int getInventoryOnHand() {
-        return inventoryOnHand;
+    public int getInitialInventoryOnHand() {
+        return initialInventoryOnHand;
     }
 
-    public void setInventoryOnHand(int inventoryOnHand) {
-        this.inventoryOnHand = inventoryOnHand;
+    public void setInitialInventoryOnHand(int initialInventoryOnHand) {
+        this.initialInventoryOnHand = initialInventoryOnHand;
     }
 
     public int getOrderingCost() {

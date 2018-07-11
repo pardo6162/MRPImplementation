@@ -439,7 +439,6 @@ Sub mrp()
 			'Lote a lote
 			If Cells(fu + 3 + (n * 15), 9) = 0 Then
 				'Si el requerimiento neto en el periodo se puede dividir en el tamaño del lote
-				'
 	    			If Cells(fu + 8 + (n * 15), t + 6) Mod Cells(fu + 3 + (n * 15), 3) = 0 Then
 					Cells(fu + 9 + (n * 15), t + 6) = Cells(fu + 3 + (n * 15), 3) * ((Cells(fu + 8 + (n * 15), t + 6) / Cells(fu + 3 + (n * 15), 3) - (Cells(fu + 8 + (n * 15), t + 6) Mod Cells(fu + 3 + (n * 15), 3) / Cells(fu + 3 + (n * 15), 3))))
 				Else

@@ -57,7 +57,7 @@ public class ServiceImpl implements Service{
     public void setSecurityStock(int securityStock) {
         this.securityStock = securityStock;
     }
-
+    @Override
     public int getSizeOfLot() {
         return sizeOfLot;
     }
@@ -93,6 +93,20 @@ public class ServiceImpl implements Service{
             throw new MRPException(ex);
         }
         return null;
+    }
+
+    @Override
+    public int netRequirement(int timeIndex,String idMaterial){
+        int requirement=0;
+        if(inventoryOnHand(timeIndex,idMaterial)<=securityStock){
+            requirement=securityStock-inventoryOnHand(timeIndex,idMaterial);
+        }
+        return requirement;
+    }
+
+    @Override
+    public int inventoryOnHand(int timeIndex,String idMaterial){
+        materials.get(idMaterial).getInitialInventoryOnHand();
     }
 
     @Override
