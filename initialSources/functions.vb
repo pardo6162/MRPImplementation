@@ -446,6 +446,7 @@ Sub mrp()
 				End If
 
 			'Cantidad fija de lo que necesito
+			
 	    
 	    		ElseIf Cells(fu + 3 + (n * 15), 9) = 1 Then
 				Cells(fu + 9 + (n * 15), t + 6) = Cells(fu + 8 + (n * 15), t + 6)

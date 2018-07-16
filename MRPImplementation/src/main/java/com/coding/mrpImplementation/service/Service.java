@@ -11,8 +11,8 @@ import java.util.HashMap;
 public interface Service {
 
     HashMap<Material,int[]> plaining(String lotMethod) throws MRPException;
-    int inventoryOnHand(int timeIndex,String idMaterial) throws  MRPException;
-    int netRequirement(int timeIndex,String idMaterial) throws MRPException;
+    int getInventoryOnHand(int timeIndex,String idMaterial) throws  MRPException;
+    int getNetRequirement(int timeIndex,String idMaterial) throws MRPException;
     int getSizeOfLot() throws  MRPException;
     void addMachine(Machine machine) throws MRPException;
     void addAcivityToMachine(String idActivity,String idMachine) throws MRPException;

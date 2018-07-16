@@ -23,6 +23,8 @@ public class ServiceImpl implements Service{
     private HashMap<String,Activity> activities;
     private HashMap<String,Material> materials;
 
+    private HashMap<String,int[]> inventoryOnHand;
+
     public ServiceImpl(int securityStock,int sizeOfLot,int availablePrev,int time,int period){
         machines= new HashMap<>();
         activities= new HashMap<>();
@@ -32,6 +34,7 @@ public class ServiceImpl implements Service{
         this.availablePrev=availablePrev;
         this.time=time;
         this.period=period;
+        inventoryOnHand= new int[time+1];
     }
 
     public int getTime() {
@@ -96,18 +99,31 @@ public class ServiceImpl implements Service{
     }
 
     @Override
-    public int netRequirement(int timeIndex,String idMaterial){
+    public int getNetRequirement(int timeIndex,String idMaterial){
         int requirement=0;
-        if(inventoryOnHand(timeIndex,idMaterial)<=securityStock){
-            requirement=securityStock-inventoryOnHand(timeIndex,idMaterial);
+        int inventory = getInventoryOnHand(timeIndex,idMaterial);
+        if(inventory<=securityStock){
+            requirement=securityStock-inventory;
         }
         return requirement;
     }
 
     @Override
-    public int inventoryOnHand(int timeIndex,String idMaterial){
-        materials.get(idMaterial).getInitialInventoryOnHand();
+    public int getInventoryOnHand(int timeIndex,String idMaterial){
+        int inventory=0;
+        if (!inventoryOnHand.containsKey(idMaterial)){
+            inventoryOnHand.put(idMaterial,new int[time+1]);
+            inventoryOnHand.get(idMaterial)[0]=materials.get(idMaterial).getInitialInventoryOnHand();
+        }
+        if (timeIndex>0){
+            inventory=inventoryOnHand.get(idMaterial)[timeIndex-1]-
+        }
+
+        return inventory;
     }
+
+    @Override
+    public int get
 
     @Override
     public void addMachine(Machine machine) throws MRPException {
