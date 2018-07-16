@@ -34,7 +34,7 @@ public class ServiceImpl implements Service{
         this.availablePrev=availablePrev;
         this.time=time;
         this.period=period;
-        inventoryOnHand= new int[time+1];
+        inventoryOnHand = new HashMap<>();
     }
 
     public int getTime() {
@@ -116,15 +116,27 @@ public class ServiceImpl implements Service{
             inventoryOnHand.get(idMaterial)[0]=materials.get(idMaterial).getInitialInventoryOnHand();
         }
         if (timeIndex>0){
-            inventory=inventoryOnHand.get(idMaterial)[timeIndex-1]-
+            inventory=inventoryOnHand.get(idMaterial)[timeIndex-1]-getRequirementOfMaterial(timeIndex);
         }
 
         return inventory;
     }
 
-    @Override
-    public int get
+    private int getRequirementOfActivity(String idActivity, int indexTime, String idMaterial){
+            int totalRequirement=0;
+            HashMap<Machine,Integer> cantRequirement =activities.get(idActivity).getCalendar();
+            for(Integer i:cantRequirement.values())
+                if(i == indexTime)
+                    totalRequirement+=1;
+            return totalRequirement;
+    }
 
+    private int getRequirementOfMaterial(int indexTime){
+        int totalRequirement=0;
+        for(Activity i:activities.values()){
+            totalRequirement+=getRequirementOfActivity(i.getId(),indexTime);
+        }
+    }
     @Override
     public void addMachine(Machine machine) throws MRPException {
         if(!machines.containsValue(machine)){

@@ -1,11 +1,14 @@
 package com.coding.mrpImplementation.entities;
 
+import java.util.ArrayList;
+
 public class Material {
     private String id;
     private String name;
     private int initialInventoryOnHand;
     private int orderingCost;
     private int maintainCost;
+    private ArrayList<Activity> activities;
 
 
     public Material(String id, String name,int initialInventoryOnHand,int orderingCost,int maintainCost){
@@ -14,6 +17,7 @@ public class Material {
         this.initialInventoryOnHand=initialInventoryOnHand;
         this.orderingCost=orderingCost;
         this.maintainCost=maintainCost;
+        activities=new ArrayList<>();
     }
 
     public int getInitialInventoryOnHand() {
@@ -57,5 +61,15 @@ public class Material {
 
     public void setName(String name){
         this.name=name;
+    }
+
+    public ArrayList<Activity> getActivities(){
+        return activities;
+    }
+
+    public void setActivity(Activity activity){
+        if(!activities.contains(activity)){
+            activities.add(activity);
+        }
     }
 }

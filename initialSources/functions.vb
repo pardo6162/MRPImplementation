@@ -271,21 +271,29 @@ Sub mantenimiento()
 		Cells(Z + (ufila + 2), 1) = Z
 	Next
 		
-	    
+	
+	'El objetivo de este codigo es encontrar cuantas veces por periodo se debe realizar cada actividad
+	'por cada una de las maquinas    
+	'por cada una de las maquinas que realiza la actividad se suma el periodo de tiempo en el qu e realiza para obtener la cantidad total de mantenimiento que se debe hacer
 	For m = 1 To numaq
+		'por cada actividad
 		For i = 1 To numac
-
+			'actev =4
 			actev = Cells(4 + i, 1 + m)
 
 			'Valor es la asignación de actividad a cada máquina
 			buscardato = "Máquina" & m
+			' Nrofila = 15 
 			Range("a1").Select
 			Cells.Find(What:=buscardato, After:=ActiveCell, LookIn:=xlValues, LookAt:=
 				    xlPart, SearchOrder:=xlByRows, SearchDirection:=xlNext, MatchCase:=False 
 				    , SearchFormat:=False).Activate
 			Nrofila = ActiveCell.Row
+			't=15			
 			t = Nrofila
+			'w=19
 			w = t + actev
+			'ceev=4
 			ceev = Cells(w, 1)
 			suma = 0
 			    
@@ -293,7 +301,8 @@ Sub mantenimiento()
 			    For a = 1 To tiempo
 				suma = Cells(w, a + 1)
 				Cells(ufila + 2 + actev, a + 1) = suma + Cells(ufila + 2 + actev, a + 1)
-			    Next     
+			    Next
+				     
 			'Como se evalúa por máquina, se requiere saber en qué fila comienza el número de máquina
 			End If
 
@@ -320,10 +329,14 @@ Sub bruto()
 	Next
 		
 	sumaa = 0
-
+	'Lo que se busca con esta función es definir la cantidad que se nececita de un material para cierto 
+	'periodo de tiempo
+	'por cada uno de los materiales
 	For m = 1 To numat
+		'en cada periodo de tiempo
 		For t = 1 To tiempo
 			sumaa = 0
+			' se debe mirar por cada actividad
 			For a = 1 To numac
 
 				bact = "Actividades vs Materiales"
@@ -333,6 +346,7 @@ Sub bruto()
 		    			, SearchFormat:=False).Activate
 		    
 				filan = ActiveCell.Row
+				'cual es la cantidad de material m necesarioa en el tiempo t dada una actividad
 				canmat = Cells(filan + a, m + 1)
 
 				bmant = "Requerimiento total de mantenimiento"
@@ -342,6 +356,7 @@ Sub bruto()
 		    			, SearchFormat:=False).Activate
 		    
 				filmant = ActiveCell.Row
+				
 				cantiempo = Cells(filmant + a, t + 1)
 
 				producto = canmat * cantiempo
