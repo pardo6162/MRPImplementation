@@ -8,15 +8,16 @@ import com.coding.mrpImplementation.service.Service;
 public class LotForLot implements MRP {
     @Override
 
-    public int execute(Service service, Material material, int time) throws MRPException {
+    public int execute(Service service, Material material, int timeIndex) throws MRPException {
         int plannedReceptions=0;
-        int netRequirement= service.getNetRequirement()(time,material.getId());
+        int netRequirement= service.getNetRequirement(timeIndex,material);
         int sizeOfLot=service.getSizeOfLot();
         if(netRequirement%sizeOfLot==0){
             plannedReceptions=netRequirement;
         }else{
             plannedReceptions= sizeOfLot*((netRequirement/sizeOfLot) - ((netRequirement%sizeOfLot)/sizeOfLot)+1);
         }
+        service.updateInventoryOnHand(timeIndex,material,plannedReceptions);
         return plannedReceptions;
     }
 }

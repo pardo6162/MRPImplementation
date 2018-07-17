@@ -7,7 +7,7 @@ import com.coding.mrpImplementation.service.Service;
 
 public class FOQ implements MRP {
     @Override
-    public int execute(Service service, Material material, int time) throws MRPException {
-        return service.netRequirement(time,material.getId());
+    public int execute(Service service, Material material, int timeIndex) throws MRPException {
+        return service.getNetRequirement(timeIndex,material);
     }
 }
