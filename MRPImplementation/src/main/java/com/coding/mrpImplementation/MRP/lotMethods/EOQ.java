@@ -9,6 +9,6 @@ public class EOQ  implements MRP {
     @Override
     public int execute(Service service, Material material, int timeIndex) throws MRPException {
         int period =service.getPeriod();
-
+        return 0;
     }
 }
