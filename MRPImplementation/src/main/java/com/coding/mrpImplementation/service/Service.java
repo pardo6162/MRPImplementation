@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface Service {
-    int getTime();
-    int getPeriod()
-    int getSecurityStock();
-    int getProgramedReceptions(int timeIndex,Material material);
-    int getRequirementOfMaterial(int indexTime,Material material);
+    int getTime() throws MRPException;
+    int getPeriod() throws MRPException;
+    int getSecurityStock() throws MRPException;
+    int getProgramedReceptions(int timeIndex,Material material)throws MRPException;
+    int getRequirementOfMaterial(int indexTime,Material material)throws MRPException;
     void updateInventoryOnHand(int timeIndex, Material material,int plannedReceptions) throws MRPException;
     HashMap<Material,int[]> plaining(String lotMethod) throws MRPException;
     int getInventoryOnHand(int timeIndex,Material material) throws  MRPException;

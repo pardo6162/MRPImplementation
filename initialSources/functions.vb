@@ -516,7 +516,7 @@ Sub mrp()
 			'POQ
 			'Tiene encuenta el periodo
 	    		ElseIf Cells(fu + 3 + (n * 15), 9) = 4 Then
-	    
+	    <<	
 				peri = Cells(1, 3)
 		
 				Cells(fu + 9 + (n * 15), 2).Select
