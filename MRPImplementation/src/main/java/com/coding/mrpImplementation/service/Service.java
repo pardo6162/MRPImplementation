@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface Service {
+    int getTime();
     int getPeriod()
     int getSecurityStock();
     int getProgramedReceptions(int timeIndex,Material material);
