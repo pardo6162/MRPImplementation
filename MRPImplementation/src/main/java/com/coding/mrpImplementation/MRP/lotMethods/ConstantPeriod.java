@@ -10,16 +10,16 @@ public class ConstantPeriod implements MRP {
     public int execute(Service service, Material material, int timeIndex) throws MRPException {
         int plannedReceptions=0;
         int netRequirement= service.getNetRequirement(timeIndex,material);
-        int sizeOfLot=service.getSizeOfLot();
+        int sizeOfLot=material.getSizeOfLot();
         int sumRequirement=0;
         int sumProgramedReceptions=0;
-        int period = service.getPeriod();
+        int period = material.getPeriod();
         if(netRequirement!=0){
             for (int i=0;i<period+1;i++){
                 sumRequirement+=service.getRequirementOfMaterial(i,material);
                 sumProgramedReceptions+=service.getProgramedReceptions(i,material);
             }
-            plannedReceptions=sumRequirement - sumProgramedReceptions - service.getInventoryOnHand(timeIndex-1,material)-service.getSecurityStock();
+            plannedReceptions=sumRequirement - sumProgramedReceptions - service.getInventoryOnHand(timeIndex-1,material)-material.getSecurityStock();
         }
         return plannedReceptions;
     }

@@ -12,7 +12,7 @@ public class EOQ  implements MRP {
     @Override
     public int execute(Service service, Material material, int timeIndex) throws MRPException {
         int plannedReceptions=0;
-        int period =service.getPeriod();
+        int period =material.getPeriod();
         int time=service.getTime();
         int netRequirement=service.getNetRequirement(timeIndex,material);
         if(sumTotalRequirement==0)

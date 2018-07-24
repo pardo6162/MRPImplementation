@@ -11,7 +11,7 @@ public class POQ implements MRP {
     @Override
     public int execute(Service service, Material material, int timeIndex) throws MRPException {
         int plannedReceptions=0;
-        int period =service.getPeriod();
+        int period =material.getPeriod();
         int time=service.getTime();
         int netRequirement=service.getNetRequirement(timeIndex,material);
         int sumProgramedReceptions=0;
@@ -30,7 +30,7 @@ public class POQ implements MRP {
                 sumRequirement+=service.getRequirementOfMaterial(i,material);
                 sumProgramedReceptions+=service.getProgramedReceptions(i,material);
             }
-            plannedReceptions=sumRequirement - sumProgramedReceptions - service.getInventoryOnHand(timeIndex-1,material)-service.getSecurityStock()+square;
+            plannedReceptions=sumRequirement - sumProgramedReceptions - service.getInventoryOnHand(timeIndex-1,material)-material.getSecurityStock()+square;
         }
         return plannedReceptions;
     }

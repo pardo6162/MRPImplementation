@@ -12,30 +12,28 @@ import java.util.HashMap;
 
 public class ServiceImpl implements Service{
 
-
-    private int securityStock;
-    private int sizeOfLot;
-    private int availablePrev;
     private int time;
-    private int period;
-
     private HashMap<String,Machine> machines;
     private HashMap<String,Activity> activities;
     private HashMap<String,Material> materials;
 
     private HashMap<String,int[]> inventoryOnHand;
+    private static Service service=null;
 
-    public ServiceImpl(int securityStock,int sizeOfLot,int availablePrev,int time,int period){
+
+    private ServiceImpl(int time){
         machines= new HashMap<>();
         activities= new HashMap<>();
         materials= new HashMap<>();
-        this.securityStock=securityStock;
-        this.sizeOfLot=sizeOfLot;
-        this.availablePrev=availablePrev;
-        this.time=time;
-        this.period=period;
         inventoryOnHand = new HashMap<>();
+        this.time=time;
     }
+
+    public Service getInstance(int time) {
+        if(service==null)
+            service= new ServiceImpl(time);
+        return service;
+    };
 
     public int getTime() {
         return time;
@@ -43,38 +41,6 @@ public class ServiceImpl implements Service{
 
     public void setTime(int time) {
         this.time = time;
-    }
-
-    public int getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(int period) {
-        this.period = period;
-    }
-
-    public int getSecurityStock() {
-        return securityStock;
-    }
-
-    public void setSecurityStock(int securityStock) {
-        this.securityStock = securityStock;
-    }
-    @Override
-    public int getSizeOfLot() {
-        return sizeOfLot;
-    }
-
-    public void setSizeOfLot(int sizeOfLot) {
-        this.sizeOfLot = sizeOfLot;
-    }
-
-    public int getAvailablePrev() {
-        return availablePrev;
-    }
-
-    public void setAvailablePrev(int availablePrev) {
-        this.availablePrev = availablePrev;
     }
 
     public int getProgramedReceptions(int timeIndex,Material material) {
@@ -106,8 +72,8 @@ public class ServiceImpl implements Service{
     public int getNetRequirement(int timeIndex,Material material){
         int requirement=0;
         int inventory = getInventoryOnHand(timeIndex,material);
-        if(inventory<=securityStock){
-            requirement=securityStock-inventory;
+        if(inventory<=material.getSecurityStock()){
+            requirement=material.getSecurityStock()-inventory;
         }
         return requirement;
     }

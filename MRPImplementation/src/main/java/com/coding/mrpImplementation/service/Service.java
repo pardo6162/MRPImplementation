@@ -9,16 +9,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface Service {
+    Service getInstance(int time) ;
     int getTime() throws MRPException;
-    int getPeriod() throws MRPException;
-    int getSecurityStock() throws MRPException;
     int getProgramedReceptions(int timeIndex,Material material)throws MRPException;
     int getRequirementOfMaterial(int indexTime,Material material)throws MRPException;
     void updateInventoryOnHand(int timeIndex, Material material,int plannedReceptions) throws MRPException;
     HashMap<Material,int[]> plaining(String lotMethod) throws MRPException;
     int getInventoryOnHand(int timeIndex,Material material) throws  MRPException;
     int getNetRequirement(int timeIndex,Material material) throws MRPException;
-    int getSizeOfLot() throws  MRPException;
     void addMachine(Machine machine) throws MRPException;
     void addAcivityToMachine(String idActivity,String idMachine) throws MRPException;
     void addMaterialToActivity(String idMaterial,String idActivity) throws MRPException;
