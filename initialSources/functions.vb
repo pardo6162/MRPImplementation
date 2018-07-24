@@ -544,13 +544,14 @@ Sub mrp()
 				Else
 					Cells(fu + 9 + (n * 15), t + 6) = 0
 	    			End If
-		
+	
 			'Balanceo de periodo fragmentado
 	    		ElseIf Cells(fu + 3 + (n * 15), 9) = 5 Then
 	    
 				If Cells(fu + 8 + (n * 15), t	 + 6) <> 0 Then
 		
 					sumainv = 0
+					'Tiempo
 		    			ticost = Cells(1, 3).Value
 		     			For Z = 0 To ticost - 1
 		     				Sheets("E").Activate
