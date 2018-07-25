@@ -29,7 +29,7 @@ public class ServiceImpl implements Service{
         this.time=time;
     }
 
-    public Service getInstance(int time) {
+    public static Service getInstance(int time) {
         if(service==null)
             service= new ServiceImpl(time);
         return service;
@@ -53,7 +53,7 @@ public class ServiceImpl implements Service{
         Object instance;
         HashMap<Material,int[]> resultHashMap=new HashMap<>();
         try {
-            instance = Class.forName("com.coding.mrpImplementation.MRP.lotMethods." + lotMethod);
+            instance = Class.forName("com.coding.mrpImplementation.MRP." + lotMethod).newInstance();
             MRP methodInstance=(MRP) instance;
             for (Material j : materials.values()) {
                 int[] planingPeriods=new int[time];
@@ -62,10 +62,11 @@ public class ServiceImpl implements Service{
                 }
                 resultHashMap.put(j,planingPeriods);
             }
-        }catch(ClassNotFoundException ex){
+        }catch(Exception ex){
             throw new MRPException(ex);
         }
-        return null;
+
+        return resultHashMap;
     }
 
     @Override
@@ -98,10 +99,12 @@ public class ServiceImpl implements Service{
 
     private int getRequirementOfActivity(String idActivity, int indexTime){
             int totalRequirement=0;
-            HashMap<Machine,Integer> cantRequirement =activities.get(idActivity).getCalendar();
-            for(Integer i:cantRequirement.values())
-                if(i == indexTime)
-                    totalRequirement+=1;
+            HashMap<Machine,ArrayList<Integer>> cantRequirement =activities.get(idActivity).getCalendar();
+            for(ArrayList<Integer> i:cantRequirement.values())
+                for(Integer j:i){
+                    if(j == indexTime)
+                        totalRequirement+=1;
+                }
             return totalRequirement;
     }
 

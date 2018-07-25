@@ -12,6 +12,7 @@ public class Machine {
     public Machine(String id, String name){
         this.id=id;
         this.name=name;
+        activities=new ArrayList<>();
     }
 
     public String getId(){

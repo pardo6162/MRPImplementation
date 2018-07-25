@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface Service {
-    Service getInstance(int time) ;
     int getTime() throws MRPException;
     int getProgramedReceptions(int timeIndex,Material material)throws MRPException;
     int getRequirementOfMaterial(int indexTime,Material material)throws MRPException;

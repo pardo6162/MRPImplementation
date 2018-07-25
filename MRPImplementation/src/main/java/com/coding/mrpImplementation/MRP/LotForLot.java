@@ -1,4 +1,4 @@
-package com.coding.mrpImplementation.MRP.lotMethods;
+package com.coding.mrpImplementation.MRP;
 
 import com.coding.mrpImplementation.MRP.MRP;
 import com.coding.mrpImplementation.entities.Material;
@@ -11,7 +11,7 @@ public class LotForLot implements MRP {
     public int execute(Service service, Material material, int timeIndex) throws MRPException {
         int plannedReceptions=0;
         int netRequirement= service.getNetRequirement(timeIndex,material);
-        int sizeOfLot=service.getSizeOfLot();
+        int sizeOfLot=material.getSizeOfLot();
         if(netRequirement%sizeOfLot==0){
             plannedReceptions=netRequirement;
         }else{

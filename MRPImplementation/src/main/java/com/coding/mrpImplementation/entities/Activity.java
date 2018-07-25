@@ -9,7 +9,7 @@ public class Activity {
     private String name;
     private ArrayList<Machine> machines;
     private ArrayList<Material> materials;
-    private HashMap<Machine,Integer> calendar;
+    private HashMap<Machine,ArrayList<Integer>> calendar;
 
 
     public Activity(String id, String name) {
@@ -58,12 +58,16 @@ public class Activity {
 
     public void addSchedule(Machine machine, int timeIndex){
         if(machines.contains(machine))
-            if(!calendar.containsKey(machine))
-                calendar.put(machine,timeIndex);
-
+            if(!calendar.containsKey(machine)) {
+                ArrayList<Integer> tempCalendar = new ArrayList<>();
+                tempCalendar.add(timeIndex);
+                calendar.put(machine,tempCalendar);
+            }else if(!calendar.get(machine).contains(timeIndex)){
+                calendar.get(machine).add(timeIndex);
+            }
     }
 
-    public HashMap<Machine, Integer> getCalendar(){
+    public HashMap<Machine,ArrayList <Integer>> getCalendar(){
         return  calendar;
     }
 }
