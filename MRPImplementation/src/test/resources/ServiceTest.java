@@ -49,7 +49,7 @@ public class ServiceTest{
             materials.add(material);
         }
 
-        for (Machine i:machines){
+        /**for (Machine i:machines){
             int activitiesQ=(int) (Math.random()*(activities.size())+1);
             for(int j=0;j<activitiesQ;j++){
                 int activityIndex=(int) (Math.random()*(activities.size()));
@@ -73,12 +73,12 @@ public class ServiceTest{
                 materials.get(materialIndex).setActivity(i);
             }
 
-        }
+        }**/
 
 
 
     }
-
+    /**
     @Test
     public void correctConfig() throws MRPException{
         for(Machine i:service.getMachines()){
@@ -118,5 +118,44 @@ public class ServiceTest{
             System.out.printf("%n");
         }
         assert(true);
+    }**/
+
+    @Test
+    public void createActivityVsMachine(){
+        for (Machine i:machines) {
+            int activitiesQ = (int) (Math.random() * (activities.size()) + 1);
+            for (int j = 0; j < activitiesQ; j++) {
+                int activityIndex = (int) (Math.random() * (activities.size()));
+                int cantIndexTime = (int) (Math.random() * 7) + 1;
+                Activity activityTemp = activities.get(activityIndex);
+                for (int k = 0; k < cantIndexTime; k++) {
+                    int indexTime = (int) (Math.random() * 7) + 1;
+                    activityTemp.addSchedule(i, indexTime);
+                }
+                activityTemp.setMachines(i);
+                i.setActivity(activityTemp);
+                activities.remove(activityIndex);
+                activities.put(activityIndex, activityTemp);
+            }
+        }
+
+        for(Activity i:activities.values()){
+            System.out.printf("Activity %s%n",i.getId());
+            System.out.printf("----Schedule%n------%s%n",i.getCalendar().toString());
+        }
+    }
+
+    @Test
+    public void createActivityVsTime(){
+
+    }
+
+    @Test
+    public void createActivityVsMaterial(){
+
+    }
+    @Test
+    public void MRPTest(){
+
     }
 }
