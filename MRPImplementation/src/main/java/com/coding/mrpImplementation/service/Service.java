@@ -18,10 +18,11 @@ public interface Service {
     int getNetRequirement(int timeIndex,Material material) throws MRPException;
     void addMachine(Machine machine) throws MRPException;
     void addAcivityToMachine(String idActivity,String idMachine) throws MRPException;
-    void addMaterialToActivity(String idMaterial,String idActivity) throws MRPException;
+    void addMaterialToActivity(String idMaterial,String idActivity,int quantity) throws MRPException;
     ArrayList<Machine> getMachines() throws MRPException;
     ArrayList<Activity> getActivities() throws MRPException;
     ArrayList<Material> getMaterials() throws MRPException;
     void addMaterial(Material material) throws MRPException;
     void addActivity(Activity activity) throws MRPException;
+    void updateActivity(String activityId,Activity activity)throws  MRPException;
 }
