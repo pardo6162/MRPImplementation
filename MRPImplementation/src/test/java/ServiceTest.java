@@ -130,20 +130,21 @@ public class ServiceTest{
                 service.addAcivityToMachine(activityTemp.getId(),i.getId());
                 System.out.printf("----Activity %s%n",activityTemp.getId());
                 //System.out.println(cantIndexTime+" nnnnnnnnnnnnnnnnnnnnnnnnn");
-                int[] numbers={6,2};
+                int[] numbers={5,1};
                 for (int k = 0; k < cantIndexTime; k++) {
                     int indexTime = numbers[k];// (int) (Math.random() * 7) + 1;
                     System.out.println(activityTemp.getCalendar());
                     activityTemp.addSchedule(i, indexTime);
                 }
-
+                service.addMaterialToActivity("MT1","A1",5);
                 activityTemp=service.getActivities().get(0);
+                System.out.println("Materials "+service.getActivities().get(0).getMaterials());
                 service.updateActivity(activityTemp.getId(),activityTemp);
                 System.out.println("cale nda "+activityTemp.getCalendar());
                 System.out.println(service.getActivities().get(0).getCalendar()+"calnedarr");
             }
 
-            service.addMaterialToActivity("MT1","M1",5);
+
             HashMap<Material,int[]> materialsPlanning =service.plaining("LotForLot");
             //System.out.println(materialsPlanning);
             //System.out.println(materialsPlanning);

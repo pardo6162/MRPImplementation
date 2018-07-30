@@ -73,7 +73,7 @@ public class ServiceImpl implements Service{
     public int getNetRequirement(int timeIndex,Material material){
         int requirement=0;
         int inventory = getInventoryOnHand(timeIndex,material);
-        System.out.println(inventory+"inventoryyy");
+        System.out.printf("Inventory %d SecurityStock%d%n",inventory,material.getSecurityStock()    );
         if(inventory<=material.getSecurityStock()){
             requirement=material.getSecurityStock()-inventory;
         }
@@ -85,7 +85,7 @@ public class ServiceImpl implements Service{
         int inventory=0;
         if (!inventoryOnHand.containsKey(material.getId())){
             inventoryOnHand.put(material.getId(),new int[time]);
-            inventoryOnHand.get(material.getId())[0]=materials.get(material.getId()).getInitialInventoryOnHand();
+            inventoryOnHand.get(material.getId())[0]=0;//materials.get(material.getId()).getInitialInventoryOnHand();
         }
         if (timeIndex>0){
             inventory=inventoryOnHand.get(material.getId())[timeIndex-1]-getRequirementOfMaterial(timeIndex,material)+getProgramedReceptions(timeIndex,material);
@@ -94,8 +94,7 @@ public class ServiceImpl implements Service{
             inventory=inventoryOnHand.get(material.getId())[timeIndex]-getRequirementOfMaterial(timeIndex,material)+getProgramedReceptions(timeIndex,material);
             inventoryOnHand.get(material.getId())[timeIndex]=inventory;
         }
-
-        return inventoryOnHand.get(material.getId())[timeIndex];
+        return inventory;
     }
     @Override
     public void updateInventoryOnHand(int timeIndex, Material material, int plannedReceptions)throws MRPException{
@@ -116,12 +115,16 @@ public class ServiceImpl implements Service{
     @Override
     public int getRequirementOfMaterial(int indexTime,Material material){
         int totalRequirement=0;
-        for(Activity i:activities.values()){
-            if(i.getMaterials().keySet().contains(material))
-                totalRequirement+=getRequirementOfActivity(i.getId(),indexTime)*i.getMaterials().get(material);
+
+        for(Activity i:activities.values()) {
+
+            if (i.getMaterials().keySet().contains(material)) {
+                totalRequirement += getRequirementOfActivity(i.getId(), indexTime) * i.getMaterials().get(material);
+            }
         }
+
         return totalRequirement;
-    }
+        }
     @Override
     public void addMachine(Machine machine) throws MRPException {
         if(!machines.containsValue(machine)){
@@ -142,7 +145,9 @@ public class ServiceImpl implements Service{
     @Override
     public void addMaterialToActivity(String idMaterial, String idActivity,int quantity) throws MRPException {
         if(activities.containsKey(idActivity)){
+
             if(materials.containsKey(idMaterial)){
+
                 activities.get(idActivity).setMaterial(materials.get(idMaterial),quantity);
                 materials.get(idMaterial).setActivity(activities.get(idActivity));
             }

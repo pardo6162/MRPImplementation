@@ -174,7 +174,7 @@ Sub material()
 	    For j = 1 To numac
 	   
 		    Cells(ultif + 2, 1) = "Actividades vs Materiales"
-		    Cells(ultif + j + 2, i + 1) = Int((msup - minf + 1) * Rnd() + minf)
+		    Cells(ultif + j + 2, i + 1) = 	Int((msup - minf + 1) * Rnd() + minf)
 		    Cells(ultif + j + 2, 1) = j
 		    Cells(ultif + 2, i + 1) = i
 	    Next
