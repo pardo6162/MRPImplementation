@@ -8,15 +8,15 @@ public class Activity {
     private String id;
     private String name;
     private ArrayList<Machine> machines;
-    private ArrayList<Material> materials;
-    private HashMap<Machine,Integer> calendar;
+    private HashMap<Material,Integer> materials;
+    private HashMap<Machine,ArrayList<Integer>> calendar;
 
 
     public Activity(String id, String name) {
         this.id = id;
         this.name = name;
         machines=new ArrayList<>();
-        materials=new ArrayList<>();
+        materials=new HashMap<>();
         calendar = new HashMap<>();
     }
 
@@ -37,13 +37,13 @@ public class Activity {
         this.name = name;
     }
 
-    public ArrayList<Material> getMaterials() {
+    public HashMap<Material,Integer> getMaterials() {
         return materials;
     }
 
-    public void setMaterial(Material material) {
-        if (!materials.contains(material)) {
-            materials.add(material);
+    public void setMaterial(Material material,int quantity) {
+        if (!materials.keySet().contains(material)) {
+            materials.put(material,quantity);
         }
     }
 
@@ -58,12 +58,16 @@ public class Activity {
 
     public void addSchedule(Machine machine, int timeIndex){
         if(machines.contains(machine))
-            if(!calendar.containsKey(machine))
-                calendar.put(machine,timeIndex);
-
+            if(!calendar.containsKey(machine)) {
+                ArrayList<Integer> tempCalendar = new ArrayList<>();
+                tempCalendar.add(timeIndex);
+                calendar.put(machine,tempCalendar);
+            }else if(!calendar.get(machine).contains(timeIndex)){
+                calendar.get(machine).add(timeIndex);
+            }
     }
 
-    public HashMap<Machine, Integer> getCalendar(){
+    public HashMap<Machine,ArrayList <Integer>> getCalendar(){
         return  calendar;
     }
 }

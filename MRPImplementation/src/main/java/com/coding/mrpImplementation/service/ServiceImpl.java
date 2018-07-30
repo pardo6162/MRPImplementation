@@ -12,30 +12,28 @@ import java.util.HashMap;
 
 public class ServiceImpl implements Service{
 
-
-    private int securityStock;
-    private int sizeOfLot;
-    private int availablePrev;
     private int time;
-    private int period;
-
     private HashMap<String,Machine> machines;
     private HashMap<String,Activity> activities;
     private HashMap<String,Material> materials;
 
     private HashMap<String,int[]> inventoryOnHand;
+    private static Service service=null;
 
-    public ServiceImpl(int securityStock,int sizeOfLot,int availablePrev,int time,int period){
+
+    private ServiceImpl(int time){
         machines= new HashMap<>();
         activities= new HashMap<>();
         materials= new HashMap<>();
-        this.securityStock=securityStock;
-        this.sizeOfLot=sizeOfLot;
-        this.availablePrev=availablePrev;
-        this.time=time;
-        this.period=period;
         inventoryOnHand = new HashMap<>();
+        this.time=time;
     }
+
+    public static Service getInstance(int time) {
+        if(service==null)
+            service= new ServiceImpl(time);
+        return service;
+    };
 
     public int getTime() {
         return time;
@@ -43,38 +41,6 @@ public class ServiceImpl implements Service{
 
     public void setTime(int time) {
         this.time = time;
-    }
-
-    public int getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(int period) {
-        this.period = period;
-    }
-
-    public int getSecurityStock() {
-        return securityStock;
-    }
-
-    public void setSecurityStock(int securityStock) {
-        this.securityStock = securityStock;
-    }
-    @Override
-    public int getSizeOfLot() {
-        return sizeOfLot;
-    }
-
-    public void setSizeOfLot(int sizeOfLot) {
-        this.sizeOfLot = sizeOfLot;
-    }
-
-    public int getAvailablePrev() {
-        return availablePrev;
-    }
-
-    public void setAvailablePrev(int availablePrev) {
-        this.availablePrev = availablePrev;
     }
 
     public int getProgramedReceptions(int timeIndex,Material material) {
@@ -87,7 +53,7 @@ public class ServiceImpl implements Service{
         Object instance;
         HashMap<Material,int[]> resultHashMap=new HashMap<>();
         try {
-            instance = Class.forName("com.coding.mrpImplementation.MRP.lotMethods." + lotMethod);
+            instance = Class.forName("com.coding.mrpImplementation.MRP." + lotMethod).newInstance();
             MRP methodInstance=(MRP) instance;
             for (Material j : materials.values()) {
                 int[] planingPeriods=new int[time];
@@ -96,18 +62,20 @@ public class ServiceImpl implements Service{
                 }
                 resultHashMap.put(j,planingPeriods);
             }
-        }catch(ClassNotFoundException ex){
+        }catch(Exception ex){
             throw new MRPException(ex);
         }
-        return null;
+
+        return resultHashMap;
     }
 
     @Override
     public int getNetRequirement(int timeIndex,Material material){
         int requirement=0;
         int inventory = getInventoryOnHand(timeIndex,material);
-        if(inventory<=securityStock){
-            requirement=securityStock-inventory;
+        System.out.printf("Inventory %d SecurityStock%d%n",inventory,material.getSecurityStock()    );
+        if(inventory<=material.getSecurityStock()){
+            requirement=material.getSecurityStock()-inventory;
         }
         return requirement;
     }
@@ -116,13 +84,16 @@ public class ServiceImpl implements Service{
     public int getInventoryOnHand(int timeIndex,Material material){
         int inventory=0;
         if (!inventoryOnHand.containsKey(material.getId())){
-            inventoryOnHand.put(material.getId(),new int[time+1]);
-            inventoryOnHand.get(material.getId())[0]=materials.get(material.getId()).getInitialInventoryOnHand();
+            inventoryOnHand.put(material.getId(),new int[time]);
+            inventoryOnHand.get(material.getId())[0]=0;//materials.get(material.getId()).getInitialInventoryOnHand();
         }
         if (timeIndex>0){
             inventory=inventoryOnHand.get(material.getId())[timeIndex-1]-getRequirementOfMaterial(timeIndex,material)+getProgramedReceptions(timeIndex,material);
+            inventoryOnHand.get(material.getId())[timeIndex]=inventory;
+        }else if(timeIndex==0){
+            inventory=inventoryOnHand.get(material.getId())[timeIndex]-getRequirementOfMaterial(timeIndex,material)+getProgramedReceptions(timeIndex,material);
+            inventoryOnHand.get(material.getId())[timeIndex]=inventory;
         }
-        inventoryOnHand.get(material.getId())[timeIndex]=inventory;
         return inventory;
     }
     @Override
@@ -132,22 +103,28 @@ public class ServiceImpl implements Service{
 
     private int getRequirementOfActivity(String idActivity, int indexTime){
             int totalRequirement=0;
-            HashMap<Machine,Integer> cantRequirement =activities.get(idActivity).getCalendar();
-            for(Integer i:cantRequirement.values())
-                if(i == indexTime)
-                    totalRequirement+=1;
+            HashMap<Machine,ArrayList<Integer>> cantRequirement =activities.get(idActivity).getCalendar();
+            for(ArrayList<Integer> i:cantRequirement.values())
+                for(Integer j:i){
+                    if(j == indexTime)
+                        totalRequirement+=1;
+                }
             return totalRequirement;
     }
 
     @Override
     public int getRequirementOfMaterial(int indexTime,Material material){
         int totalRequirement=0;
-        for(Activity i:activities.values()){
-            if(i.getMaterials().contains(material))
-                totalRequirement+=getRequirementOfActivity(i.getId(),indexTime);
+
+        for(Activity i:activities.values()) {
+
+            if (i.getMaterials().keySet().contains(material)) {
+                totalRequirement += getRequirementOfActivity(i.getId(), indexTime) * i.getMaterials().get(material);
+            }
         }
+
         return totalRequirement;
-    }
+        }
     @Override
     public void addMachine(Machine machine) throws MRPException {
         if(!machines.containsValue(machine)){
@@ -160,15 +137,19 @@ public class ServiceImpl implements Service{
         if(machines.containsKey(idMachine)){
             if(activities.containsKey(idActivity)){
                 machines.get(idMachine).setActivity(activities.get(idActivity));
+                activities.get(idActivity).setMachines(machines.get(idMachine));
             }
         }
     }
 
     @Override
-    public void addMaterialToActivity(String idMaterial, String idActivity) throws MRPException {
+    public void addMaterialToActivity(String idMaterial, String idActivity,int quantity) throws MRPException {
         if(activities.containsKey(idActivity)){
+
             if(materials.containsKey(idMaterial)){
-                activities.get(idActivity).setMaterial(materials.get(idMaterial));
+
+                activities.get(idActivity).setMaterial(materials.get(idMaterial),quantity);
+                materials.get(idMaterial).setActivity(activities.get(idActivity));
             }
         }
     }
@@ -199,6 +180,14 @@ public class ServiceImpl implements Service{
     public void addActivity(Activity activity) throws MRPException {
         if(!activities.containsValue(activity)){
             activities.put(activity.getId(),activity);
+        }
+    }
+
+    @Override
+    public void updateActivity(String activityId,Activity activity)throws  MRPException{
+        if(activities.containsKey(activityId)){
+            activities.remove(activityId);
+            activities.put(activityId,activity);
         }
     }
 }
