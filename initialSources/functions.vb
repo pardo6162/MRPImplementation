@@ -487,8 +487,9 @@ Sub mrp()
 				End If
 			'EOQ
 	    		ElseIf Cells(fu + 3 + (n * 15), 9) = 3 Then
-	    
+	    			'periodo
 				Z = Cells(fu + 3 + (n * 15), 10)
+				'tiempo
 				peri = Cells(1, 3)
 				Cells(fu + 9 + (n * 15), 2).Select
 				ActiveCell.FormulaR1C1 = "=+SUM(R[-4]C:R[-4]C[" & t + Z + 6 & "])"
