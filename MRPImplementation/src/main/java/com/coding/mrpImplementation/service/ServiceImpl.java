@@ -29,12 +29,20 @@ public class ServiceImpl implements Service{
         this.time=time;
     }
 
+
+    /**
+     * generate only one instance of Service class
+     * **/
     public static Service getInstance(int time) {
         if(service==null)
             service= new ServiceImpl(time);
         return service;
     };
 
+    /**
+     * This method return the global time defined
+     * @return int number of periods in evaluation
+     */
     public int getTime() {
         return time;
     }
@@ -43,6 +51,12 @@ public class ServiceImpl implements Service{
         this.time = time;
     }
 
+    /**
+     * This method return de programed receptions of a material in a given time
+     * @param timeIndex index of period
+     * @param material  material in evaluation
+     * @return 0
+     */
     public int getProgramedReceptions(int timeIndex,Material material) {
         return 0;
     }
@@ -80,22 +94,32 @@ public class ServiceImpl implements Service{
         return requirement;
     }
 
+    /**
+     * This method return the inventory on hand in a specific time period for a material
+     * @param timeIndex
+     * @param material
+     * @return int the quantity of material in the time
+     */
+
     @Override
     public int getInventoryOnHand(int timeIndex,Material material){
         int inventory=0;
         if (!inventoryOnHand.containsKey(material.getId())){
             inventoryOnHand.put(material.getId(),new int[time]);
-            inventoryOnHand.get(material.getId())[0]=0;//materials.get(material.getId()).getInitialInventoryOnHand();
-        }
-        if (timeIndex>0){
-            inventory=inventoryOnHand.get(material.getId())[timeIndex-1]-getRequirementOfMaterial(timeIndex,material)+getProgramedReceptions(timeIndex,material);
-            inventoryOnHand.get(material.getId())[timeIndex]=inventory;
-        }else if(timeIndex==0){
-            inventory=inventoryOnHand.get(material.getId())[timeIndex]-getRequirementOfMaterial(timeIndex,material)+getProgramedReceptions(timeIndex,material);
-            inventoryOnHand.get(material.getId())[timeIndex]=inventory;
+            inventoryOnHand.get(material.getId())[0]=materials.get(material.getId()).getInitialInventoryOnHand();
+        }else {
+            if (timeIndex > 0) {
+                inventory = inventoryOnHand.get(material.getId())[timeIndex - 1] - getRequirementOfMaterial(timeIndex, material) + getProgramedReceptions(timeIndex, material);
+
+            } else if (timeIndex == 0) {
+                inventory = inventoryOnHand.get(material.getId())[timeIndex] - getRequirementOfMaterial(timeIndex, material) + getProgramedReceptions(timeIndex, material);
+            }
+            inventoryOnHand.get(material.getId())[timeIndex] = inventory;
         }
         return inventory;
     }
+
+
     @Override
     public void updateInventoryOnHand(int timeIndex, Material material, int plannedReceptions)throws MRPException{
         inventoryOnHand.get(material.getId())[timeIndex]+=plannedReceptions;
@@ -112,6 +136,12 @@ public class ServiceImpl implements Service{
             return totalRequirement;
     }
 
+    /**
+     * This method provide a requirement of material in a specific time period
+     * @param indexTime
+     * @param material
+     * @return int the quantity of material required
+     */
     @Override
     public int getRequirementOfMaterial(int indexTime,Material material){
         int totalRequirement=0;
@@ -124,7 +154,7 @@ public class ServiceImpl implements Service{
         }
 
         return totalRequirement;
-        }
+    }
     @Override
     public void addMachine(Machine machine) throws MRPException {
         if(!machines.containsValue(machine)){
