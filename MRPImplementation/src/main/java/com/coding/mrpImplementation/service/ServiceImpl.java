@@ -63,7 +63,7 @@ public class ServiceImpl implements Service{
 
 
     @Override
-    public HashMap<Material,int[]> plaining(String lotMethod) throws MRPException {
+    public HashMap<Material,int[]> planning(String lotMethod) throws MRPException {
         Object instance;
         HashMap<Material,int[]> resultHashMap=new HashMap<>();
         try {
@@ -83,11 +83,18 @@ public class ServiceImpl implements Service{
         return resultHashMap;
     }
 
+
+    /**
+     * This method return the net requirement of specific material in a determinated period time
+     * @param timeIndex
+     * @param material
+     * @return the quantity  net requeriment of material in the period time
+     * @throws MRPException
+     */
     @Override
-    public int getNetRequirement(int timeIndex,Material material){
+    public int getNetRequirement(int timeIndex,Material material) throws MRPException{
         int requirement=0;
         int inventory = getInventoryOnHand(timeIndex,material);
-        System.out.printf("Inventory %d SecurityStock%d%n",inventory,material.getSecurityStock()    );
         if(inventory<=material.getSecurityStock()){
             requirement=material.getSecurityStock()-inventory;
         }
@@ -102,30 +109,52 @@ public class ServiceImpl implements Service{
      */
 
     @Override
-    public int getInventoryOnHand(int timeIndex,Material material){
+    public int getInventoryOnHand(int timeIndex,Material material) throws MRPException{
         int inventory=0;
-        if (!inventoryOnHand.containsKey(material.getId())){
-            inventoryOnHand.put(material.getId(),new int[time]);
-            inventoryOnHand.get(material.getId())[0]=materials.get(material.getId()).getInitialInventoryOnHand();
-        }else {
-            if (timeIndex > 0) {
-                inventory = inventoryOnHand.get(material.getId())[timeIndex - 1] - getRequirementOfMaterial(timeIndex, material) + getProgramedReceptions(timeIndex, material);
-
-            } else if (timeIndex == 0) {
-                inventory = inventoryOnHand.get(material.getId())[timeIndex] - getRequirementOfMaterial(timeIndex, material) + getProgramedReceptions(timeIndex, material);
+        int prev;
+        int requirementOfMaterial;
+        int programedReception;
+        if(!inventoryOnHand.containsKey(material.getId())){
+            inventoryOnHand.put(material.getId(), new int[time]);
+            if(timeIndex==0)
+                inventoryOnHand.get(material.getId())[timeIndex]=materials.get(material.getId()).getInitialInventoryOnHand();
+        }else if(inventoryOnHand.get(material.getId())[timeIndex]==0) {
+            requirementOfMaterial = service.getRequirementOfMaterial(timeIndex, material);
+            programedReception = service.getProgramedReceptions(timeIndex, material);
+            if (timeIndex == 0)
+                prev = inventoryOnHand.get((material.getId()))[timeIndex];
+            else {
+                prev = inventoryOnHand.get(material.getId())[timeIndex - 1];
             }
-            inventoryOnHand.get(material.getId())[timeIndex] = inventory;
+            inventoryOnHand.get(material.getId())[timeIndex] = prev - requirementOfMaterial + programedReception;
         }
+        inventory=inventoryOnHand.get(material.getId())[timeIndex];
         return inventory;
     }
 
+    /**
+     * This method allow to update the inventory on hand when the planned receptions has been calculated
+     * @param timeIndex
+     * @param material
+     * @param plannedReceptions
+     * @throws MRPException
+     */
 
     @Override
     public void updateInventoryOnHand(int timeIndex, Material material, int plannedReceptions)throws MRPException{
         inventoryOnHand.get(material.getId())[timeIndex]+=plannedReceptions;
     }
 
-    private int getRequirementOfActivity(String idActivity, int indexTime){
+
+    /**
+     * This method return the total times to that a programed activity in a specific index time
+     * @param idActivity
+     * @param indexTime
+     * @return the count of times that the activity is make in a specific period of time
+     * @throws MRPException
+     */
+    @Override
+    public int getRequirementOfActivity(String idActivity, int indexTime)throws MRPException{
             int totalRequirement=0;
             HashMap<Machine,ArrayList<Integer>> cantRequirement =activities.get(idActivity).getCalendar();
             for(ArrayList<Integer> i:cantRequirement.values())
@@ -143,7 +172,7 @@ public class ServiceImpl implements Service{
      * @return int the quantity of material required
      */
     @Override
-    public int getRequirementOfMaterial(int indexTime,Material material){
+    public int getRequirementOfMaterial(int indexTime,Material material) throws MRPException{
         int totalRequirement=0;
 
         for(Activity i:activities.values()) {

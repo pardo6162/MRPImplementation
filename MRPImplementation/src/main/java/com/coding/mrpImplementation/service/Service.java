@@ -12,8 +12,9 @@ public interface Service {
     int getTime() throws MRPException;
     int getProgramedReceptions(int timeIndex,Material material)throws MRPException;
     int getRequirementOfMaterial(int indexTime,Material material)throws MRPException;
+    int getRequirementOfActivity(String idActivity, int indexTime)throws MRPException;
     void updateInventoryOnHand(int timeIndex, Material material,int plannedReceptions) throws MRPException;
-    HashMap<Material,int[]> plaining(String lotMethod) throws MRPException;
+    HashMap<Material,int[]> planning(String lotMethod) throws MRPException;
     int getInventoryOnHand(int timeIndex,Material material) throws  MRPException;
     int getNetRequirement(int timeIndex,Material material) throws MRPException;
     void addMachine(Machine machine) throws MRPException;
