@@ -10,20 +10,16 @@ public class LotForLot implements MRP {
 
     public int execute(Service service, Material material, int timeIndex) throws MRPException {
         int plannedReceptions = 0;
-        for(int i=0;i<2;i++) {
 
-            int netRequirement = service.getNetRequirement(timeIndex, material);
-            System.out.printf("netRequirement %d timeIndex %d%n", netRequirement, timeIndex);
-            int sizeOfLot = material.getSizeOfLot();
-            if (netRequirement % sizeOfLot == 0) {
-                plannedReceptions = netRequirement;
-            } else {
-                plannedReceptions = sizeOfLot * ((netRequirement / sizeOfLot) - ((netRequirement % sizeOfLot) / sizeOfLot) + 1);
-            }
-            service.updateInventoryOnHand(timeIndex, material, plannedReceptions);
-
+        int netRequirement = service.getNetRequirement(timeIndex, material);
+        int sizeOfLot = material.getSizeOfLot();
+        if (netRequirement % sizeOfLot == 0) {
+            plannedReceptions = netRequirement;
+        } else {
+            plannedReceptions = sizeOfLot * ((netRequirement / sizeOfLot) - ((netRequirement % sizeOfLot) / sizeOfLot) + 1);
         }
-        System.out.printf("post inventoryOnHand %d%n plannedReceptions %d%n", service.getInventoryOnHand(timeIndex, material), plannedReceptions);
+        service.updateInventoryOnHand(timeIndex, material, plannedReceptions);
+
         return plannedReceptions;
 
     }

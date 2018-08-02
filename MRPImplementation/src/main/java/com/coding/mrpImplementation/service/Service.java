@@ -26,4 +26,5 @@ public interface Service {
     void addMaterial(Material material) throws MRPException;
     void addActivity(Activity activity) throws MRPException;
     void updateActivity(String activityId,Activity activity)throws  MRPException;
+    void resetInventoryOnHand() throws  MRPException;
 }

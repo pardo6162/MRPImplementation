@@ -249,4 +249,9 @@ public class ServiceImpl implements Service{
             activities.put(activityId,activity);
         }
     }
+
+    @Override
+    public void resetInventoryOnHand() throws  MRPException{
+        inventoryOnHand.clear();
+    }
 }

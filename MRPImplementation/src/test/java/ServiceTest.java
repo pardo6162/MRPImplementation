@@ -16,7 +16,8 @@ public class ServiceTest{
     ArrayList<Material> materials=new ArrayList<>();
     private static Service service= ServiceImpl.getInstance(7);
     private Material material;
-    private Activity activity;
+    private Activity activity1;
+    private Activity activity2;
     private Machine machine;
 
     public ServiceTest(){
@@ -37,24 +38,73 @@ public class ServiceTest{
         service.addMaterial(material);
 
         //add activity
-        activity = new Activity("A1","Activity 1 ");
-        service.addActivity(activity);
+        activity1 = new Activity("A1","Activity 1 ");
+        service.addActivity(activity1);
+
+        activity2 = new Activity("A2","Activity 2 ");
+        service.addActivity(activity2);
 
         //add machine
         machine = new Machine("M1","Machine 1");
         service.addMachine(machine);
 
         //add material to activity
-        service.addMaterialToActivity(material.getId(),activity.getId(),5);
+        service.addMaterialToActivity(material.getId(),activity1.getId(),5);
+        service.addMaterialToActivity(material.getId(),activity2.getId(),5);
 
         //add activity to machine
-        service.addAcivityToMachine(activity.getId(),machine.getId());
+        service.addAcivityToMachine(activity1.getId(),machine.getId());
+        service.addAcivityToMachine(activity2.getId(),machine.getId());
 
         //add shedule to activity
-        activity.addSchedule(machine,1);
-        activity.addSchedule(machine,5);
-        service.updateActivity(activity.getId(),activity);
+        activity1.addSchedule(machine,1);
+        activity1.addSchedule(machine,5);
+        service.updateActivity(activity1.getId(),activity1);
+
+        activity2.addSchedule(machine,2);
+        activity2.addSchedule(machine,4);
+        service.updateActivity(activity2.getId(),activity2);
     }
+
+
+    @Test
+    public  void planningTest() throws MRPException{
+        int time=service.getTime();
+        HashMap<Material,int[]> result;
+        int [] planningInventory;
+        //Lot Method 1
+        service.resetInventoryOnHand();
+        planningInventory= new int[]{0,9,0,0,9,9,0};
+        result=service.planning("LotForLot");
+        for(int[] list:result.values())
+            for(int i=0;i<time;i++)
+                assertEquals("The lot method Lot for Lot is incorrect"+i,planningInventory[i],list[i]);
+        
+        /**
+         //Lot Method 2
+         planningInventory= new int[]{0,0,0,0,0,0,0,};
+         result=service.planning("FOQ");
+         //Lot Method 3
+         planningInventory= new int[]{};
+         result=service.planning("BPF");
+         //Lot Method 4
+         planningInventory= new int[]{};
+         result=service.planning("ConstantPeriod");
+         //Lot Method 5
+         planningInventory= new int[]{};
+         result=service.planning("EOQ");
+         //Lot Method 6
+         planningInventory= new int[]{};
+         result=service.planning("MCU");
+         //Lot Method 7
+         planningInventory= new int[]{};
+         result=service.planning("POQ");
+         //Lot Method 8
+         planningInventory= new int[]{};
+         result=service.planning("SilverMeal");**/
+        service.resetInventoryOnHand();
+    }
+
 
     @Test
     public void getTimeTest() throws MRPException {
@@ -71,7 +121,7 @@ public class ServiceTest{
     @Test
     public void requirementOfMaterialTest() throws MRPException{
         int time=service.getTime();
-        int [] validRequirement=new int[]{0,5,0,0,0,5,0};
+        int [] validRequirement=new int[]{0,5,5,0,5,5,0};
         for(int i=0;i< time;i++){
             assertEquals("Requirement of material is incorrect",validRequirement[i],service.getRequirementOfMaterial(i,material));
         }
@@ -80,17 +130,17 @@ public class ServiceTest{
     @Test
     public void inventoryOnHandTest() throws MRPException{
         int time=service.getTime();
-        int [] validInventoryOnHand = new int[]{19,14,14,14,14,9,9};
+        int [] validInventoryOnHand = new int[]{19,14,9,9,4,-1,-1};
         for(int i=0;i<time; i++){
-            assertEquals("inventory on hand is incorrect",validInventoryOnHand[i],service.getInventoryOnHand(i,material));
+            assertEquals("inventory on hand is incorrect "+ i,validInventoryOnHand[i],service.getInventoryOnHand(i,material));
         }
     }
 
     @Test
     public void updateInventoryOnHandTest() throws MRPException{
         int time=service.getTime();
-        int [] validInventoryOnHand = new int[]{19,14,14,14,14,9,9};
-        int [] validUpdateInventoryOnHand = new int[]{20,16,17,18,19,15,16};
+        int [] validInventoryOnHand = new int[]{19,14,9,9,4,-1,-1};
+        int [] validUpdateInventoryOnHand = new int[]{20,16,12,13,9,5,6};
         for(int i=0;i<time; i++){
             assertEquals("Inventory on hand is incorrect ",validInventoryOnHand[i],service.getInventoryOnHand(i,material));
             service.updateInventoryOnHand(i,material,i+1);
@@ -101,8 +151,8 @@ public class ServiceTest{
     @Test
     public void netRequirementTest() throws MRPException{
         int time=service.getTime();
-        int [] validUpdateInventoryOnHand = new int[]{20,16,17,18,19,15,16};
-        int [] validNetRequirement =new int []{0,2,1,0,0,3,2};
+        int [] validUpdateInventoryOnHand = new int[]{20,16,12,13,9,5,6};
+        int [] validNetRequirement =new int []{0,2,6,5,9,13,12,12};
         for(int i=0;i<time; i++){
             assertEquals("Inventory on hand is incorrect ",validUpdateInventoryOnHand[i],service.getInventoryOnHand(i,material));
             assertEquals("Net requirement is incorrect ",validNetRequirement[i],service.getNetRequirement(i,material));
@@ -112,29 +162,15 @@ public class ServiceTest{
     @Test
     public void requirementOfActivityTest() throws MRPException{
         int time=service.getTime();
-        int [] validRequirementOfActivity =new int []{0,1,0,0,0,1,0};
+        int [] validRequirementOfActivity1 =new int []{0,1,0,0,0,1,0};
+        int [] validRequirementOfActivity2 =new int []{0,0,1,0,1,0,0};
         for(int i=0;i<time; i++){
-            assertEquals("Inventory on hand is incorrect ",validRequirementOfActivity[i],service.getRequirementOfActivity(activity.getId(),i));
+            assertEquals("Requirement of activity 1 is incorrect ",validRequirementOfActivity1[i],service.getRequirementOfActivity(activity1.getId(),i));
+            assertEquals("Requirement of activity 2 is incorrect ",validRequirementOfActivity2[i],service.getRequirementOfActivity(activity2.getId(),i));
         }
     }
 
 
 
 
-
-
-    
-
-
-
-    /**
-    void addMachine(Machine machine) throws MRPException;
-    void addAcivityToMachine(String idActivity,String idMachine) throws MRPException;
-    void addMaterialToActivity(String idMaterial,String idActivity,int quantity) throws MRPException;
-    ArrayList<Machine> getMachines() throws MRPException;
-    ArrayList<Activity> getActivities() throws MRPException;
-    ArrayList<Material> getMaterials() throws MRPException;
-    void addMaterial(Material material) throws MRPException;
-    void addActivity(Activity activity) throws MRPException;
-    void updateActivity(String activityId,Activity activity)throws  MRPException;**/
 }
