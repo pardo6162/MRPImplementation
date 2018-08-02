@@ -31,7 +31,7 @@ public class ServiceTest{
         int orderingCost= 5;//(int) (Math.random()*(6)+4);
         int maintainCost= 56;//(int) (Math.random()*(199)+2);
         int securityStock= 18;//(int)(Math.random()*(8)+1);
-        int sizeOfLot=(int) 9;//(Math.random()*(10)+1);
+        int sizeOfLot=9;//(Math.random()*(10)+1);
         int availablePrev= 3;//(int)(Math.random()*(8)+1);
         int period= 5;//(int)(Math.random()*(7));
         material =new Material("MT1","Material "+(1),initialInventoryOnHand,orderingCost,maintainCost,securityStock,sizeOfLot,availablePrev,period);
@@ -72,71 +72,115 @@ public class ServiceTest{
         int time=service.getTime();
         HashMap<Material,int[]> result;
         int [] planningInventory;
+        int [] inventoryOnHand;
+        int [] netRequirement;
         //Lot Method 1
         service.resetInventoryOnHand();
         planningInventory= new int[]{0,9,0,0,9,9,0};
+        inventoryOnHand= new int[]{19,23,18,18,22,26,26};
+        netRequirement= new int[]{0,0,0,0,0,0,0};
         result=service.planning("LotForLot");
         for(int[] list:result.values())
-            for(int i=0;i<time;i++)
+            for(int i=0;i<time;i++){
                 assertEquals("The lot method Lot for Lot is incorrect"+i,planningInventory[i],list[i]);
+                assertEquals("The inventory on hand of method Lot for Lot is incorrect"+i,inventoryOnHand[i],service.getInventoryOnHand(i,material));
+                assertEquals("The net requirement of  Lot for Lot is incorrect"+i,netRequirement[i],service.getNetRequirement(i,material));
+            }
+
         
         //Lot Method 2
         service.resetInventoryOnHand();
         planningInventory= new int[]{0,4,5,0,5,5,0,};
+        inventoryOnHand= new int[]{19,18,18,18,18,18,18};
+        netRequirement= new int[]{0,0,0,0,0,0,0};
         result=service.planning("FOQ");
+        System.out.println(result.get(material));
         for(int[] list:result.values())
-           for(int i=0;i<time;i++)
-               assertEquals("The lot method FOQ Lot is incorrect"+i,planningInventory[i],list[i]);
+           for(int i=0;i<time;i++) {
+               assertEquals("The lot method FOQ Lot is incorrect" + i, planningInventory[i], list[i]);
+               assertEquals("The inventory on hand of method FOQ is incorrect"+i,inventoryOnHand[i],service.getInventoryOnHand(i,material));
+               assertEquals("The net requirement of FOQ is incorrect"+i,netRequirement[i],service.getNetRequirement(i,material));
+           }
 
         //Lot Method 3
         service.resetInventoryOnHand();
         planningInventory= new int[]{0,5,0,5,5,0,0};
+        inventoryOnHand= new int[]{19,19,14,19,19,14,14 };
+        netRequirement= new int[]{0,0,4,0,0,4,4};
         result=service.planning("BPF");
         for(int[] list:result.values())
-           for(int i=0;i<time;i++)
+           for(int i=0;i<time;i++){
                assertEquals("The lot method BPF Lot is incorrect"+i,planningInventory[i],list[i]);
+               assertEquals("The inventory on hand of method BPF is incorrect"+i,inventoryOnHand[i],service.getInventoryOnHand(i,material));
+               assertEquals("The net requirement of  BPF is incorrect"+i,netRequirement[i],service.getNetRequirement(i,material));
+           }
+
 
         //Lot Method 4
         service.resetInventoryOnHand();
         planningInventory= new int[]{0,-17,-12,-7,-7,-2,3};
+        inventoryOnHand= new int[]{19,14,9,9,4,-1,-1};
+        netRequirement= new int[]{0,4,9,9,14,19,19};
         result=service.planning("ConstantPeriod");
         for(int[] list:result.values())
-            for(int i=0;i<time;i++)
-                assertEquals("The lot method Constant Period Lot is incorrect"+i,planningInventory[i],list[i]);
+            for(int i=0;i<time;i++) {
+                assertEquals("The lot method Constant Period Lot is incorrect" + i, planningInventory[i], list[i]);
+                assertEquals("The inventory on hand of method Constant Period is incorrect" + i, inventoryOnHand[i], service.getInventoryOnHand(i, material));
+                assertEquals("The net requirement of Constant Period is incorrect" + i, netRequirement[i], service.getNetRequirement(i, material));
+            }
 
         //Lot Method 5
         service.resetInventoryOnHand();
         planningInventory= new int[]{0,4,5,0,5,5,0};
+        inventoryOnHand= new int[]{19,18,18,18,18,18,18};
+        netRequirement= new int[]{0,0,0,0,0,0,0};
         result=service.planning("EOQ");
         for(int[] list:result.values())
-            for(int i=0;i<time;i++)
-                assertEquals("The lot method EOQ is incorrect"+i,planningInventory[i],list[i]);
+            for(int i=0;i<time;i++) {
+                assertEquals("The lot method EOQ is incorrect" + i, planningInventory[i], list[i]);
+                assertEquals("The inventory on hand of method EOQ is incorrect"+i,inventoryOnHand[i],service.getInventoryOnHand(i,material));
+                assertEquals("The net requirement of  EOQ is incorrect"+i,netRequirement[i],service.getNetRequirement(i,material));
+            }
 
         //Lot Method 6
         service.resetInventoryOnHand();
         planningInventory= new int[]{0,10,0,0,10,0,0,0};
+        inventoryOnHand= new int[]{19,24,19,19,24,19,19};
+        netRequirement= new int[]{0,0,0,0,0,0,0};
         result=service.planning("MCU");
         for(int[] list:result.values())
-            for(int i=0;i<time;i++)
-                assertEquals("The lot method MCU is incorrect"+i,planningInventory[i],list[i]);
+            for(int i=0;i<time;i++) {
+                assertEquals("The lot method MCU is incorrect" + i, planningInventory[i], list[i]);
+                assertEquals("The inventory on hand of method MCU is incorrect"+i,inventoryOnHand[i],service.getInventoryOnHand(i,material));
+                assertEquals("The net requirement of MCU is incorrect"+i,netRequirement[i],service.getNetRequirement(i,material));
+            }
 
         //Lot Method 7
         service.resetInventoryOnHand();
         planningInventory= new int[]{0,-17,5,5,0,5,5};
+        inventoryOnHand= new int[]{19,-3,-3,2,-3,-3,2};
+        netRequirement= new int[]{0,21,21,16,21,21,16};
         result=service.planning("POQ");
         for(int[] list:result.values())
-            for(int i=0;i<time;i++)
-                assertEquals("The lot method POQ is incorrect"+i,planningInventory[i],list[i]);
-
+            for(int i=0;i<time;i++) {
+                assertEquals("The lot method POQ is incorrect" + i, planningInventory[i], list[i]);
+                assertEquals("The inventory on hand of method POQ is incorrect"+i,inventoryOnHand[i],service.getInventoryOnHand(i,material));
+                assertEquals("The net requirement of POQ is incorrect"+i,netRequirement[i],service.getNetRequirement(i,material));
+            }
 
 
          //Lot Method 8
         service.resetInventoryOnHand();
         planningInventory= new int[]{0,5,0,5,5,0,0};
+        inventoryOnHand= new int[]{19,19,14,19,19,14,14};
+        netRequirement= new int[]{0,0,4,0,0,4,4};
         result=service.planning("SilverMeal");
         for(int[] list:result.values())
-            for(int i=0;i<time;i++)
-                assertEquals("The lot method Silver Meal is incorrect"+i,planningInventory[i],list[i]);
+            for(int i=0;i<time;i++) {
+                assertEquals("The lot method Silver Meal is incorrect" + i, planningInventory[i], list[i]);
+                assertEquals("The inventory on hand of method Silver Meal is incorrect"+i,inventoryOnHand[i],service.getInventoryOnHand(i,material));
+                assertEquals("The net requirement of  Silver Meal is incorrect"+i,netRequirement[i],service.getNetRequirement(i,material));
+            }
 
         service.resetInventoryOnHand();
     }
