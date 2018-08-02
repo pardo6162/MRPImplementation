@@ -1,4 +1,4 @@
-package com.coding.mrpImplementation.MRP.lotMethods;
+package com.coding.mrpImplementation.MRP;
 
 import com.coding.mrpImplementation.MRP.MRP;
 import com.coding.mrpImplementation.entities.Material;
@@ -19,13 +19,14 @@ public class EOQ  implements MRP {
             for (int i=0;i<time;i++){
                 sumTotalRequirement+=service.getRequirementOfMaterial(i,material);
             }
-        int factor=sumTotalRequirement/time;
-        int innerTerm= (2*factor*material.getOrderingCost())/material.getMaintainCost();
-        int square=(int)Math.sqrt(innerTerm);
+        double factor=sumTotalRequirement/time;
+        double innerTerm= (2*factor*material.getOrderingCost())/material.getMaintainCost();
+        double square=Math.sqrt(innerTerm);
         if(netRequirement!=0){
             plannedReceptions=(int) Math.ceil(netRequirement/square);
             plannedReceptions*=square;
         }
+        service.updateInventoryOnHand(timeIndex, material, plannedReceptions);
         return plannedReceptions;
     }
 }

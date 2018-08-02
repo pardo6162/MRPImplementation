@@ -1,4 +1,4 @@
-package com.coding.mrpImplementation.MRP.lotMethods;
+package com.coding.mrpImplementation.MRP;
 
 import com.coding.mrpImplementation.MRP.MRP;
 import com.coding.mrpImplementation.entities.Material;
@@ -33,7 +33,7 @@ public class BPF implements MRP {
             int value= inventory[0][0];
             int inventoryValue=0;
 
-            while (valorComp != 0 && !exit) {
+            while ((valorComp != 0 && !exit )&& i< time-1) {
                 if (value < inventory[index+1][0] && (i==0 || inventory[index][0]>=value)) {
                     inventoryValue=inventory[index][1];
                     exit=true;
@@ -45,6 +45,7 @@ public class BPF implements MRP {
 
             }
         }
+        service.updateInventoryOnHand(timeIndex, material, plannedReceptions);
         return plannedReceptions;
     }
 }

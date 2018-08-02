@@ -1,4 +1,4 @@
-package com.coding.mrpImplementation.MRP.lotMethods;
+package com.coding.mrpImplementation.MRP;
 
 import com.coding.mrpImplementation.MRP.MRP;
 import com.coding.mrpImplementation.entities.Material;

@@ -80,28 +80,64 @@ public class ServiceTest{
             for(int i=0;i<time;i++)
                 assertEquals("The lot method Lot for Lot is incorrect"+i,planningInventory[i],list[i]);
         
-        /**
-         //Lot Method 2
-         planningInventory= new int[]{0,0,0,0,0,0,0,};
-         result=service.planning("FOQ");
-         //Lot Method 3
-         planningInventory= new int[]{};
-         result=service.planning("BPF");
-         //Lot Method 4
-         planningInventory= new int[]{};
-         result=service.planning("ConstantPeriod");
-         //Lot Method 5
-         planningInventory= new int[]{};
-         result=service.planning("EOQ");
-         //Lot Method 6
-         planningInventory= new int[]{};
-         result=service.planning("MCU");
-         //Lot Method 7
-         planningInventory= new int[]{};
-         result=service.planning("POQ");
+        //Lot Method 2
+        service.resetInventoryOnHand();
+        planningInventory= new int[]{0,4,5,0,5,5,0,};
+        result=service.planning("FOQ");
+        for(int[] list:result.values())
+           for(int i=0;i<time;i++)
+               assertEquals("The lot method FOQ Lot is incorrect"+i,planningInventory[i],list[i]);
+
+        //Lot Method 3
+        service.resetInventoryOnHand();
+        planningInventory= new int[]{0,5,0,5,5,0,0};
+        result=service.planning("BPF");
+        for(int[] list:result.values())
+           for(int i=0;i<time;i++)
+               assertEquals("The lot method BPF Lot is incorrect"+i,planningInventory[i],list[i]);
+
+        //Lot Method 4
+        service.resetInventoryOnHand();
+        planningInventory= new int[]{0,-17,-12,-7,-7,-2,3};
+        result=service.planning("ConstantPeriod");
+        for(int[] list:result.values())
+            for(int i=0;i<time;i++)
+                assertEquals("The lot method Constant Period Lot is incorrect"+i,planningInventory[i],list[i]);
+
+        //Lot Method 5
+        service.resetInventoryOnHand();
+        planningInventory= new int[]{0,4,5,0,5,5,0};
+        result=service.planning("EOQ");
+        for(int[] list:result.values())
+            for(int i=0;i<time;i++)
+                assertEquals("The lot method EOQ is incorrect"+i,planningInventory[i],list[i]);
+
+        //Lot Method 6
+        service.resetInventoryOnHand();
+        planningInventory= new int[]{0,10,0,0,10,0,0,0};
+        result=service.planning("MCU");
+        for(int[] list:result.values())
+            for(int i=0;i<time;i++)
+                assertEquals("The lot method MCU is incorrect"+i,planningInventory[i],list[i]);
+
+        //Lot Method 7
+        service.resetInventoryOnHand();
+        planningInventory= new int[]{0,-17,5,5,0,5,5};
+        result=service.planning("POQ");
+        for(int[] list:result.values())
+            for(int i=0;i<time;i++)
+                assertEquals("The lot method POQ is incorrect"+i,planningInventory[i],list[i]);
+
+
+
          //Lot Method 8
-         planningInventory= new int[]{};
-         result=service.planning("SilverMeal");**/
+        service.resetInventoryOnHand();
+        planningInventory= new int[]{0,5,0,5,5,0,0};
+        result=service.planning("SilverMeal");
+        for(int[] list:result.values())
+            for(int i=0;i<time;i++)
+                assertEquals("The lot method Silver Meal is incorrect"+i,planningInventory[i],list[i]);
+
         service.resetInventoryOnHand();
     }
 

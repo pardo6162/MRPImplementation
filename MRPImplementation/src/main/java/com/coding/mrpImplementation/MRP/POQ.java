@@ -1,4 +1,4 @@
-package com.coding.mrpImplementation.MRP.lotMethods;
+package com.coding.mrpImplementation.MRP;
 
 import com.coding.mrpImplementation.MRP.MRP;
 import com.coding.mrpImplementation.entities.Material;
@@ -32,6 +32,7 @@ public class POQ implements MRP {
             }
             plannedReceptions=sumRequirement - sumProgramedReceptions - service.getInventoryOnHand(timeIndex-1,material)-material.getSecurityStock()+square;
         }
+        service.updateInventoryOnHand(timeIndex, material, plannedReceptions);
         return plannedReceptions;
     }
 }
