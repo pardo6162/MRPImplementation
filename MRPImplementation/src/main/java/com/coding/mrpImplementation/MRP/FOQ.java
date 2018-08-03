@@ -8,7 +8,8 @@ import com.coding.mrpImplementation.service.Service;
 public class FOQ implements MRP {
     @Override
     public int execute(Service service, Material material, int timeIndex) throws MRPException {
-        int plannedReceptions= service.getNetRequirement(timeIndex,material);
+        int netRequirement=service.getNetRequirement(timeIndex,material);
+        int plannedReceptions= 0;//netRequirement;
         service.updateInventoryOnHand(timeIndex, material, plannedReceptions);
         return plannedReceptions;
     }

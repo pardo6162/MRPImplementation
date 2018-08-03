@@ -19,6 +19,7 @@ public class BPF implements MRP {
         int requirementInventary=0;
         int costInventory=0;
         int valorComp=0;
+        System.out.printf("Debug netRequirement%d%n",netRequirement);
         if(netRequirement!=0) {
             for (int i = 0; i < time - 1; i++) {
                 requirement += service.getRequirementOfMaterial(i + 1, material);

@@ -95,7 +95,9 @@ public class ServiceImpl implements Service{
     public int getNetRequirement(int timeIndex,Material material) throws MRPException{
         int requirement=0;
         int inventory = getInventoryOnHand(timeIndex,material);
-        if(inventory<=material.getSecurityStock()){
+        int securityStock=material.getSecurityStock();
+        System.out.printf("Inventory on hand%d%n SecurityStock%d%n",inventory,securityStock);
+        if(inventory<=securityStock){
             requirement=material.getSecurityStock()-inventory;
         }
         return requirement;
@@ -117,7 +119,7 @@ public class ServiceImpl implements Service{
         if(!inventoryOnHand.containsKey(material.getId())){
             inventoryOnHand.put(material.getId(), new int[time]);
             if(timeIndex==0)
-                inventoryOnHand.get(material.getId())[timeIndex]=materials.get(material.getId()).getInitialInventoryOnHand();
+                inventoryOnHand.get(material.getId())[timeIndex]=0;materials.get(material.getId()).getInitialInventoryOnHand();
         }else if(inventoryOnHand.get(material.getId())[timeIndex]==0) {
             requirementOfMaterial = service.getRequirementOfMaterial(timeIndex, material);
             programedReception = service.getProgramedReceptions(timeIndex, material);
