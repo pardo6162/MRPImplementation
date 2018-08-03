@@ -505,6 +505,7 @@ Sub mrp()
 					Cells(fu + 9 + (n * 15), t + 6) = 0
 		
 				Else
+				
 		        		Cells(fu + 9 + (n * 15), t + 6).Select
 		        		ActiveCell.FormulaR1C1 = "=+ROUNDUP(R[-1]C/" & Qred & ",0)"
 		        		vmult = Cells(fu + 9 + (n * 15), t + 6)

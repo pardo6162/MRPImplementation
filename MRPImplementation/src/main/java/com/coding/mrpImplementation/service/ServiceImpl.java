@@ -96,7 +96,6 @@ public class ServiceImpl implements Service{
         int requirement=0;
         int inventory = getInventoryOnHand(timeIndex,material);
         int securityStock=material.getSecurityStock();
-        System.out.printf("Inventory on hand%d%n SecurityStock%d%n",inventory,securityStock);
         if(inventory<=securityStock){
             requirement=material.getSecurityStock()-inventory;
         }
