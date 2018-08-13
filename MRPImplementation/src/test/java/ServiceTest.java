@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 
-public class ServiceTest{
+public class    ServiceTest{
     ArrayList<Machine> machines=new ArrayList<>();
     HashMap<Integer,Activity> activities=new HashMap<>();
     ArrayList<Material> materials=new ArrayList<>();
@@ -40,9 +40,7 @@ public class ServiceTest{
         //add activity
         activity1 = new Activity("A1","Activity 1 ");
         service.addActivity(activity1);
-
-        //activity2 = new Activity("A2","Activity 2 ");
-        //service.addActivity(activity2);
+        
 
         //add machine
         machine = new Machine("M1","Machine 1");
@@ -50,20 +48,15 @@ public class ServiceTest{
 
         //add material to activity
         service.addMaterialToActivity(material.getId(),activity1.getId(),5);
-        //service.addMaterialToActivity(material.getId(),activity2.getId(),5);
 
         //add activity to machine
         service.addAcivityToMachine(activity1.getId(),machine.getId());
-        //service.addAcivityToMachine(activity2.getId(),machine.getId());
 
         //add shedule to activity
         activity1.addSchedule(machine,1);
         activity1.addSchedule(machine,5);
         service.updateActivity(activity1.getId(),activity1);
 
-        //activity2.addSchedule(machine,2);
-        //activity2.addSchedule(machine,4);
-        //service.updateActivity(activity2.getId(),activity2);
     }
 
 

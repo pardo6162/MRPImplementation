@@ -18,6 +18,7 @@ public class ServiceImpl implements Service{
     private HashMap<String,Material> materials;
 
     private HashMap<String,int[]> inventoryOnHand;
+    private HashMap<String,int[]> programedReceptions;
     private static Service service=null;
 
 
@@ -52,13 +53,33 @@ public class ServiceImpl implements Service{
     }
 
     /**
+     * This method add a new programed reception of material in specific time 
+     * @param timeIndex
+     * @param material
+     * @param quantity
+     * @throws MRPException
+     */
+
+    public void addProgramedReception(int timeIndex,Material material,int quantity) throws MRPException{
+        if(!programedReceptions.containsKey(material.getId())){
+            int [] temp= new int[time];
+            temp[timeIndex]= quantity;
+            programedReceptions.put(material.getId(),temp);
+        }
+    }
+
+    /**
      * This method return de programed receptions of a material in a given time
      * @param timeIndex index of period
      * @param material  material in evaluation
      * @return 0
      */
     public int getProgramedReceptions(int timeIndex,Material material) {
-        return 0;
+        int programedReception=0;
+        if(programedReceptions.containsKey(material.getId())){
+            programedReception=programedReceptions.get(material.getId())[timeIndex];
+        }
+        return programedReception;
     }
 
 
@@ -101,6 +122,8 @@ public class ServiceImpl implements Service{
         }
         return requirement;
     }
+
+
 
     /**
      * This method return the inventory on hand in a specific time period for a material
