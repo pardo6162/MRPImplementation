@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public interface Service {
     int getTime() throws MRPException;
-    void addProgramedReception(int timeIndex,Material material) throws MRPException;
+    void addProgramedReception(int timeIndex,Material material,int quantity) throws MRPException;
     int getProgramedReceptions(int timeIndex,Material material)throws MRPException;
     int getRequirementOfMaterial(int indexTime,Material material)throws MRPException;
     int getRequirementOfActivity(String idActivity, int indexTime)throws MRPException;
