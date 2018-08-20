@@ -57,6 +57,8 @@ public class    ServiceTest{
         activity1.addSchedule(machine,5);
         service.updateActivity(activity1.getId(),activity1);
 
+        service.addProgramedReception(0,material,3);
+
     }
 
 
