@@ -1,6 +1,7 @@
 package com.coding.mrpImplementation.entities;
 
 public class Supplier {
+    private String id;
     private String businessName;
     private String country;
     private String address;
@@ -8,12 +9,13 @@ public class Supplier {
     private int phone;
 
 
-    public Supplier(String businessName,String country,String address,int deliveryTime, int phone){
+    public Supplier(String businessName,String country,String address,int deliveryTime, int phone, String id){
         this.businessName=businessName;
         this.country=country;
         this.address=address;
         this.deliveryTime=deliveryTime;
         this.phone=phone;
+        this.id = id;
     }
 
 

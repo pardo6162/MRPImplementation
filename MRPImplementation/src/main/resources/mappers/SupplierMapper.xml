@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.coding.mrpImplementation.dao.mybatis.mappers.SupplierMapper">
+    <resultMap type='Suppliers' id='SupplierResult'>
+        <id property='id' column='id'/>
+        <result property='name' column='name'/>
+        <result property="businessName" column="businessName"/>
+        <result property="country" column="country"/>
+        <result property="address" column="address"/>
+        <result property="deliveryTime" column="deliveryTime"/>
+        <result property="phone" column="phone"/>
+    </resultMap>
+
+    <select parameterType="map" id="getSuppliers" resultMap="com.coding.mrpImplementation.dao.mybatis.mappers.SupplierMapper.SupplierResult">
+        select *
+        from Suppliers
+    </select>
+
+    <insert parameterType="map" id="com.coding.mrpImplementation.dao.mybatis.mappers.SupplierMapper.SupplierResult">
+        insert into Supplier (id,businessName,country,address,deliveryTime,phone) values(#{idSupplier},#{businessName},#{country},#{address},#{deliveryTime},#{phone});
+    </insert>
+</mapper>
