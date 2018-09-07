@@ -15,7 +15,7 @@
 
     <select parameterType="map" id="getCalendar" resultMap="com.coding.mrpImplementation.dao.mybatis.mappers.MaterialMapper.MaterialResult">
         select *
-        from CalendarOfActivity
+         from CalendarOfActivity
         where Machines_id = #{idMaterial};
     </select>
 

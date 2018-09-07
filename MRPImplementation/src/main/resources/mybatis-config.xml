@@ -3,6 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+    <typeAliases>
+        <typeAlias type="com.coding.mrpImplementation.entities.Activity" alias="Activity"/>
+        <typeAlias type="com.coding.mrpImplementation.entities.Material" alias="Material"/>
+        <typeAlias type="com.coding.mrpImplementation.entities.Supplier" alias="Supplier"/>
+        <typeAlias type="com.coding.mrpImplementation.entities.Machine" alias="Machine  "/>
+    </typeAliases>
+
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -15,5 +23,9 @@
         </environment>
     </environments>
     <mappers>
+        <mapper resource="mappers/ActivityMapper.xml"></mapper>
+        <mapper resource="mappers/MachineMapper.xml"></mapper>
+        <mapper resource="mappers/MaterialMapper.xml"></mapper>
+        <mapper resource="mappers/SupplierMapper.xml"></mapper>
     </mappers>
 </configuration>
