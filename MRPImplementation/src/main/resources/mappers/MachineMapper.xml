@@ -4,8 +4,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.coding.mrpImplementation.entities.Machine">
-    <resultMap type='Machine' id='OnlyMachineResult'>
+    <resultMap type='Machine' id='MachineResult'>
         <id property='id' column='id'/>
         <result property='name' column='name'/>
     </resultMap>
+
+    <select parameterType="map" id="getMachines" resultMap="com.coding.mrpImplementation.dao.mybatis.mappers.MachineMapper.MachineResult">
+        select *
+        from Machines
+    </select>
+
+    <select parameterType="map" id="getActivities" resultMap="com.coding.mrpImplementation.dao.mybatis.mappers.MachineMapper.MachineResult">
+        select *
+        from ActivitiesOfMachines
+        where Machines_id = #{idMachine};
+    </select>
+
+    <insert parameterType="map" id="addMachine">
+        insert into Machines (id,name) values(#{idMaterial},#{name});
+    </insert>
+
+    <insert parameterType="map" id="addActivityToMachine">
+        insert into ActivitiesOfMachines (Activity_id,Machine_id) values(#{idActivity},#{idMachine});
+    </insert>
 </mapper>

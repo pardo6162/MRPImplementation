@@ -23,10 +23,11 @@
 
     <select parameterType="map" id="getActivitiesOfMaterial" resultMap="com.coding.mrpImplementation.dao.mybatis.mappers.MaterialMapper.MaterialResult">
         select *
-        from Material
+        from MaterialsOfActivities
+        where Machines_id= #{idMaterial};
     </select>
 
-    <insert parameterType="map" id="com.coding.mrpImplementation.dao.mybatis.mappers.SupplierMapper.SupplierResult">
+    <insert parameterType="map" id="addMaterial">
         insert into Supplier (id,businessName,country,address,deliveryTime,phone) values(#{idSupplier},#{businessName},#{country},#{address},#{deliveryTime},#{phone});
     </insert>
 

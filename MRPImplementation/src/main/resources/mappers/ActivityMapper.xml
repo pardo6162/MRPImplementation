@@ -4,8 +4,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.coding.mrpImplementation.entities.Activity">
-    <resultMap type='Activity' id='OnlyActivityResult'>
+    <resultMap type='Activity' id='ActivityResult'>
         <id property='id' column='id'/>
         <result property='name' column='name'/>
     </resultMap>
+    <select parameterType="map" id="getActivities" resultMap="com.coding.mrpImplementation.dao.mybatis.mappers.ActivityMapper.ActivityResult">
+        select *
+        from Activities
+    </select>
+
+    <select parameterType="map" id="getCalendar" resultMap="com.coding.mrpImplementation.dao.mybatis.mappers.MaterialMapper.MaterialResult">
+        select *
+        from CalendarOfActivity
+        where Machines_id = #{idMaterial};
+    </select>
+
+    <insert parameterType="map" id="addActivity">
+        insert into Activities (id,name) values(#{idActivity},#{name});
+    </insert>
+
+    <insert parameterType="map" id="addCalendar">
+        insert into CalendarOfActivity (Activity_id,timeIndex) values(#{idActivity},#{period});
+    </insert>
 </mapper>

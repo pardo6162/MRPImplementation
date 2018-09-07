@@ -19,7 +19,9 @@
         from Suppliers
     </select>
 
-    <insert parameterType="map" id="com.coding.mrpImplementation.dao.mybatis.mappers.SupplierMapper.SupplierResult">
-        insert into Supplier (id,businessName,country,address,deliveryTime,phone) values(#{idSupplier},#{businessName},#{country},#{address},#{deliveryTime},#{phone});
+    <insert parameterType="map" id="addSupplier">
+        insert into Suppliers (id,businessName,country,address,deliveryTime,phone) values(#{idSupplier},#{businessName},#{country},#{address},#{deliveryTime},#{phone});
     </insert>
+
+
 </mapper>
