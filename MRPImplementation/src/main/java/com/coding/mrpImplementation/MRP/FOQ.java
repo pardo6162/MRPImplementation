@@ -9,7 +9,7 @@ public class FOQ implements MRP {
     @Override
     public int execute(Service service, Material material, int timeIndex) throws MRPException {
         int netRequirement=service.getNetRequirement(timeIndex,material);
-        int plannedReceptions= 0;//netRequirement;
+        int plannedReceptions= netRequirement;
         service.updateInventoryOnHand(timeIndex, material, plannedReceptions);
         return plannedReceptions;
     }

@@ -30,7 +30,12 @@ public class POQ implements MRP {
                 sumRequirement+=service.getRequirementOfMaterial(i,material);
                 sumProgramedReceptions+=service.getProgramedReceptions(i,material);
             }
-            plannedReceptions=sumRequirement - sumProgramedReceptions - service.getInventoryOnHand(timeIndex-1,material)-material.getSecurityStock()+square;
+            int inventoryOnHand=0;
+            if(inventoryOnHand==0)
+                service.getInventoryOnHand(timeIndex,material);
+            else
+                service.getInventoryOnHand(timeIndex-1,material);
+            plannedReceptions=sumRequirement - sumProgramedReceptions - inventoryOnHand-material.getSecurityStock()+square;
         }
         service.updateInventoryOnHand(timeIndex, material, plannedReceptions);
         return plannedReceptions;

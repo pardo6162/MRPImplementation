@@ -27,6 +27,7 @@ public class ServiceImpl implements Service{
         activities= new HashMap<>();
         materials= new HashMap<>();
         inventoryOnHand = new HashMap<>();
+        programedReceptions = new HashMap<>();
         this.time=time;
     }
 

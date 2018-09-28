@@ -19,7 +19,12 @@ public class ConstantPeriod implements MRP {
                 sumRequirement+=service.getRequirementOfMaterial(i,material);
                 sumProgramedReceptions+=service.getProgramedReceptions(i,material);
             }
-            plannedReceptions=sumRequirement - sumProgramedReceptions - service.getInventoryOnHand(timeIndex-1,material)-material.getSecurityStock();
+            int inventoryOnHand=0;
+            if(timeIndex==0)
+                inventoryOnHand=service.getInventoryOnHand(timeIndex,material);
+            else
+                inventoryOnHand=service.getInventoryOnHand(timeIndex-1,material);
+            plannedReceptions=sumRequirement - sumProgramedReceptions - inventoryOnHand -material.getSecurityStock();
         }
         return plannedReceptions;
     }

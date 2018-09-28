@@ -69,8 +69,9 @@ public class    ServiceTest{
         int [] planningInventory;
         int [] inventoryOnHand;
         int [] netRequirement;
+
         //Lot Method 1
-        /**
+
         service.resetInventoryOnHand();
         planningInventory= new int[]{18,-4,9,0,0,-4,9};//{0,9,0,0,9,9,0};
         inventoryOnHand= new int[]{18,9,18,18,18,9,18};//{19,23,18,18,22,26,26};
@@ -84,34 +85,32 @@ public class    ServiceTest{
 
         //Lot Method 2
         service.resetInventoryOnHand();
-        planningInventory= new int[]{0,0,0,0,0,0,0};
-        inventoryOnHand= new int[]{0,-5,-5,-5,-5,-10,-10};
+        planningInventory= new int[]{18,5,0,0,0,5,0};
+        inventoryOnHand= new int[]{18,18,18,18,18,18,18};
         result=service.planning("FOQ");
         System.out.println(result.get(material));
         for(int[] list:result.values())
            for(int i=0;i<time;i++) {
-               assertEquals("The lot method FOQ Lot is incorrect" + i, planningInventory[i], list[i]);
-               assertEquals("The inventory on hand of method FOQ is incorrect"+i,inventoryOnHand[i],service.getInventoryOnHand(i,material));
+               assertEquals("The lot method FOQ Lot is incorrect" , planningInventory[i], list[i]);
+               assertEquals("The inventory on hand of method FOQ is incorrect",inventoryOnHand[i],service.getInventoryOnHand(i,material));
            }
 
-         **/
         //Lot Method 3
         service.resetInventoryOnHand();
-        planningInventory= new int[]{5,5,5,5,5,5,0};
-        inventoryOnHand= new int[]{5,5,10,15,20,20,20 };
+        planningInventory= new int[]{5,5,5,5,5,0,0};
+        inventoryOnHand= new int[]{5,5,10,15,20,15,15};
         result=service.planning("BPF");
         for(int[] list:result.values())
            for(int i=0;i<time;i++){
                assertEquals("The lot method BPF Lot is incorrect"+i,planningInventory[i],list[i]);
-               //assertEquals("The inventory on hand of method BPF is incorrect"+i,inventoryOnHand[i],service.getInventoryOnHand(i,material));
+               assertEquals("The inventory on hand of method BPF is incorrect"+i,inventoryOnHand[i],service.getInventoryOnHand(i,material));
            }
 
-        /**
         //Lot Method 4
         service.resetInventoryOnHand();
-        planningInventory= new int[]{0,-17,-12,-7,-7,-2,3};
-        inventoryOnHand= new int[]{19,14,9,9,4,-1,-1};
-        netRequirement= new int[]{0,4,9,9,14,19,19};
+        planningInventory= new int[]{-14,-14,-9,-9,-9,-9,-4};
+        inventoryOnHand= new int[]{3,-2,-2,-2,-2,-7,-7};
+        netRequirement= new int[]{15,20,20,20,20,25,25};
         result=service.planning("ConstantPeriod");
         for(int[] list:result.values())
             for(int i=0;i<time;i++) {
@@ -122,8 +121,8 @@ public class    ServiceTest{
 
         //Lot Method 5
         service.resetInventoryOnHand();
-        planningInventory= new int[]{0,4,5,0,5,5,0};
-        inventoryOnHand= new int[]{19,18,18,18,18,18,18};
+        planningInventory= new int[]{18,5,0,0,0,5,0};
+        inventoryOnHand= new int[]{18,18,18,18,18,18,18};
         netRequirement= new int[]{0,0,0,0,0,0,0};
         result=service.planning("EOQ");
         for(int[] list:result.values())
@@ -135,9 +134,9 @@ public class    ServiceTest{
 
         //Lot Method 6
         service.resetInventoryOnHand();
-        planningInventory= new int[]{0,10,0,0,10,0,0};
-        inventoryOnHand= new int[]{19,24,19,19,24,19,   19};
-        netRequirement= new int[]{0,0,0,0,0,0,0};
+        planningInventory= new int[]{5,0,0,0,5,0,0};
+        inventoryOnHand= new int[]{5,0,0,0,5,0,0};
+        netRequirement= new int[]{13,18,18,18,13,18,18};
         result=service.planning("MCU");
         for(int[] list:result.values())
             for(int i=0;i<time;i++) {
@@ -148,9 +147,9 @@ public class    ServiceTest{
 
         //Lot Method 7
         service.resetInventoryOnHand();
-        planningInventory= new int[]{0,-17,5,5,0,5,5};
-        inventoryOnHand= new int[]{19,-3,-3,2,-3,-3,2};
-        netRequirement= new int[]{0,21,21,16,21,21,16};
+        planningInventory= new int[]{-11,-11,-11,-11,-11,-11,-11};
+        inventoryOnHand= new int[]{-8,-24,-35,-46,-57,-73,-84};
+        netRequirement= new int[]{26,42,53,64,75,91,102};
         result=service.planning("POQ");
         for(int[] list:result.values())
             for(int i=0;i<time;i++) {
@@ -162,9 +161,9 @@ public class    ServiceTest{
 
          //Lot Method 8
         service.resetInventoryOnHand();
-        planningInventory= new int[]{0,5,0,5,5,0,0};
-        inventoryOnHand= new int[]{19,19,14,19,19,14,14};
-        netRequirement= new int[]{0,0,4,0,0,4,4};
+        planningInventory= new int[]{5,0,0,0,5,0,0};
+        inventoryOnHand= new int[]{5,0,0,0,5,0,0};
+        netRequirement= new int[]{13,18,18,18,13,18,18};
         result=service.planning("SilverMeal");
         for(int[] list:result.values())
             for(int i=0;i<time;i++) {
@@ -172,8 +171,6 @@ public class    ServiceTest{
                 assertEquals("The inventory on hand of method Silver Meal is incorrect"+i,inventoryOnHand[i],service.getInventoryOnHand(i,material));
                 assertEquals("The net requirement of  Silver Meal is incorrect"+i,netRequirement[i],service.getNetRequirement(i,material));
             }
- **/
-        service.resetInventoryOnHand();
     }
 
 
@@ -184,24 +181,25 @@ public class    ServiceTest{
 
     @Test
     public void programedReceptionsTest() throws  MRPException{
+        int [] validProgramedReceptions=new int[]{3,0,0,0,0,0,0};
         for(int i=0;i< service.getTime();i++){
-            assertEquals("programed Receptions are incorrect ",0,service.getProgramedReceptions(i,material));
+            assertEquals("programed Receptions are incorrect ",validProgramedReceptions[i],service.getProgramedReceptions(i,material));
         }
     }
 
     @Test
     public void requirementOfMaterialTest() throws MRPException{
         int time=service.getTime();
-        int [] validRequirement=new int[]{0,5,5,0,5,5,0};
+        int [] validRequirement=new int[]{0,5,0,0,0,5,0};
         for(int i=0;i< time;i++){
-            assertEquals("Requirement of material is incorrect",validRequirement[i],service.getRequirementOfMaterial(i,material));
+            assertEquals("Requirement of material is incorrect"+i,validRequirement[i],service.getRequirementOfMaterial(i,material));
         }
     }
 
     @Test
     public void inventoryOnHandTest() throws MRPException{
         int time=service.getTime();
-        int [] validInventoryOnHand = new int[]{19,14,9,9,4,-1,-1};
+        int [] validInventoryOnHand = new int[]{5,0,0,0,5,0,0};
         for(int i=0;i<time; i++){
             assertEquals("inventory on hand is incorrect "+ i,validInventoryOnHand[i],service.getInventoryOnHand(i,material));
         }
@@ -210,8 +208,8 @@ public class    ServiceTest{
     @Test
     public void updateInventoryOnHandTest() throws MRPException{
         int time=service.getTime();
-        int [] validInventoryOnHand = new int[]{19,14,9,9,4,-1,-1};
-        int [] validUpdateInventoryOnHand = new int[]{20,16,12,13,9,5,6};
+        int [] validInventoryOnHand = new int[]{5,1,3,6,5,5,11};
+        int [] validUpdateInventoryOnHand = new int[]{6,3,6,10,10,11,18};
         for(int i=0;i<time; i++){
             assertEquals("Inventory on hand is incorrect ",validInventoryOnHand[i],service.getInventoryOnHand(i,material));
             service.updateInventoryOnHand(i,material,i+1);
@@ -222,8 +220,8 @@ public class    ServiceTest{
     @Test
     public void netRequirementTest() throws MRPException{
         int time=service.getTime();
-        int [] validUpdateInventoryOnHand = new int[]{20,16,12,13,9,5,6};
-        int [] validNetRequirement =new int []{0,2,6,5,9,13,12,12};
+        int [] validUpdateInventoryOnHand = new int[]{6,3,6,10,10,11,18};
+        int [] validNetRequirement =new int []{12,15,12,8,8,7,0,0};
         for(int i=0;i<time; i++){
             assertEquals("Inventory on hand is incorrect ",validUpdateInventoryOnHand[i],service.getInventoryOnHand(i,material));
             assertEquals("Net requirement is incorrect ",validNetRequirement[i],service.getNetRequirement(i,material));
@@ -237,11 +235,9 @@ public class    ServiceTest{
         int [] validRequirementOfActivity2 =new int []{0,0,1,0,1,0,0};
         for(int i=0;i<time; i++){
             assertEquals("Requirement of activity 1 is incorrect ",validRequirementOfActivity1[i],service.getRequirementOfActivity(activity1.getId(),i));
-            assertEquals("Requirement of activity 2 is incorrect ",validRequirementOfActivity2[i],service.getRequirementOfActivity(activity2.getId(),i));
         }
     }
 
-
-
+    
 
 }

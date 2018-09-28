@@ -19,39 +19,37 @@ public class BPF implements MRP {
         int requirementInventary;
         int costInventory=0;
         int valorComp=0;
-        if(netRequirement!=0) {
-            requirementInventary=0;
-            for (int i = 0; i < time ; i++) {
-                requirement=0;
-                for(int j=i;j< time-1;j++){
-                    requirement += service.getRequirementOfMaterial(j, material);
-                }
-                requirementInventary += (requirementOfMaterial * i);
-                costInventory = orderingCost * requirementInventary;
-                valorComp = Math.abs(costInventory - maintainCost);
-                inventory[i][0] = valorComp;
-                inventory[i][1] = requirement;
+        requirementInventary=0;
+        for (int i = 0; i < time ; i++) {
+            requirement=0;
+            for(int j=i;j< time-1;j++){
+                requirement += service.getRequirementOfMaterial(j, material);
             }
-            int index =0;
-            boolean exit=false;
-            int value= inventory[0][0];
+            requirementInventary += (requirementOfMaterial * i);
+            costInventory = orderingCost * requirementInventary;
+            valorComp = Math.abs(costInventory - maintainCost);
+            inventory[i][0] = valorComp;
+            inventory[i][1] = requirement;
+        }
+        int index =0;
+        boolean exit=false;
+        int value= inventory[0][0];
 
-            int inventoryValue=0;
-            inventoryValue=inventory[timeIndex][1]-service.getRequirementOfMaterial(timeIndex,material);
+        int inventoryValue=0;
+        inventoryValue=inventory[timeIndex][1]-service.getRequirementOfMaterial(timeIndex,material);
 
-            while ((valorComp != 0 && !exit )&& index< time-1) {
-                if ((inventory[index][0]>=value )&&(inventory[index+1][0])>value) {
-                    inventoryValue=inventory[index][1];
-                    exit=true;
+        while ((valorComp != 0 && !exit )&& index< time-1) {
+            if ((inventory[index][0]>=value )&&(inventory[index+1][0])>value) {
+                inventoryValue=inventory[index][1];
+                        exit=true;
                 }
                 index++;
                 value=inventory[index][0];
                 plannedReceptions=inventoryValue;
-
-            }
         }
-
         service.updateInventoryOnHand(timeIndex, material, plannedReceptions);
         return plannedReceptions;
     }
+
+
 }
