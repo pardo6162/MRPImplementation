@@ -1,8 +1,15 @@
-package com.coding.persistence.spring_jpa_mysql;
+package com.coding.persistence.spring_jpa_mysql.models;
 
+import com.coding.persistence.spring_jpa_mysql.models.Activity;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.ArrayList;
 
 public class Material {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private String id;
     private String name;
     private int initialInventoryOnHand;

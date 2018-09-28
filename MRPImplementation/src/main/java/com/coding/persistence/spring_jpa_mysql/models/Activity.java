@@ -1,12 +1,18 @@
-package com.coding.persistence.spring_jpa_mysql;
+package com.coding.persistence.spring_jpa_mysql.models;
 
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+@Entity
 public class Activity {
-
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private String id;
     private String name;
+    private List<String> phones;
     private ArrayList<Machine> machines;
     private HashMap<Material,Integer> materials;
     private HashMap<Machine,ArrayList<Integer>> calendar;

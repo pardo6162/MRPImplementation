@@ -1,6 +1,12 @@
-package com.coding.persistence.spring_jpa_mysql;
+package com.coding.persistence.spring_jpa_mysql.models;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 public class Supplier {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private String id;
     private String businessName;
     private String country;
