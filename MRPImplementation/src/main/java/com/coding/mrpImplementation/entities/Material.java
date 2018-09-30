@@ -1,5 +1,7 @@
 package com.coding.mrpImplementation.entities;
 
+import com.coding.mrpImplementation.entities.Activity;
+
 import java.util.ArrayList;
 
 public class Material {
@@ -8,7 +10,7 @@ public class Material {
     private int initialInventoryOnHand;
     private int orderingCost;
     private int maintainCost;
-    private ArrayList<Activity> activities;
+    private ArrayList<com.coding.mrpImplementation.entities.Activity> activities;
     private int securityStock;
     private int sizeOfLot;
     private int availablePrev;
@@ -105,7 +107,7 @@ public class Material {
         this.name=name;
     }
 
-    public ArrayList<Activity> getActivities(){
+    public ArrayList<com.coding.mrpImplementation.entities.Activity> getActivities(){
         return activities;
     }
 

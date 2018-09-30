@@ -1,5 +1,6 @@
 package com.coding.mrpImplementation.entities;
 
+
 public class Supplier {
     private String id;
     private String businessName;

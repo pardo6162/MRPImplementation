@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import com.coding.persistence.spring_jpa_mysql.models.*;
 
 @Entity
 public class Activity {
@@ -12,11 +13,14 @@ public class Activity {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private String id;
     private String name;
-    private List<String> phones;
-    private ArrayList<Machine> machines;
-    private HashMap<Material,Integer> materials;
-    private HashMap<Machine,ArrayList<Integer>> calendar;
+    private ArrayList<com.coding.persistence.spring_jpa_mysql.models.Machine> machines;
+    private HashMap<com.coding.persistence.spring_jpa_mysql.models.Material,Integer> materials;
+    private HashMap<com.coding.persistence.spring_jpa_mysql.models.Machine,ArrayList<Integer>> calendar;
 
+
+    public Activity(){
+
+    }
 
     public Activity(String id, String name) {
         this.id = id;

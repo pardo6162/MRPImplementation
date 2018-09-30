@@ -1,21 +1,20 @@
 package com.coding.mrpImplementation.service;
 
+import com.coding.mrpImplementation.exceptions.MRPException;
+import com.coding.mrpImplementation.MRP.*;
 import com.coding.mrpImplementation.entities.Activity;
 import com.coding.mrpImplementation.entities.Machine;
 import com.coding.mrpImplementation.entities.Material;
-import com.coding.mrpImplementation.exceptions.MRPException;
-import com.coding.mrpImplementation.MRP.*;
 
-import javax.crypto.Mac;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ServiceImpl implements Service{
 
     private int time;
-    private HashMap<String,Machine> machines;
-    private HashMap<String,Activity> activities;
-    private HashMap<String,Material> materials;
+    private HashMap<String, Machine> machines;
+    private HashMap<String, Activity> activities;
+    private HashMap<String, Material> materials;
 
     private HashMap<String,int[]> inventoryOnHand;
     private HashMap<String,int[]> programedReceptions;

@@ -1,7 +1,5 @@
 package com.coding.persistence.spring_jpa_mysql.models;
 
-import com.coding.persistence.spring_jpa_mysql.models.Activity;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,7 +11,13 @@ public class Machine {
     private String id;
     private String name;
 
-    private ArrayList<Activity> activities;
+    private ArrayList<com.coding.persistence.spring_jpa_mysql.models.Activity> activities;
+
+    public Machine(){
+
+    }
+
+
 
     public Machine(String id, String name){
         this.id=id;
@@ -37,11 +41,11 @@ public class Machine {
         this.name=name;
     }
 
-    public ArrayList<Activity> getActivities() {
+    public ArrayList<com.coding.persistence.spring_jpa_mysql.models.Activity> getActivities() {
         return activities;
     }
 
-    public void setActivity(Activity activity) {
+    public void setActivity(com.coding.persistence.spring_jpa_mysql.models.Activity activity) {
         if(!activities.contains(activity))
             activities.add(activity);
 

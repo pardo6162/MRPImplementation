@@ -15,6 +15,10 @@ public class Supplier {
     private int phone;
 
 
+    public  Supplier(){
+
+    }
+
     public Supplier(String businessName,String country,String address,int deliveryTime, int phone, String id){
         this.businessName=businessName;
         this.country=country;

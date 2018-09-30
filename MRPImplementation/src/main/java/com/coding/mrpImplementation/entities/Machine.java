@@ -1,13 +1,13 @@
 package com.coding.mrpImplementation.entities;
 
-import javax.swing.plaf.ActionMapUIResource;
+import com.coding.mrpImplementation.entities.Activity;
 import java.util.ArrayList;
 
 public class Machine {
     private String id;
     private String name;
 
-    private ArrayList<Activity> activities;
+    private ArrayList<com.coding.mrpImplementation.entities.Activity> activities;
 
     public Machine(String id, String name){
         this.id=id;
@@ -31,7 +31,7 @@ public class Machine {
         this.name=name;
     }
 
-    public ArrayList<Activity> getActivities() {
+    public ArrayList<com.coding.mrpImplementation.entities.Activity> getActivities() {
         return activities;
     }
 
