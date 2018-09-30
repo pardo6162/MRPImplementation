@@ -47,26 +47,26 @@ public class Activity {
         this.name = name;
     }
 
-    public HashMap<Material,Integer> getMaterials() {
+    public HashMap<com.coding.persistence.spring_jpa_mysql.models.Material,Integer> getMaterials() {
         return materials;
     }
 
-    public void setMaterial(Material material,int quantity) {
+    public void setMaterial(com.coding.persistence.spring_jpa_mysql.models.Material material, int quantity) {
         if (!materials.keySet().contains(material)) {
             materials.put(material,quantity);
         }
     }
 
-    public ArrayList<Machine> getMachines(){
+    public ArrayList<com.coding.persistence.spring_jpa_mysql.models.Machine> getMachines(){
         return machines;
     }
 
-    public void setMachines(Machine machine){
+    public void setMachines(com.coding.persistence.spring_jpa_mysql.models.Machine machine){
         if(!machines.contains(machine))
             machines.add(machine);
     }
 
-    public void addSchedule(Machine machine, int timeIndex){
+    public void addSchedule(com.coding.persistence.spring_jpa_mysql.models.Machine machine, int timeIndex){
         if(machines.contains(machine))
             if(!calendar.containsKey(machine)) {
                 ArrayList<Integer> tempCalendar = new ArrayList<>();
@@ -77,7 +77,7 @@ public class Activity {
             }
     }
 
-    public HashMap<Machine,ArrayList <Integer>> getCalendar(){
+    public HashMap<com.coding.persistence.spring_jpa_mysql.models.Machine,ArrayList <Integer>> getCalendar(){
         return  calendar;
     }
 }
