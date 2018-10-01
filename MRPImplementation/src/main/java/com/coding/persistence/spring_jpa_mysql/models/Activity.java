@@ -22,7 +22,7 @@ public class Activity {
 
     }
 
-    public Activity(String id, String name) {
+    public Activity(Integer id, String name) {
         this.id = id;
         this.name = name;
         machines=new ArrayList<>();
@@ -31,7 +31,7 @@ public class Activity {
     }
 
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -39,7 +39,7 @@ public class Activity {
         return name;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
