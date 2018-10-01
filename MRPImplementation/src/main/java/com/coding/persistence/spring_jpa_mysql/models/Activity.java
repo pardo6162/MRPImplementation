@@ -11,7 +11,7 @@ import com.coding.persistence.spring_jpa_mysql.models.*;
 public class Activity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private String id;
+    private Integer id;
     private String name;
     private ArrayList<com.coding.persistence.spring_jpa_mysql.models.Machine> machines;
     private HashMap<com.coding.persistence.spring_jpa_mysql.models.Material,Integer> materials;

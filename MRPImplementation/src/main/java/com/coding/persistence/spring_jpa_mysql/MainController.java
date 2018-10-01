@@ -21,13 +21,13 @@ import com.coding.persistence.spring_jpa_mysql.models.Supplier;
 public class MainController {
     @Autowired
     private ActivityRepository activityRepository;
-    /**@Autowired
+    @Autowired
     private MachineRepository machineRepository;
     @Autowired
     private MaterialRepository materialRepository;
     @Autowired
     private SupplierRepository supplierRepository;
-**/
+
     @GetMapping(path="/add") // Map ONLY GET Requests
     public @ResponseBody String addNewUser (@RequestParam String name
             ) {
