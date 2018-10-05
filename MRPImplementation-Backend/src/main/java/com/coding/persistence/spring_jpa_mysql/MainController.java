@@ -4,6 +4,7 @@ import com.coding.persistence.spring_jpa_mysql.ActivityRepository;
 import com.coding.persistence.spring_jpa_mysql.MachineRepository;
 import com.coding.persistence.spring_jpa_mysql.MaterialRepository;
 import com.coding.persistence.spring_jpa_mysql.SupplierRepository;
+import com.coding.persistence.spring_jpa_mysql.models.ActivityEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,14 +35,14 @@ public class MainController {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
-        com.coding.persistence.spring_jpa_mysql.models.Activity n = new com.coding.persistence.spring_jpa_mysql.models.Activity();
-        n.setName(name);
-        activityRepository.save(n);
+        ActivityEntity activity = new ActivityEntity();
+        activity.setName(name);
+        activityRepository.save(activity);
         return "Saved";
     }
 
     @GetMapping(path="/all")
-    public @ResponseBody Iterable<com.coding.persistence.spring_jpa_mysql.models.Activity> getAllActivities() {
+    public @ResponseBody Iterable<ActivityEntity> getAllActivities() {
         // This returns a JSON or XML
               return activityRepository.findAll();
     }
