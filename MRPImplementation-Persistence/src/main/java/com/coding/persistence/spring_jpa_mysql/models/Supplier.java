@@ -17,21 +17,6 @@ public class Supplier {
     private int deliveryTime;
     private int phone;
 
-
-    public  Supplier(){
-
-    }
-
-    public Supplier(String businessName,String country,String address,int deliveryTime, int phone, String id){
-        this.businessName=businessName;
-        this.country=country;
-        this.address=address;
-        this.deliveryTime=deliveryTime;
-        this.phone=phone;
-        this.id = id;
-    }
-
-
     public String getBusinessName() {
         return businessName;
     }

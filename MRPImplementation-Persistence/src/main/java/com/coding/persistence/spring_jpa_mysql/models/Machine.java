@@ -13,19 +13,7 @@ public class Machine {
     private String id;
     private String name;
 
-    private ArrayList<com.coding.persistence.spring_jpa_mysql.models.Activity> activities;
-
-    public Machine(){
-
-    }
-
-
-
-    public Machine(String id, String name){
-        this.id=id;
-        this.name=name;
-        activities=new ArrayList<>();
-    }
+    private ArrayList<Activity> activities;
 
     public String getId(){
         return id;

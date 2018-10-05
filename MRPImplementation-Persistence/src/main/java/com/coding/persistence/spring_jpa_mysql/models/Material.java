@@ -1,6 +1,5 @@
 package com.coding.persistence.spring_jpa_mysql.models;
 
-import com.coding.mrpImplementation.entities.Activity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,15 +17,12 @@ public class Material {
     private int initialInventoryOnHand;
     private int orderingCost;
     private int maintainCost;
-    private ArrayList<com.coding.mrpImplementation.entities.Activity> activities;
+    private ArrayList<Activity> activities;
     private int securityStock;
     private int sizeOfLot;
     private int availablePrev;
     private int period;
 
-    public Material(){
-
-    }
 
 
     public Material(String id, String name,int initialInventoryOnHand,int orderingCost,int maintainCost,int securityStock,int sizeOfLot,int availablePrev,int period){
@@ -119,7 +115,7 @@ public class Material {
         this.name=name;
     }
 
-    public ArrayList<com.coding.mrpImplementation.entities.Activity> getActivities(){
+    public ArrayList<Activity> getActivities(){
         return activities;
     }
 
