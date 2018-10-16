@@ -8,7 +8,8 @@ import com.coding.mrpImplementation.exceptions.MRPException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public interface Service {
+public interface
+    Service {
     int getTime() throws MRPException;
     void addProgramedReception(int timeIndex,Material material,int quantity) throws MRPException;
     int getProgramedReceptions(int timeIndex,Material material)throws MRPException;
