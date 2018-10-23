@@ -1,0 +1,24 @@
+-------------------------------------------------------------------------------
+Test set: ServiceTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 3, Errors: 2, Skipped: 0, Time elapsed: 0.07 s <<< FAILURE! - in ServiceTest
+inventoryOnHandTest(ServiceTest)  Time elapsed: 0.006 s  <<< ERROR!
+java.lang.ArrayIndexOutOfBoundsException: -1
+	at ServiceTest.inventoryOnHandTest(ServiceTest.java:193)
+
+updateInventoryOnHandTest(ServiceTest)  Time elapsed: 0.004 s  <<< FAILURE!
+java.lang.AssertionError: Inventory on hand is incorrect  expected:<5> but was:<3>
+	at ServiceTest.updateInventoryOnHandTest(ServiceTest.java:203)
+
+requirementOfActivityTest(ServiceTest)  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException
+	at ServiceTest.requirementOfActivityTest(ServiceTest.java:226)
+
+netRequirementTest(ServiceTest)  Time elapsed: 0 s  <<< FAILURE!
+java.lang.AssertionError: Inventory on hand is incorrect  expected:<6> but was:<3>
+	at ServiceTest.netRequirementTest(ServiceTest.java:215)
+
+requirementOfMaterialTest(ServiceTest)  Time elapsed: 0 s  <<< FAILURE!
+java.lang.AssertionError: Requirement of material is incorrect1 expected:<5> but was:<0>
+	at ServiceTest.requirementOfMaterialTest(ServiceTest.java:184)
+

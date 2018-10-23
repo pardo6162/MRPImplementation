@@ -16,4 +16,7 @@ public interface Service {
     int getInventoryOnHand(int timeIndex,Material material) throws  MRPException;
     void resetInventoryOnHand() throws  MRPException;
     void updateInventoryOnHand(int timeIndex, Material material, int plannedReceptions)throws MRPException;
+    int getTime() throws  MRPException;
+    void addProgramedReceptions( int timeIndex, Material material ,int quantity) throws MRPException;
+    int getProgramedReceptions(int timeIndex,Material material)throws  MRPException;
 }

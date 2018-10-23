@@ -12,26 +12,52 @@ import java.util.HashMap;
 
 public class ServiceImpl implements Service{
 
+    private int time;
     private Company company;
     private HashMap<String,int[]> inventoryOnHand;
     private static Service service=null;
+    private HashMap<String,int[]> programedReceptions;
 
 
-    private ServiceImpl(int time,Company company){
+    private ServiceImpl(Company company,int time){
         inventoryOnHand = new HashMap<>();
+        programedReceptions = new HashMap<>();
         this.company=company;
+        this.time =time;
     }
 
 
     /**
      * generate only one instance of Service class
      * **/
-    public static Service getInstance(int time,Company company) {
+    public static Service getInstance(Company company,int time) {
         if(service==null)
-            service= new ServiceImpl(time,company);
+            service= new ServiceImpl(company,time);
         return service;
     };
 
+    @Override
+    public void addProgramedReceptions( int timeIndex, Material material ,int quantity) {
+        if(!programedReceptions.containsKey(material.getId())){
+            int [] temp= new int[time];
+            temp[timeIndex]= quantity;
+            programedReceptions.put(material.getId(),temp);
+        }
+    }
+
+
+    @Override
+    public int getProgramedReceptions(int timeIndex,Material material) {
+        int programedReception=0;
+        if(programedReceptions.containsKey(material.getId())){
+            programedReception=programedReceptions.get(material.getId())[timeIndex];
+        }
+        return programedReception;
+    }
+    @Override
+    public int getTime(){
+        return time;
+    }
 
 
     @Override
@@ -42,9 +68,9 @@ public class ServiceImpl implements Service{
             instance = Class.forName("com.coding.mrpImplementation.MRP." + lotMethod).newInstance();
             MRP methodInstance=(MRP) instance;
             for (Material j : company.getMaterials()) {
-                int[] planingPeriods=new int[company.getTime()];
-                for (int i = 0; i < company.getTime(); i++) {
-                    planingPeriods[i]=methodInstance.execute(this,j,i);
+                int[] planingPeriods=new int[service.getTime()];
+                for (int i = 0; i < service.getTime(); i++) {
+                    planingPeriods[i]=methodInstance.execute(this,j,i,company);
                 }
                 resultHashMap.put(j,planingPeriods);
             }
@@ -90,13 +116,13 @@ public class ServiceImpl implements Service{
         int requirementOfMaterial;
         int programedReception;
         if(!inventoryOnHand.containsKey(material.getId())){
-            inventoryOnHand.put(material.getId(), new int[company.getTime()]);
+            inventoryOnHand.put(material.getId(), new int[service.getTime()]);
             if(timeIndex==0)
                 inventoryOnHand.get(material.getId())[timeIndex]=0;
-                company.getMaterial(material).getInitialInventoryOnHand();
+                company.getMaterial(material.getId()).getInitialInventoryOnHand();
         }else if(inventoryOnHand.get(material.getId())[timeIndex]==0) {
             requirementOfMaterial = service.getRequirementOfMaterial(timeIndex, material);
-            programedReception = company.getProgramedReceptions(timeIndex, material);
+            programedReception = service.getProgramedReceptions(timeIndex, material);
             if (timeIndex == 0)
                 prev = inventoryOnHand.get((material.getId()))[timeIndex];
             else {

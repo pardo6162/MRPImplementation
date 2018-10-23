@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2018-09-07 12:02:13.801
+-- Last modification date: 2018-10-23 03:38:03.737
 
 -- tables
 -- Table: Activities
@@ -23,14 +23,34 @@ CREATE TABLE CalendarOfActivity (
     CONSTRAINT CalendarOfActivity_pk PRIMARY KEY (timelndex,Activities_id)
 );
 
+-- Table: Companies
+CREATE TABLE Companies (
+    id varchar(5) NOT NULL,
+    time int NOT NULL,
+    CONSTRAINT Companies_pk PRIMARY KEY (id)
+);
+
+-- Table: InventoryOnHand
+CREATE TABLE InventoryOnHand (
+    Materials_id_Material varchar(5) NOT NULL,
+    timeIndex int NOT NULL,
+    CONSTRAINT InventoryOnHand_pk PRIMARY KEY (Materials_id_Material,timeIndex)
+);
+
 -- Table: MRPPlanning
 CREATE TABLE MRPPlanning (
-    Materials_id varchar(5) NOT NULL,
     type varchar(5) NOT NULL,
     timelndex int NOT NULL,
     planningReception int NOT NULL,
     Materials_id_Material varchar(5) NOT NULL,
-    CONSTRAINT MRPPlanning_pk PRIMARY KEY (Materials_id,type)
+    CONSTRAINT MRPPlanning_pk PRIMARY KEY (type,Materials_id_Material)
+);
+
+-- Table: MachineOfCompanies
+CREATE TABLE MachineOfCompanies (
+    Companies_id varchar(5) NOT NULL,
+    Machines_id varchar(5) NOT NULL,
+    CONSTRAINT MachineOfCompanies_pk PRIMARY KEY (Companies_id,Machines_id)
 );
 
 -- Table: Machines
@@ -47,8 +67,11 @@ CREATE TABLE Materials (
     initialInventoryOnHand int NOT NULL,
     orderingCost int NOT NULL,
     maintainCost int NOT NULL,
+    securityStock int NOT NULL,
     sizeOfLot int NOT NULL,
-    Suppliers_id varchar(5) NOT NULL,
+    availablePrev int NOT NULL,
+    period int NOT NULL,
+    suppliers_id varchar(5) NOT NULL,
     CONSTRAINT Materials_pk PRIMARY KEY (id_Material)
 );
 
@@ -91,9 +114,21 @@ ALTER TABLE AvtivitiesOfMachines ADD CONSTRAINT AvtivitiesOfMachines_Machines FO
 ALTER TABLE CalendarOfActivity ADD CONSTRAINT CalendarOfActivity_Activities FOREIGN KEY CalendarOfActivity_Activities (Activities_id)
     REFERENCES Activities (id);
 
+-- Reference: InventoryOnHand_Materials (table: InventoryOnHand)
+ALTER TABLE InventoryOnHand ADD CONSTRAINT InventoryOnHand_Materials FOREIGN KEY InventoryOnHand_Materials (Materials_id_Material)
+    REFERENCES Materials (id_Material);
+
 -- Reference: MRPPlanning_Materials (table: MRPPlanning)
 ALTER TABLE MRPPlanning ADD CONSTRAINT MRPPlanning_Materials FOREIGN KEY MRPPlanning_Materials (Materials_id_Material)
     REFERENCES Materials (id_Material);
+
+-- Reference: MachineOfCompanies_Companies (table: MachineOfCompanies)
+ALTER TABLE MachineOfCompanies ADD CONSTRAINT MachineOfCompanies_Companies FOREIGN KEY MachineOfCompanies_Companies (Companies_id)
+    REFERENCES Companies (id);
+
+-- Reference: MachineOfCompanies_Machines (table: MachineOfCompanies)
+ALTER TABLE MachineOfCompanies ADD CONSTRAINT MachineOfCompanies_Machines FOREIGN KEY MachineOfCompanies_Machines (Machines_id)
+    REFERENCES Machines (id);
 
 -- Reference: MaterialsOfActivities_Activities (table: MaterialsOfActivities)
 ALTER TABLE MaterialsOfActivities ADD CONSTRAINT MaterialsOfActivities_Activities FOREIGN KEY MaterialsOfActivities_Activities (Activities_id)
@@ -104,7 +139,7 @@ ALTER TABLE MaterialsOfActivities ADD CONSTRAINT MaterialsOfActivities_Materials
     REFERENCES Materials (id_Material);
 
 -- Reference: Materials_Suppliers (table: Materials)
-ALTER TABLE Materials ADD CONSTRAINT Materials_Suppliers FOREIGN KEY Materials_Suppliers (Suppliers_id)
+ALTER TABLE Materials ADD CONSTRAINT Materials_Suppliers FOREIGN KEY Materials_Suppliers (suppliers_id)
     REFERENCES Suppliers (id_Supplier);
 
 -- Reference: ProgramedReceptions_Materials (table: ProgramedReceptions)

@@ -1,6 +1,7 @@
 com/coding/mrpImplementation/MRP/POQ.class
 com/coding/mrpImplementation/entities/Material.class
 com/coding/mrpImplementation/MRP/FOQ.class
+com/coding/mrpImplementation/entities/Company.class
 com/coding/mrpImplementation/entities/Activity.class
 com/coding/mrpImplementation/service/ServiceImpl.class
 com/coding/mrpImplementation/MRP/ConstantPeriod.class
