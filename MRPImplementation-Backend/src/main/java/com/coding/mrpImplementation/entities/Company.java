@@ -11,6 +11,8 @@ public class Company {
 
     private ArrayList<Machine>  machines;
 
+    private int time;
+
     public Company(){
         machines =new ArrayList<>();
 
@@ -71,6 +73,15 @@ public class Company {
                     activity=j;
             }
         return  activity;
+    }
+
+    public void setTime(int time){
+        this.time=time;
+    }
+
+
+    public int getTime(){
+        return time;
     }
 
 }

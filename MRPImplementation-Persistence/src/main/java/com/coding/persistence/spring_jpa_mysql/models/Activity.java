@@ -11,17 +11,17 @@ import com.coding.persistence.spring_jpa_mysql.models.*;
 public class Activity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    private String id;
     private String name;
-    private ArrayList<com.coding.persistence.spring_jpa_mysql.models.Machine> machines;
-    private HashMap<com.coding.persistence.spring_jpa_mysql.models.Material,Integer> materials;
-    private HashMap<com.coding.persistence.spring_jpa_mysql.models.Machine,ArrayList<Integer>> calendar;
+    private ArrayList<Machine> machines;
+    private HashMap<Material,Integer> materials;
+    private HashMap<Machine,ArrayList<Integer>> calendar;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -56,10 +56,5 @@ public class Activity {
     public void setCalendar(HashMap<Machine, ArrayList<Integer>> calendar) {
         this.calendar = calendar;
     }
-
-
-
-
-
 
 }

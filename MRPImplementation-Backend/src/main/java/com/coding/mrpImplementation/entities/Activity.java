@@ -9,7 +9,6 @@ public class Activity {
 
     private String id;
     private String name;
-    private List<String> phones;
     private ArrayList<Machine> machines;
     private HashMap<Material,Integer> materials;
     private HashMap<Machine,ArrayList<Integer>> calendar;

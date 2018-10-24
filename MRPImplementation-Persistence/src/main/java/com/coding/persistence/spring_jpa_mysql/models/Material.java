@@ -22,28 +22,54 @@ public class Material {
     private int sizeOfLot;
     private int availablePrev;
     private int period;
+    private int[] inventoryOnHand;
 
-
-
-    public Material(String id, String name,int initialInventoryOnHand,int orderingCost,int maintainCost,int securityStock,int sizeOfLot,int availablePrev,int period){
-        this.id=id;
-        this.name=name;
-        this.initialInventoryOnHand=initialInventoryOnHand;
-        this.orderingCost=orderingCost;
-        this.maintainCost=maintainCost;
-        this.securityStock=securityStock;
-        this.sizeOfLot=sizeOfLot;
-        this.availablePrev=availablePrev;
-        this.period=period;
-        activities=new ArrayList<>();
+    public String getId() {
+        return id;
     }
 
-    public int getPeriod() {
-        return period;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setPeriod(int period) {
-        this.period = period;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getInitialInventoryOnHand() {
+        return initialInventoryOnHand;
+    }
+
+    public void setInitialInventoryOnHand(int initialInventoryOnHand) {
+        this.initialInventoryOnHand = initialInventoryOnHand;
+    }
+
+    public int getOrderingCost() {
+        return orderingCost;
+    }
+
+    public void setOrderingCost(int orderingCost) {
+        this.orderingCost = orderingCost;
+    }
+
+    public int getMaintainCost() {
+        return maintainCost;
+    }
+
+    public void setMaintainCost(int maintainCost) {
+        this.maintainCost = maintainCost;
+    }
+
+    public ArrayList<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(ArrayList<Activity> activities) {
+        this.activities = activities;
     }
 
     public int getSecurityStock() {
@@ -70,58 +96,29 @@ public class Material {
         this.availablePrev = availablePrev;
     }
 
-
-
-    public int getInitialInventoryOnHand() {
-        return initialInventoryOnHand;
+    public int getPeriod() {
+        return period;
     }
 
-    public void setInitialInventoryOnHand(int initialInventoryOnHand) {
-        this.initialInventoryOnHand = initialInventoryOnHand;
+    public void setPeriod(int period) {
+        this.period = period;
     }
 
-    public int getOrderingCost() {
-        return orderingCost;
+    public int[] getInventoryOnHand() {
+        return inventoryOnHand;
     }
 
-    public void setOrderingCost(int orderingCost) {
-        this.orderingCost = orderingCost;
+    public void setInventoryOnHand(int[] inventoryOnHand) {
+        this.inventoryOnHand = inventoryOnHand;
     }
 
-    public int getMaintainCost() {
-        return maintainCost;
+    public int[] getProgramedReceptions() {
+        return programedReceptions;
     }
 
-    public void setMaintainCost(int maintainCost) {
-        this.maintainCost = maintainCost;
+    public void setProgramedReceptions(int[] programedReceptions) {
+        this.programedReceptions = programedReceptions;
     }
 
-
-
-
-    public String getId(){
-        return id;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public void setId(String id){
-        this.id=id;
-    }
-
-    public void setName(String name){
-        this.name=name;
-    }
-
-    public ArrayList<Activity> getActivities(){
-        return activities;
-    }
-
-    public void setActivity(Activity activity){
-        if(!activities.contains(activity)){
-            activities.add(activity);
-        }
-    }
+    private int[] programedReceptions;
 }

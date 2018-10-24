@@ -14,49 +14,42 @@ public class ServiceImpl implements Service{
 
     private int time;
     private Company company;
-    private HashMap<String,int[]> inventoryOnHand;
     private static Service service=null;
-    private HashMap<String,int[]> programedReceptions;
 
 
-    private ServiceImpl(Company company,int time){
-        inventoryOnHand = new HashMap<>();
-        programedReceptions = new HashMap<>();
-        this.company=company;
-        this.time =time;
+    private ServiceImpl(Company company) throws  MRPException
+    {
+        try {
+            this.company=company;
+        }catch (Exception ex) {
+            throw new MRPException(ex.getMessage());
+        }
+
     }
 
 
     /**
      * generate only one instance of Service class
      * **/
-    public static Service getInstance(Company company,int time) {
+    public static Service getInstance(Company company) throws  MRPException{
         if(service==null)
-            service= new ServiceImpl(company,time);
+            service= new ServiceImpl(company);
         return service;
     };
 
     @Override
     public void addProgramedReceptions( int timeIndex, Material material ,int quantity) {
-        if(!programedReceptions.containsKey(material.getId())){
-            int [] temp= new int[time];
-            temp[timeIndex]= quantity;
-            programedReceptions.put(material.getId(),temp);
-        }
+        Material materialInstance=company.getMaterial(material.getId());
+        int [] temp= material.getProgramedReceptions();
+        temp[timeIndex]= quantity;
+        materialInstance.setProgramedReceptions(temp);
     }
 
 
     @Override
     public int getProgramedReceptions(int timeIndex,Material material) {
-        int programedReception=0;
-        if(programedReceptions.containsKey(material.getId())){
-            programedReception=programedReceptions.get(material.getId())[timeIndex];
-        }
-        return programedReception;
-    }
-    @Override
-    public int getTime(){
-        return time;
+        Material materialInstance=company.getMaterial(material.getId());
+         return material.getProgramedReceptions()[timeIndex];
     }
 
 
@@ -68,8 +61,8 @@ public class ServiceImpl implements Service{
             instance = Class.forName("com.coding.mrpImplementation.MRP." + lotMethod).newInstance();
             MRP methodInstance=(MRP) instance;
             for (Material j : company.getMaterials()) {
-                int[] planingPeriods=new int[service.getTime()];
-                for (int i = 0; i < service.getTime(); i++) {
+                int[] planingPeriods=new int[company.getTime()];
+                for (int i = 0; i < company.getTime(); i++) {
                     planingPeriods[i]=methodInstance.execute(this,j,i,company);
                 }
                 resultHashMap.put(j,planingPeriods);
@@ -115,22 +108,27 @@ public class ServiceImpl implements Service{
         int prev;
         int requirementOfMaterial;
         int programedReception;
-        if(!inventoryOnHand.containsKey(material.getId())){
-            inventoryOnHand.put(material.getId(), new int[service.getTime()]);
-            if(timeIndex==0)
-                inventoryOnHand.get(material.getId())[timeIndex]=0;
-                company.getMaterial(material.getId()).getInitialInventoryOnHand();
-        }else if(inventoryOnHand.get(material.getId())[timeIndex]==0) {
+        Material materialInstance=company.getMaterial(material.getId());
+        if(materialInstance.getInventoryOnHand()==null){
+            materialInstance.setProgramedReceptions(new int[company.getTime()]);
+            if(timeIndex==0){
+                int [] temp=materialInstance.getInventoryOnHand();
+                temp[timeIndex]=0;
+                materialInstance.setProgramedReceptions(temp);
+            }
+        }else if(materialInstance.getInventoryOnHand()[timeIndex]==0) {
             requirementOfMaterial = service.getRequirementOfMaterial(timeIndex, material);
             programedReception = service.getProgramedReceptions(timeIndex, material);
             if (timeIndex == 0)
-                prev = inventoryOnHand.get((material.getId()))[timeIndex];
+                prev = materialInstance.getInventoryOnHand()[timeIndex];
             else {
-                prev = inventoryOnHand.get(material.getId())[timeIndex - 1];
+                prev = materialInstance.getInventoryOnHand()[timeIndex - 1];
             }
-            inventoryOnHand.get(material.getId())[timeIndex] = prev - requirementOfMaterial + programedReception;
+            int [] temp=materialInstance.getInventoryOnHand();
+            temp[timeIndex] = prev - requirementOfMaterial + programedReception;
+            materialInstance.setProgramedReceptions(temp);
         }
-        inventory=inventoryOnHand.get(material.getId())[timeIndex];
+        inventory=materialInstance.getInventoryOnHand()[timeIndex];
         return inventory;
     }
 
@@ -175,13 +173,11 @@ public class ServiceImpl implements Service{
         return totalRequirement;
     }
 
-    @Override
-    public void resetInventoryOnHand() throws  MRPException{
-        inventoryOnHand.clear();
-    }
 
     @Override
     public void updateInventoryOnHand(int timeIndex, Material material, int plannedReceptions)throws MRPException{
-        inventoryOnHand.get(material.getId())[timeIndex]+=plannedReceptions;
+        int[] inventoryOnHand= material.getInventoryOnHand();
+        inventoryOnHand[timeIndex]+=plannedReceptions;
+        company.getMaterial(material.getId()).setInventoryOnHand(inventoryOnHand);
     }
 }

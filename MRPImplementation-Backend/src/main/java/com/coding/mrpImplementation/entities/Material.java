@@ -15,7 +15,8 @@ public class Material {
     private int sizeOfLot;
     private int availablePrev;
     private int period;
-
+    private int[] inventoryOnHand;
+    private int[] programedReceptions;
 
     public Material(String id, String name,int initialInventoryOnHand,int orderingCost,int maintainCost,int securityStock,int sizeOfLot,int availablePrev,int period){
         this.id=id;
@@ -27,6 +28,7 @@ public class Material {
         this.sizeOfLot=sizeOfLot;
         this.availablePrev=availablePrev;
         this.period=period;
+
         activities=new ArrayList<>();
     }
 
@@ -115,5 +117,21 @@ public class Material {
         if(!activities.contains(activity)){
             activities.add(activity);
         }
+    }
+
+    public int[] getInventoryOnHand() {
+            return inventoryOnHand;
+    }
+
+    public void setInventoryOnHand(int[] inventoryOnHand) {
+        this.inventoryOnHand = inventoryOnHand;
+    }
+
+    public int[] getProgramedReceptions() {
+        return programedReceptions;
+    }
+
+    public void setProgramedReceptions(int[] programedReceptions) {
+        this.programedReceptions = programedReceptions;
     }
 }

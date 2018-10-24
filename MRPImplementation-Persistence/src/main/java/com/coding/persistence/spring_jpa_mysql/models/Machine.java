@@ -12,33 +12,30 @@ public class Machine {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private String id;
     private String name;
-
     private ArrayList<Activity> activities;
 
-    public String getId(){
+    public String getId() {
         return id;
     }
 
-    public String getName(){
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public void setId(String id){
-        this.id=id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setName(String name){
-        this.name=name;
-    }
-
-    public ArrayList<com.coding.persistence.spring_jpa_mysql.models.Activity> getActivities() {
+    public ArrayList<Activity> getActivities() {
         return activities;
     }
 
-    public void setActivity(com.coding.persistence.spring_jpa_mysql.models.Activity activity) {
-        if(!activities.contains(activity))
-            activities.add(activity);
-
+    public void setActivities(ArrayList<Activity> activities) {
+        this.activities = activities;
     }
 
 }
