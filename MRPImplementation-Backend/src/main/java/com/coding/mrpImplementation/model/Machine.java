@@ -1,13 +1,17 @@
-package com.coding.mrpImplementation.entities;
+package com.coding.mrpImplementation.model;
 
-import com.coding.mrpImplementation.entities.Activity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.ArrayList;
 
 public class Machine {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private String id;
     private String name;
-
-    private ArrayList<com.coding.mrpImplementation.entities.Activity> activities;
+    private ArrayList<Activity> activities;
 
     public Machine(String id, String name){
         this.id=id;
@@ -31,14 +35,17 @@ public class Machine {
         this.name=name;
     }
 
-    public ArrayList<com.coding.mrpImplementation.entities.Activity> getActivities() {
+    public ArrayList<Activity> getActivities() {
         return activities;
     }
 
-    public void setActivity(Activity activity) {
-        if(!activities.contains(activity))
-            activities.add(activity);
-
+    public void setActivities(ArrayList<Activity> activities) {
+        this.activities = activities;
     }
+
+
+
+
+
 
 }

@@ -1,8 +1,7 @@
-package com.coding.mrpImplementation.entities;
+package com.coding.mrpImplementation.model;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Company {
 
@@ -36,11 +35,11 @@ public class Company {
         return machine;
     }
 
-    public  ArrayList<Material> getMaterials(){
+  /**  public  ArrayList<Material> getMaterials(){
         ArrayList<Material> materials= new ArrayList<>();
         for ( Machine i: machines)
             for (Activity j:i.getActivities())
-                for (Material k:j.getMaterials().keySet())
+                for (Material k:j.getMaterials())
                     materials.add(k);
         return materials;
     }
@@ -49,11 +48,11 @@ public class Company {
         Material material=null;
         for ( Machine i: machines)
             for (Activity j:i.getActivities())
-                for (Material k:j.getMaterials().keySet())
+                for (Material k:j.getMaterials())
                     if (materialId.equals(k.getId()))
                         material=k;
         return material;
-    }
+    }**/
 
     public ArrayList<Activity> getActivities(){
         ArrayList<Activity> activities = new ArrayList<>();

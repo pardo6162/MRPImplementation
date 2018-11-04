@@ -1,4 +1,4 @@
-package com.coding.mrpImplementation.exceptions;
+package com.coding.mrpImplementation.service.exceptions;
 
 public class MRPException extends Exception {
     public MRPException(){

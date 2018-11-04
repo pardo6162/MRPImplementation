@@ -1,8 +1,7 @@
-package com.coding.mrpImplementation.entities;
-
-import com.coding.mrpImplementation.entities.Activity;
+package com.coding.mrpImplementation.model;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Material {
     private String id;
@@ -10,13 +9,14 @@ public class Material {
     private int initialInventoryOnHand;
     private int orderingCost;
     private int maintainCost;
-    private ArrayList<com.coding.mrpImplementation.entities.Activity> activities;
+    private ArrayList<com.coding.mrpImplementation.model.Activity> activities;
     private int securityStock;
     private int sizeOfLot;
     private int availablePrev;
     private int period;
     private int[] inventoryOnHand;
     private int[] programedReceptions;
+    private Map<Activity,Integer> quantity;
 
     public Material(String id, String name,int initialInventoryOnHand,int orderingCost,int maintainCost,int securityStock,int sizeOfLot,int availablePrev,int period){
         this.id=id;
@@ -109,7 +109,7 @@ public class Material {
         this.name=name;
     }
 
-    public ArrayList<com.coding.mrpImplementation.entities.Activity> getActivities(){
+    public ArrayList<com.coding.mrpImplementation.model.Activity> getActivities(){
         return activities;
     }
 
@@ -133,5 +133,13 @@ public class Material {
 
     public void setProgramedReceptions(int[] programedReceptions) {
         this.programedReceptions = programedReceptions;
+    }
+
+    public Map<Activity,Integer> getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Map<Activity,Integer> quantity) {
+        this.quantity = quantity;
     }
 }

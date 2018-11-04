@@ -1,11 +1,8 @@
 package com.coding.mrpImplementation.service;
 
-import com.coding.mrpImplementation.entities.Activity;
-import com.coding.mrpImplementation.entities.Machine;
-import com.coding.mrpImplementation.entities.Material;
-import com.coding.mrpImplementation.exceptions.MRPException;
+import com.coding.mrpImplementation.model.Material;
+import com.coding.mrpImplementation.service.exceptions.MRPException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface Service {

@@ -1,9 +1,8 @@
 package com.coding.mrpImplementation.MRP;
 
-import com.coding.mrpImplementation.MRP.MRP;
-import com.coding.mrpImplementation.entities.Company;
-import com.coding.mrpImplementation.entities.Material;
-import com.coding.mrpImplementation.exceptions.MRPException;
+import com.coding.mrpImplementation.model.Company;
+import com.coding.mrpImplementation.model.Material;
+import com.coding.mrpImplementation.service.exceptions.MRPException;
 import com.coding.mrpImplementation.service.Service;
 
 public class EOQ  implements MRP {
@@ -14,7 +13,7 @@ public class EOQ  implements MRP {
     public int execute(Service service, Material material, int timeIndex, Company company) throws MRPException {
         int plannedReceptions=0;
         int period =material.getPeriod();
-        int time=service.getTime();
+        int time=company.getTime();
         int netRequirement=service.getNetRequirement(timeIndex,material);
         if(sumTotalRequirement==0)
             for (int i=0;i<time;i++){

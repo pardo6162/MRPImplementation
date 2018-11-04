@@ -1,23 +1,25 @@
-package com.coding.mrpImplementation.service;
+package com.coding.mrpImplementation.service.impl;
 
-import com.coding.mrpImplementation.entities.Company;
-import com.coding.mrpImplementation.exceptions.MRPException;
+import com.coding.mrpImplementation.model.Company;
+import com.coding.mrpImplementation.service.exceptions.MRPException;
 import com.coding.mrpImplementation.MRP.*;
-import com.coding.mrpImplementation.entities.Activity;
-import com.coding.mrpImplementation.entities.Machine;
-import com.coding.mrpImplementation.entities.Material;
+import com.coding.mrpImplementation.model.Activity;
+import com.coding.mrpImplementation.model.Machine;
+import com.coding.mrpImplementation.model.Material;
+import com.coding.mrpImplementation.service.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
-public class ServiceImpl implements Service{
+public class ServiceImpl {//implements Service {
 
     private int time;
     private Company company;
     private static Service service=null;
 
 
-    private ServiceImpl(Company company) throws  MRPException
+   /** private ServiceImpl(Company company) throws  MRPException
     {
         try {
             this.company=company;
@@ -26,11 +28,11 @@ public class ServiceImpl implements Service{
         }
 
     }
-
+**/
 
     /**
      * generate only one instance of Service class
-     * **/
+     * **//**
     public static Service getInstance(Company company) throws  MRPException{
         if(service==null)
             service= new ServiceImpl(company);
@@ -74,14 +76,14 @@ public class ServiceImpl implements Service{
         return resultHashMap;
     }
 
-
+**/
     /**
      * This method return the net requirement of specific material in a determinated period time
      * @param timeIndex
      * @param material
      * @return the quantity  net requeriment of material in the period time
      * @throws MRPException
-     */
+     *//**
     @Override
     public int getNetRequirement(int timeIndex,Material material) throws MRPException{
         int requirement=0;
@@ -92,7 +94,7 @@ public class ServiceImpl implements Service{
         }
         return requirement;
     }
-
+**/
 
 
     /**
@@ -101,7 +103,7 @@ public class ServiceImpl implements Service{
      * @param material
      * @return int the quantity of material in the time
      */
-
+/**
     @Override
     public int getInventoryOnHand(int timeIndex,Material material) throws MRPException{
         int inventory=0;
@@ -132,7 +134,7 @@ public class ServiceImpl implements Service{
         return inventory;
     }
 
-
+**/
 
     /**
      * This method return the total times to that a programed activity in a specific index time
@@ -141,32 +143,32 @@ public class ServiceImpl implements Service{
      * @return the count of times that the activity is make in a specific period of time
      * @throws MRPException
      */
-    @Override
+/**    @Override
     public int getRequirementOfActivity(String idActivity, int indexTime)throws MRPException{
             int totalRequirement=0;
-            HashMap<Machine,ArrayList<Integer>> cantRequirement =company.getActivity(idActivity).getCalendar();
-            for(ArrayList<Integer> i:cantRequirement.values())
+            Collection<ArrayList<Integer>> cantRequirement =company.getActivity(idActivity).getCalendar().values();
+            for(ArrayList<Integer> i:cantRequirement)
                 for(Integer j:i){
                     if(j == indexTime)
                         totalRequirement+=1;
                 }
             return totalRequirement;
     }
-
+**/
     /**
      * This method provide a requirement of material in a specific time period
      * @param indexTime
      * @param material
      * @return int the quantity of material required
      */
-    @Override
+    /**@Override
     public int getRequirementOfMaterial(int indexTime,Material material) throws MRPException{
         int totalRequirement=0;
 
         for(Activity i:company.getActivities()) {
 
-            if (i.getMaterials().keySet().contains(material)) {
-                totalRequirement += getRequirementOfActivity(i.getId(), indexTime) * i.getMaterials().get(material);
+            if (i.getMaterials().contains(material)) {
+                totalRequirement += getRequirementOfActivity(i.getId(), indexTime) * i.getMaterials().get(i.getMaterials().indexOf(material)).getQuantity().get(i);
             }
         }
 
@@ -180,4 +182,5 @@ public class ServiceImpl implements Service{
         inventoryOnHand[timeIndex]+=plannedReceptions;
         company.getMaterial(material.getId()).setInventoryOnHand(inventoryOnHand);
     }
+    ***/
 }

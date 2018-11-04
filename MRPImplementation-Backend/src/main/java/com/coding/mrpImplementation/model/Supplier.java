@@ -1,4 +1,4 @@
-package com.coding.mrpImplementation.entities;
+package com.coding.mrpImplementation.model;
 
 
 public class Supplier {
