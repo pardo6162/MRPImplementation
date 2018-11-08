@@ -31,9 +31,6 @@ public class MainController {
         materials.add(material);
         list.add(5);
         calendar.put(machine,list);
-       // activity.setMachines(machines);
-        //activity.setCalendar(calendar);
-        //activity.setMaterials(materials);
 
         activityRepository.save(activity);
         return "Saved";

@@ -1,23 +1,29 @@
 package com.coding.mrpImplementation.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Map;
 
+@Entity
+@Table
 public class Material {
+    @Id
     private String id;
     private String name;
     private int initialInventoryOnHand;
     private int orderingCost;
     private int maintainCost;
-    private ArrayList<com.coding.mrpImplementation.model.Activity> activities;
+    //private ArrayList<Activity> activities;
     private int securityStock;
     private int sizeOfLot;
     private int availablePrev;
     private int period;
-    private int[] inventoryOnHand;
-    private int[] programedReceptions;
-    private Map<Activity,Integer> quantity;
-
+    //private int[] inventoryOnHand;
+    //private int[] programedReceptions;
+    //private Map<Activity,Integer> quantity;
+    //private List<Supplier> supplier;
     public Material(String id, String name,int initialInventoryOnHand,int orderingCost,int maintainCost,int securityStock,int sizeOfLot,int availablePrev,int period){
         this.id=id;
         this.name=name;
@@ -29,7 +35,7 @@ public class Material {
         this.availablePrev=availablePrev;
         this.period=period;
 
-        activities=new ArrayList<>();
+        //activities=new ArrayList<>();
     }
 
     public int getPeriod() {
@@ -109,7 +115,8 @@ public class Material {
         this.name=name;
     }
 
-    public ArrayList<com.coding.mrpImplementation.model.Activity> getActivities(){
+
+    /**public ArrayList<com.coding.mrpImplementation.model.Activity> getActivities(){
         return activities;
     }
 
@@ -141,5 +148,5 @@ public class Material {
 
     public void setQuantity(Map<Activity,Integer> quantity) {
         this.quantity = quantity;
-    }
+    }**/
 }

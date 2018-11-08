@@ -1,13 +1,15 @@
 package com.coding.mrpImplementation.model;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Entity
+@Table
 public class Activity {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     private String id;
     private String name;
     //@OneToMany(targetEntity = Machine.class, mappedBy = "activity")

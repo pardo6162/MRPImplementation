@@ -1,22 +1,27 @@
 package com.coding.mrpImplementation.model;
 
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.ArrayList;
 
+@Entity
+@Table
 public class Company {
 
+    @Id
+    private String id;
 
-
-
-    private ArrayList<Machine>  machines;
+//private ArrayList<Machine>  machines;
 
     private int time;
 
     public Company(){
-        machines =new ArrayList<>();
+       // machines =new ArrayList<>();
 
     }
-
+/**
     public void addMachine(Machine machine){
         if(!machines.contains(machine))
             machines.add(machine);
@@ -52,7 +57,7 @@ public class Company {
                     if (materialId.equals(k.getId()))
                         material=k;
         return material;
-    }**/
+    }
 
     public ArrayList<Activity> getActivities(){
         ArrayList<Activity> activities = new ArrayList<>();
@@ -72,6 +77,16 @@ public class Company {
                     activity=j;
             }
         return  activity;
+    }
+ **/
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setTime(int time){

@@ -1,13 +1,22 @@
 package com.coding.mrpImplementation.model;
 
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table
 public class Supplier {
+    @Id
     private String id;
     private String businessName;
     private String country;
     private String address;
     private int deliveryTime;
     private int phone;
+    //private ArrayList<Material> masterials;
 
 
     public Supplier(String businessName,String country,String address,int deliveryTime, int phone, String id){

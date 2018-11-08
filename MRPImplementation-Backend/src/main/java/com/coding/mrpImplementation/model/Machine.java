@@ -1,22 +1,21 @@
 package com.coding.mrpImplementation.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 
+@Entity
+@Table
 public class Machine {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     private String id;
     private String name;
-    private ArrayList<Activity> activities;
+   // private ArrayList<Activity> activities;
 
     public Machine(String id, String name){
         this.id=id;
         this.name=name;
-        activities=new ArrayList<>();
+        //activities=new ArrayList<>();
     }
 
     public String getId(){
@@ -35,13 +34,13 @@ public class Machine {
         this.name=name;
     }
 
-    public ArrayList<Activity> getActivities() {
+   /** public ArrayList<Activity> getActivities() {
         return activities;
     }
 
     public void setActivities(ArrayList<Activity> activities) {
         this.activities = activities;
-    }
+    }**/
 
 
 
