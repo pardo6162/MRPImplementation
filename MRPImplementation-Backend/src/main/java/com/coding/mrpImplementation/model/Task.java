@@ -1,12 +1,18 @@
 package com.coding.mrpImplementation.model;
 
-public abstract class Task {
+import javax.persistence.*;
 
+@Entity
+@Table
+public abstract class Task {
+    @Id
     private String id;
     private int initDate;
     private int finishDate;
     private String description;
     private boolean finished;
+    @ManyToOne
+    @JoinColumn(name="company_nit")
     private Company company;
 
     public Task(){}

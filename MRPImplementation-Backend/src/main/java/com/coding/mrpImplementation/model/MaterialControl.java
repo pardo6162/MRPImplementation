@@ -1,11 +1,16 @@
 package com.coding.mrpImplementation.model;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 public class MaterialControl {
     private String id;
     private int date;
     private int quantity;
     private int securityStock;
     private int sizeOfLot;
+    @ManyToOne
+    @JoinColumn(name="company_nit")
     private Company company;
 
 

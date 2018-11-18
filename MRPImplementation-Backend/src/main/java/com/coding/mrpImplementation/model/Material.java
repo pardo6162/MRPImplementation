@@ -17,9 +17,13 @@ public class Material {
 
     @OneToMany(cascade= CascadeType.ALL)
     @JoinTable(name = "MaterialOfActivities",
-            joinColumns = { @JoinColumn(name = "Materials_id",referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "Activities_id",referencedColumnName = "id") })
+            joinColumns = { @JoinColumn(name = "material_id",referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "activity_id",referencedColumnName = "id") })
     private List<Activity> activities;
+    @OneToMany(cascade= CascadeType.ALL)
+    @JoinTable(name = "SuppliersOfMaterial",
+            joinColumns = { @JoinColumn(name = "material_id",referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "supplier_id",referencedColumnName = "id") })
     private List<Supplier> suppliers;
 
     public  Material(){}

@@ -1,10 +1,19 @@
 package com.coding.mrpImplementation.model;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 public class InventoryTask extends Task {
 
     private int quantity;
+    @ManyToOne
+    @JoinColumn(name="material_id")
     private Material material;
+    @ManyToOne
+    @JoinColumn(name="supplier_id")
     private Supplier supplier;
+    @ManyToOne
+    @JoinColumn(name="materialControls_id")
     private MaterialControl materialControl;
 
 

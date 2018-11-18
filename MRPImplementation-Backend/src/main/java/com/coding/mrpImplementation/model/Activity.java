@@ -15,13 +15,13 @@ public class Activity {
 
     @OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "ActivitiesOfMachines",
-            joinColumns = { @JoinColumn(name = "Activities_id",referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "Machines_id",referencedColumnName = "id") })
+            joinColumns = { @JoinColumn(name = "activitie_id",referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "machine_id",referencedColumnName = "id") })
     private List<Machine> machines;
     @OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "MaterialsOfActivities",
-            joinColumns = { @JoinColumn(name = "Activities_id",referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "Materials_id",referencedColumnName = "id") })
+            joinColumns = { @JoinColumn(name = "activity_id",referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "material_id",referencedColumnName = "id") })
     private List<Material> materials;
 
 

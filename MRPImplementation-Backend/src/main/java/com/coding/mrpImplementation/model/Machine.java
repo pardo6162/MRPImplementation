@@ -13,10 +13,14 @@ public class Machine {
 
 
     @OneToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "MachineOfCompanies",
-            joinColumns = { @JoinColumn(name = "Machines_id",referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "Companies_id",referencedColumnName = "id") })
+    @JoinTable(name = "ActivitiesOfMachines",
+            joinColumns = { @JoinColumn(name = "machine_id",referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "activitie_id",referencedColumnName = "id") })
     private List<Activity> activities;
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "MachineOfCompanies",
+            joinColumns = { @JoinColumn(name = "machine_id",referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "company_nit",referencedColumnName = "nit") })
     private List<Company> companies;
 
     public  Machine(){}

@@ -1,8 +1,14 @@
 package com.coding.mrpImplementation.model;
 
-public class MachineTask extends Task{
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+public class MachineTask extends Task{
+    @ManyToOne
+    @JoinColumn(name="machine_id")
     private Machine machine;
+    @ManyToOne
+    @JoinColumn(name="activity_id")
     private Activity activity;
 
     public MachineTask(){super();}

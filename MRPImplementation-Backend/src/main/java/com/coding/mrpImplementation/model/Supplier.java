@@ -1,9 +1,7 @@
 package com.coding.mrpImplementation.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 
@@ -17,9 +15,11 @@ public class Supplier {
     private String address;
     private int deliveryTime;
     private int phone;
-
-
-    private List<Material> masterials;
+    @OneToMany(cascade= CascadeType.ALL)
+    @JoinTable(name = "SupploersOfMaterial",
+            joinColumns = { @JoinColumn(name = "supplier_id",referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "material_id",referencedColumnName = "id") })
+    private List<Material> materials;
 
     public Supplier(){}
 
@@ -82,10 +82,10 @@ public class Supplier {
     }
 
     public List<Material> getMasterials() {
-        return masterials;
+        return materials;
     }
 
     public void setMasterials(List<Material> masterials) {
-        this.masterials = masterials;
+        this.materials = masterials;
     }
 }
