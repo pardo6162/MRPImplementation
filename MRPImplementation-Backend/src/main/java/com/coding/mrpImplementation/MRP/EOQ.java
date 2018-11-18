@@ -2,10 +2,9 @@ package com.coding.mrpImplementation.MRP;
 
 import com.coding.mrpImplementation.model.Company;
 import com.coding.mrpImplementation.model.Material;
-import com.coding.mrpImplementation.service.exceptions.MRPException;
 import com.coding.mrpImplementation.service.Service;
 
-public class EOQ  implements MRP {
+public class EOQ {/**} implements MRP {
 
     private int sumTotalRequirement=0;
 
@@ -28,5 +27,5 @@ public class EOQ  implements MRP {
         }
         service.updateInventoryOnHand(timeIndex, material, plannedReceptions);
         return plannedReceptions;
-    }
+    }**/
 }

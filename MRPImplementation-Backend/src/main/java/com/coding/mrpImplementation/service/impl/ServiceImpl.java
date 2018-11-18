@@ -1,7 +1,6 @@
 package com.coding.mrpImplementation.service.impl;
 
 import com.coding.mrpImplementation.model.Company;
-import com.coding.mrpImplementation.service.exceptions.MRPException;
 import com.coding.mrpImplementation.MRP.*;
 import com.coding.mrpImplementation.model.Activity;
 import com.coding.mrpImplementation.model.Machine;

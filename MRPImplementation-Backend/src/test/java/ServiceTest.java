@@ -1,8 +1,8 @@
+import com.coding.mrpImplementation.MRP.exception.MRPException;
 import com.coding.mrpImplementation.model.Activity;
 import com.coding.mrpImplementation.model.Company;
 import com.coding.mrpImplementation.model.Machine;
 import com.coding.mrpImplementation.model.Material;
-import com.coding.mrpImplementation.service.exceptions.MRPException;
 import com.coding.mrpImplementation.service.Service;
 import com.coding.mrpImplementation.service.impl.ServiceImpl;
 import org.junit.*;
@@ -20,7 +20,7 @@ public class    ServiceTest{
     }
 
     @Before
-    public void setUp() throws MRPException{}
+    public void setUp() throws MRPException {}
 /**
         // add material
         int initialInventoryOnHand= 19;//(int) (Math.random()*(7)+19);

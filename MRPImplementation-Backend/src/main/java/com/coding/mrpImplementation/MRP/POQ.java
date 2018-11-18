@@ -2,10 +2,9 @@ package com.coding.mrpImplementation.MRP;
 
 import com.coding.mrpImplementation.model.Company;
 import com.coding.mrpImplementation.model.Material;
-import com.coding.mrpImplementation.service.exceptions.MRPException;
 import com.coding.mrpImplementation.service.Service;
 
-public class POQ implements MRP {
+public class POQ {/**implements MRP {
 
 
     @Override
@@ -39,5 +38,5 @@ public class POQ implements MRP {
         }
         service.updateInventoryOnHand(timeIndex, material, plannedReceptions);
         return plannedReceptions;
-    }
+    }**/
 }

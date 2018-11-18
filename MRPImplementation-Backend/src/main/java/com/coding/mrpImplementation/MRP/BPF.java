@@ -2,10 +2,9 @@ package com.coding.mrpImplementation.MRP;
 
 import com.coding.mrpImplementation.model.Company;
 import com.coding.mrpImplementation.model.Material;
-import com.coding.mrpImplementation.service.exceptions.MRPException;
 import com.coding.mrpImplementation.service.Service;
 
-public class BPF implements MRP {
+public class BPF{/** implements MRP {
     @Override
     public int execute(Service service, Material material, int timeIndex, Company company) throws MRPException {
         int plannedReceptions=0;
@@ -49,7 +48,7 @@ public class BPF implements MRP {
         }
         service.updateInventoryOnHand(timeIndex, material, plannedReceptions);
         return plannedReceptions;
-    }
+    }**/
 
 
 }

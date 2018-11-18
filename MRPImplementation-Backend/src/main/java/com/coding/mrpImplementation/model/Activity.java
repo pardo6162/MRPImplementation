@@ -13,12 +13,12 @@ public class Activity {
     private String id;
     private String name;
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "ActivitiesOfMachines",
             joinColumns = { @JoinColumn(name = "Activities_id",referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "Machines_id",referencedColumnName = "id") })
     private List<Machine> machines;
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "MaterialsOfActivities",
             joinColumns = { @JoinColumn(name = "Activities_id",referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "Materials_id",referencedColumnName = "id") })

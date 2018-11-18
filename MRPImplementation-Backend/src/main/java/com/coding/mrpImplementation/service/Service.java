@@ -2,7 +2,6 @@ package com.coding.mrpImplementation.service;
 
 import com.coding.mrpImplementation.model.Company;
 import com.coding.mrpImplementation.model.Material;
-import com.coding.mrpImplementation.service.exceptions.MRPException;
 import org.hibernate.service.spi.ServiceException;
 
 import java.util.HashMap;
