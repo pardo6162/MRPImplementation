@@ -1,10 +1,9 @@
 package com.coding.mrpImplementation.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -12,74 +11,28 @@ public class Company {
 
     @Id
     private String id;
+    private String name;
+    private String nit;
 
-//private ArrayList<Machine>  machines;
 
-    private int time;
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "MachineOfCompanies",
+            joinColumns = { @JoinColumn(name = "Companies_id",referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "Machines_id",referencedColumnName = "id") })
+    private List<Machine>  machines;
+    private Schedule schedule;
+    private Inventory inventory;
+
 
     public Company(){
-       // machines =new ArrayList<>();
 
     }
-/**
-    public void addMachine(Machine machine){
-        if(!machines.contains(machine))
-            machines.add(machine);
+
+    public Company(String id, String name, String nit) {
+        this.id = id;
+        this.name = name;
+        this.nit = nit;
     }
-
-    public ArrayList<Machine> getMachines(){
-        return machines;
-    }
-
-
-    public  Machine getMachine(String  idMachine){
-        Machine machine=null;
-        for (Machine i:machines)
-            if(i.getId().equals(idMachine))
-                machine=i;
-        return machine;
-    }
-
-  /**  public  ArrayList<Material> getMaterials(){
-        ArrayList<Material> materials= new ArrayList<>();
-        for ( Machine i: machines)
-            for (Activity j:i.getActivities())
-                for (Material k:j.getMaterials())
-                    materials.add(k);
-        return materials;
-    }
-
-    public  Material getMaterial(String materialId){
-        Material material=null;
-        for ( Machine i: machines)
-            for (Activity j:i.getActivities())
-                for (Material k:j.getMaterials())
-                    if (materialId.equals(k.getId()))
-                        material=k;
-        return material;
-    }
-
-    public ArrayList<Activity> getActivities(){
-        ArrayList<Activity> activities = new ArrayList<>();
-        for ( Machine i: machines)
-            for (Activity j:i.getActivities())
-                activities.add(j);
-        return activities;
-    }
-
-    public Activity getActivity(String idActivity){
-        ArrayList<Activity> activities = new ArrayList<>();
-        Activity activity=null;
-        for ( Machine i: machines)
-            for (Activity j:i.getActivities()){
-                activities.add(j);
-                if(idActivity == j.getId())
-                    activity=j;
-            }
-        return  activity;
-    }
- **/
-
 
     public String getId() {
         return id;
@@ -89,13 +42,43 @@ public class Company {
         this.id = id;
     }
 
-    public void setTime(int time){
-        this.time=time;
+    public String getName() {
+        return name;
     }
 
-
-    public int getTime(){
-        return time;
+    public void setName(String name) {
+        this.name = name;
     }
 
+    public String getNit() {
+        return nit;
+    }
+
+    public void setNit(String nit) {
+        this.nit = nit;
+    }
+
+    public List<Machine> getMachines() {
+        return machines;
+    }
+
+    public void setMachines(List<Machine> machines) {
+        this.machines = machines;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
 }

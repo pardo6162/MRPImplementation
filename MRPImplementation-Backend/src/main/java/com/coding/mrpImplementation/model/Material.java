@@ -1,9 +1,8 @@
 package com.coding.mrpImplementation.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -12,72 +11,40 @@ public class Material {
     @Id
     private String id;
     private String name;
-    private int initialInventoryOnHand;
     private int orderingCost;
     private int maintainCost;
-    //private ArrayList<Activity> activities;
-    private int securityStock;
-    private int sizeOfLot;
-    private int availablePrev;
-    private int period;
-    //private int[] inventoryOnHand;
-    //private int[] programedReceptions;
-    //private Map<Activity,Integer> quantity;
-    //private List<Supplier> supplier;
+
+
+    @OneToMany(cascade= CascadeType.ALL)
+    @JoinTable(name = "MaterialOfActivities",
+            joinColumns = { @JoinColumn(name = "Materials_id",referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "Activities_id",referencedColumnName = "id") })
+    private List<Activity> activities;
+    private List<Supplier> suppliers;
+
+    public  Material(){}
+
     public Material(String id, String name,int initialInventoryOnHand,int orderingCost,int maintainCost,int securityStock,int sizeOfLot,int availablePrev,int period){
         this.id=id;
         this.name=name;
-        this.initialInventoryOnHand=initialInventoryOnHand;
         this.orderingCost=orderingCost;
         this.maintainCost=maintainCost;
-        this.securityStock=securityStock;
-        this.sizeOfLot=sizeOfLot;
-        this.availablePrev=availablePrev;
-        this.period=period;
-
-        //activities=new ArrayList<>();
     }
 
-    public int getPeriod() {
-        return period;
+    public String getId() {
+        return id;
     }
 
-    public void setPeriod(int period) {
-        this.period = period;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public int getSecurityStock() {
-        return securityStock;
+    public String getName() {
+        return name;
     }
 
-    public void setSecurityStock(int securityStock) {
-        this.securityStock = securityStock;
-    }
-
-    public int getSizeOfLot() {
-        return sizeOfLot;
-    }
-
-    public void setSizeOfLot(int sizeOfLot) {
-        this.sizeOfLot = sizeOfLot;
-    }
-
-    public int getAvailablePrev() {
-        return availablePrev;
-    }
-
-    public void setAvailablePrev(int availablePrev) {
-        this.availablePrev = availablePrev;
-    }
-
-
-
-    public int getInitialInventoryOnHand() {
-        return initialInventoryOnHand;
-    }
-
-    public void setInitialInventoryOnHand(int initialInventoryOnHand) {
-        this.initialInventoryOnHand = initialInventoryOnHand;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getOrderingCost() {
@@ -96,57 +63,19 @@ public class Material {
         this.maintainCost = maintainCost;
     }
 
-
-
-
-    public String getId(){
-        return id;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public void setId(String id){
-        this.id=id;
-    }
-
-    public void setName(String name){
-        this.name=name;
-    }
-
-
-    /**public ArrayList<com.coding.mrpImplementation.model.Activity> getActivities(){
+    public List<Activity> getActivities() {
         return activities;
     }
 
-    public void setActivity(Activity activity){
-        if(!activities.contains(activity)){
-            activities.add(activity);
-        }
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
     }
 
-    public int[] getInventoryOnHand() {
-            return inventoryOnHand;
+    public List<Supplier> getSuppliers() {
+        return suppliers;
     }
 
-    public void setInventoryOnHand(int[] inventoryOnHand) {
-        this.inventoryOnHand = inventoryOnHand;
+    public void setSuppliers(List<Supplier> suppliers) {
+        this.suppliers = suppliers;
     }
-
-    public int[] getProgramedReceptions() {
-        return programedReceptions;
-    }
-
-    public void setProgramedReceptions(int[] programedReceptions) {
-        this.programedReceptions = programedReceptions;
-    }
-
-    public Map<Activity,Integer> getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Map<Activity,Integer> quantity) {
-        this.quantity = quantity;
-    }**/
 }

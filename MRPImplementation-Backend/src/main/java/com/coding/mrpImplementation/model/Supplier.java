@@ -4,6 +4,7 @@ package com.coding.mrpImplementation.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.List;
 
 
 @Entity
@@ -16,7 +17,11 @@ public class Supplier {
     private String address;
     private int deliveryTime;
     private int phone;
-    //private ArrayList<Material> masterials;
+
+
+    private List<Material> masterials;
+
+    public Supplier(){}
 
 
     public Supplier(String businessName,String country,String address,int deliveryTime, int phone, String id){
@@ -28,6 +33,13 @@ public class Supplier {
         this.id = id;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getBusinessName() {
         return businessName;
@@ -69,6 +81,11 @@ public class Supplier {
         this.phone = phone;
     }
 
+    public List<Material> getMasterials() {
+        return masterials;
+    }
 
-
+    public void setMasterials(List<Material> masterials) {
+        this.masterials = masterials;
+    }
 }

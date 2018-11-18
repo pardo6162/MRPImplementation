@@ -1,7 +1,7 @@
 package com.coding.mrpImplementation.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -10,41 +10,51 @@ public class Machine {
     @Id
     private String id;
     private String name;
-   // private ArrayList<Activity> activities;
+
+
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "MachineOfCompanies",
+            joinColumns = { @JoinColumn(name = "Machines_id",referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "Companies_id",referencedColumnName = "id") })
+    private List<Activity> activities;
+    private List<Company> companies;
+
+    public  Machine(){}
 
     public Machine(String id, String name){
         this.id=id;
         this.name=name;
-        //activities=new ArrayList<>();
     }
 
-    public String getId(){
+    public String getId() {
         return id;
     }
 
-    public String getName(){
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public void setId(String id){
-        this.id=id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setName(String name){
-        this.name=name;
-    }
-
-   /** public ArrayList<Activity> getActivities() {
+    public List<Activity> getActivities() {
         return activities;
     }
 
-    public void setActivities(ArrayList<Activity> activities) {
+    public void setActivities(List<Activity> activities) {
         this.activities = activities;
-    }**/
+    }
 
+    public List<Company> getCompanies() {
+        return companies;
+    }
 
-
-
-
-
+    public void setCompanies(List<Company> companies) {
+        this.companies = companies;
+    }
 }

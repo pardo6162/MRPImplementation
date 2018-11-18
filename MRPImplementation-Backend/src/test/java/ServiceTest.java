@@ -28,7 +28,7 @@ public class    ServiceTest{
         int maintainCost= 56;//(int) (Math.random()*(199)+2);
         int securityStock= 18;//(int)(Math.random()*(8)+1);
         int sizeOfLot=9;//(Math.random()*(10)+1);
-        int availablePrev= 3;//(int)(Math.random()*(8)+1);
+        int availablePrev= ;//(int)(Math.random()*(8)+1);
         int period= 5;//(int)(Math.random()*(7));
         material =new Material("MT1","Material "+(1),initialInventoryOnHand,orderingCost,maintainCost,securityStock,sizeOfLot,availablePrev,period);
 
