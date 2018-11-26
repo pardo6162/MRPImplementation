@@ -1,4 +1,5 @@
 var axios_module=function(){
+    var host="localhost:8080/"
     var addCompany=function(nit,name){
         axios.post('mrp/company',{"nit":nit,"name":name,"machines":[]})
             .then(function(resp){

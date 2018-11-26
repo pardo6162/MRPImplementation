@@ -29,6 +29,10 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+        
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/axios_module.js"></script>
 
 </head>
 
@@ -51,7 +55,7 @@
                                     <input id="nit" class="form-control" placeholder="NIT" name="nit" type="text" value="">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a  class="btn btn-lg btn-success btn-block" onclick="app.addCompany($('#name').value,$('#nit').value)">Register</a>
+                                <button class="btn btn-lg btn-success btn-block" onclick="appModule.addCompany();"> Register</button>
                             </fieldset>
                         </form>
                     </div>
@@ -59,11 +63,7 @@
             </div>
         </div>
     </div>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="../js/app.js"></script>
-    <script src="../js/axios_module.js"></script>
-    
-   
+
 
 </body>
 
