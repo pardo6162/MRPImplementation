@@ -1,6 +1,6 @@
 var axios_module=(function(){
     var host="http://localhost:8080/"
-    var addCompany=function(nit,name){
+    var addCompany=function(name,nit){
         axios.post(host+'mrp/company',{"nit":nit,"name":name,"machines":[]})
             .then(function(resp){
                 console.log(resp);
@@ -28,6 +28,15 @@ var axios_module=(function(){
                 console.log(err);
             })
     };
+    var addMachine=function(id,name,company){
+        axios.post(host+'mrp/company/'+company.nit+'/machine',{"id":id,"name":name,"activities":[],"companies":[]})
+        .then(function(resp){
+            console.log(resp);
+        })
+        .catch(function(err){
+            console.log(err);
+        })
+    }
 
     return{
         "addCompany": addCompany,

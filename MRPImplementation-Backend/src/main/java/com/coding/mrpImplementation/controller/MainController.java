@@ -7,6 +7,7 @@ import com.coding.mrpImplementation.model.Machine;
 import com.coding.mrpImplementation.model.Material;
 import com.coding.mrpImplementation.service.persistence.ActivityRepository;
 import com.coding.mrpImplementation.service.persistence.CompanyRepository;
+import com.coding.mrpImplementation.service.persistence.MachineRepository;
 import com.sun.xml.internal.bind.v2.runtime.reflect.opt.OptimizedAccessorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,9 @@ public class MainController {
 
     @Autowired
     private CompanyRepository companyRepository;
+
+    @Autowired
+    private MachineRepository machineRepository;
 
     @PostMapping(path = "/company")
     public @ResponseBody String addCompany (@RequestBody Company company){
@@ -49,4 +53,17 @@ public class MainController {
     }
 
 
+    @PostMapping(path="/company/{nit}/machine")
+    public  @ResponseBody String addMachine (@PathVariable(value="nit")String nit,@RequestBody Machine machine){
+        Company company=companyRepository.findById(nit).get();
+        List<Machine> machines=company.getMachines();
+        List<Company> companies=machine.getCompanies();
+        companies.add(company);
+        machines.add(machine);
+        company.setMachines(machines);
+        companyRepository.save(company);
+        machine.setCompanies(companies);
+        machineRepository.save(machine);
+        return "Saved";
+    }
 }
