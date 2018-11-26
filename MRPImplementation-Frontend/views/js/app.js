@@ -1,11 +1,20 @@
-var appModule = function(){
-    var addCompany= function(){
-        var name=document.getElementById("name");
-        var nit=document.getElementById("nit");
+var appModule = {
+     addCompany: function(){ 
+        var name=document.getElementById("name").value;
+        var nit=document.getElementById("nit").value;
         axios_module.addCompany(name,nit);
-        console.log("Company added");      
-    }
-    return {
-        addCompany:addCompany
+    },
+    getCompanies: function(){
+    var companies =axios_module.getCompanies(function(resp){
+        var table =document.getElementById("insert").innerHTML="<div><label><button name='name' value='dfsfsdf'>dfgdg</label></div>"
+        console.log(table)
+        for(let i in companies){
+            for(let j in i){
+                table.innerHTML="<div><label><output name='name' value='"+j.name+"'></label></div>"
+            }
+        }     
+    });    
+    
+    
     }
 }

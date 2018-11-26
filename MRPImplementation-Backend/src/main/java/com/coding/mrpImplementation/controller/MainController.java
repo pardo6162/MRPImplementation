@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentMap;
 
 @Controller
+@CrossOrigin(origins = "*")
 @RequestMapping(path="/mrp")
 public class MainController {
     @Autowired
@@ -38,6 +40,12 @@ public class MainController {
         Optional<Company> optCompany= companyRepository.findById(nit);
         company=optCompany.get();
         return company;
+    }
+
+
+    @GetMapping(path="/company")
+    public @ResponseBody List<Company> getCompanies(){
+        return companyRepository.findAll();
     }
 
 

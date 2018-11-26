@@ -30,9 +30,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
         
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="../js/app.js"></script>
-    <script src="../js/axios_module.js"></script>
+
 
 </head>
 
@@ -46,24 +44,21 @@
                         <h3 class="panel-title">Register your Company</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form">
-                            <fieldset>
                                 <div class="form-group">
-                                    <input id="name" class="form-control" placeholder="Name" name="name" type="text" autofocus>
+                                    <input id="name" class="form-control" name="name" placeholder="Company" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input id="nit" class="form-control" placeholder="NIT" name="nit" type="text" value="">
+                                    <input id="nit" class="form-control" name="nit" type="text" placeholder="NIT" >
                                 </div>
-                                <!-- Change this to a button or input when using this as a form -->
                                 <button class="btn btn-lg btn-success btn-block" onclick="appModule.addCompany();"> Register</button>
-                            </fieldset>
-                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/axios_module.js"></script>
 
 </body>
 
