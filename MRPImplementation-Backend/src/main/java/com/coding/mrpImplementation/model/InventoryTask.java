@@ -58,4 +58,6 @@ public class InventoryTask extends Task {
     public void setMaterialControl(MaterialControl materialControl) {
         this.materialControl = materialControl;
     }
+
+
 }

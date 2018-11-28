@@ -1,5 +1,13 @@
+var company=null;
+
+
 var appModule = {
-    company:null,
+
+    load:function(){
+        document.getElementById("page-wrapper").innerHTML=loginView;
+        this.getCompanies();
+    },
+
     addCompany: function(){ 
         var name=document.getElementById("name").value;
         var nit=document.getElementById("nit").value;
@@ -8,22 +16,32 @@ var appModule = {
     getCompanies: function(){
         axios_module.getCompanies(function(resp){
             for(let i in resp.data){
-                document.getElementById("insert").innerHTML="<div><label align='center'><a href='index.html'><input  value='"+resp.data[i].name+"' class='btn btn-lg btn-success btn-block' onclick='appModule.initIndex("+resp.data[i]+")'></a></label></div>"+document.getElementById("insert").innerHTML
+                document.getElementById("insert").innerHTML="<div><label><output  class='btn btn-lg btn-success btn-block'  onclick=\"appModule.initIndex('"+resp.data[i].nit+"','"+resp.data[i].name+"');\" >"+resp.data[i].name+"</label></div>"+document.getElementById("insert").innerHTML
             }     
         })
     },
-    initIndex:function(companyJSON){
-        appModule.company=companyJSON;
+    initIndex:function(nit,name){
+        company={"nit":nit,"name":name};
+        document.getElementById("company").innerHTML=company.name;
+        document.getElementById("page-wrapper").innerHTML=dashboard;
+
     },    
     addMachine:function(){
-        if(this.company==null){
+        if(company==null){
             alert("Please login");
         }else{
             var name=document.getElementById("name").value;
-            var name=document.getElementById("id").value;
-            axios_module.addMachine(name,id,appModule.company)
+            var id=document.getElementById("id").value;
+            axios_module.addMachine(id,name,company)
         }
+    },
+    machinesView:function(){
+        axios_module.getMachinesOfCompany(function(resp){
+            document.getElementById("page-wrapper").innerHTML=machinesView;
+            for(let i in resp.data){
+                document.getElementById("machines").innerHTML="<div class='form-group'><label>"+resp.data[i].id+"</label><label>"+resp.data[i].name+"</label></div>";
+            }    
+        },company)
+        
     }
-    
-    
 }

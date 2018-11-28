@@ -55,15 +55,19 @@ public class MainController {
 
     @PostMapping(path="/company/{nit}/machine")
     public  @ResponseBody String addMachine (@PathVariable(value="nit")String nit,@RequestBody Machine machine){
+        machineRepository.save(machine);
         Company company=companyRepository.findById(nit).get();
         List<Machine> machines=company.getMachines();
-        List<Company> companies=machine.getCompanies();
-        companies.add(company);
         machines.add(machine);
         company.setMachines(machines);
         companyRepository.save(company);
-        machine.setCompanies(companies);
-        machineRepository.save(machine);
         return "Saved";
+    }
+
+    @GetMapping(path="/company/{nit}/machine")
+    public  @ResponseBody List<Machine> getMachines (@PathVariable(value="nit")String nit){
+        Company company=companyRepository.findById(nit).get();
+        List<Machine> machines=company.getMachines();
+        return machines;
     }
 }
