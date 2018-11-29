@@ -66,4 +66,44 @@ public class MainController {
         machineRepository.save(machine);
         return "Saved";
     }
+
+    @DeleteMapping(path="/company/{nit}/machine/{id}")
+    public @ResponseBody String deleteMachine(@PathVariable(value = "nit")String nit,@PathVariable(value="id")String id){
+        Company company=companyRepository.findById(nit).get();
+        Machine machine=machineRepository.findById(id).get();
+        company.getMachines().remove(machine);
+        companyRepository.save(company);
+        machineRepository.delete(machine);
+        return "Deleted";
+    }
+
+    @PostMapping(path="/company/{nit}/machine/{id}/activity")
+    public  @ResponseBody String addActivity(@PathVariable(value="nit") String nit,@PathVariable(value = "id")String id,@RequestBody Activity activity){
+        Company company=companyRepository.findById(nit).get();
+        Machine machine=machineRepository.findById(id).get();
+        String resp="The company don´t contains this machine";
+        if(company.getMachines().contains(machine)) {
+            List<Activity> activities = machine.getActivities();
+            activities.add(activity);
+            machine.setActivities(activities);
+            machineRepository.save(machine);
+            activityRepository.save(activity);
+            resp = "Saved";
+        }
+        return  resp;
+    }
+
+    @GetMapping(path = "/company/{nit}/machine/{id}/activity")
+    public @ResponseBody List<Activity> getActivities(@PathVariable(value = "nit")String  nit,@PathVariable(value = "id")String id){
+        List<Activity> activities=null;
+        Company company=companyRepository.findById(nit).get();
+        Machine machine=machineRepository.findById(id).get();
+        String resp="The company don´t contains this machine";
+        if(company.getMachines().contains(machine)) {
+            activities=g
+        }
+    }
+
+
+
 }
