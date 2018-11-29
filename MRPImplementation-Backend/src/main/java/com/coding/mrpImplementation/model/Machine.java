@@ -15,13 +15,8 @@ public class Machine {
     @OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "ActivitiesOfMachines",
             joinColumns = { @JoinColumn(name = "machine_id",referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "activitie_id",referencedColumnName = "id") })
+            inverseJoinColumns = { @JoinColumn(name = "activitiy_id",referencedColumnName = "id") })
     private List<Activity> activities;
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "MachineOfCompanies",
-            joinColumns = { @JoinColumn(name = "machine_id",referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "company_nit",referencedColumnName = "nit") })
-    private List<Company> companies;
 
     public  Machine(){}
 
@@ -52,13 +47,5 @@ public class Machine {
 
     public void setActivities(List<Activity> activities) {
         this.activities = activities;
-    }
-
-    public List<Company> getCompanies() {
-        return companies;
-    }
-
-    public void setCompanies(List<Company> companies) {
-        this.companies = companies;
     }
 }

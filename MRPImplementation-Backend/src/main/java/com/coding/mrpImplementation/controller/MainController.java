@@ -8,16 +8,13 @@ import com.coding.mrpImplementation.model.Material;
 import com.coding.mrpImplementation.service.persistence.ActivityRepository;
 import com.coding.mrpImplementation.service.persistence.CompanyRepository;
 import com.coding.mrpImplementation.service.persistence.MachineRepository;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.OptimizedAccessorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentMap;
 
 @Controller
 @CrossOrigin(origins = "*")
@@ -55,17 +52,22 @@ public class MainController {
 
     @PostMapping(path="/company/{nit}/machine")
     public  @ResponseBody String addMachine (@PathVariable(value="nit")String nit,@RequestBody Machine machine){
+        machineRepository.save(machine);
         Company company=companyRepository.findById(nit).get();
         List<Machine> machines=company.getMachines();
-        List<Company> companies=machine.getCompanies();
-        companies.add(company);
         machines.add(machine);
         company.setMachines(machines);
         companyRepository.save(company);
-        machine.setCompanies(companies);
-        machineRepository.save(machine);
         return "Saved";
     }
+
+    @GetMapping(path="/company/{nit}/machine")
+    public  @ResponseBody List<Machine> getMachines (@PathVariable(value="nit")String nit){
+        Company company=companyRepository.findById(nit).get();
+        List<Machine> machines=company.getMachines();
+        return machines;
+    }
+
 
     @DeleteMapping(path="/company/{nit}/machine/{id}")
     public @ResponseBody String deleteMachine(@PathVariable(value = "nit")String nit,@PathVariable(value="id")String id){
@@ -98,11 +100,30 @@ public class MainController {
         List<Activity> activities=null;
         Company company=companyRepository.findById(nit).get();
         Machine machine=machineRepository.findById(id).get();
-        String resp="The company don´t contains this machine";
+        String resp="The company doesn´t contain this machine";
         if(company.getMachines().contains(machine)) {
-            activities=g
+            activities=machine.getActivities();
         }
+        return activities;
     }
+
+    @DeleteMapping(path="/company/{nit}/machine/{id_machine}/activity/{id_activity}")
+    public @ResponseBody String deleteActivity(@PathVariable(value = "nit")String nit,@PathVariable(value="id_machine")String id_machine,@PathVariable(value="id_activity") String id_activity){
+        Company company=companyRepository.findById(nit).get();
+        Machine machine=machineRepository.findById(id_machine).get();
+        Activity activity=activityRepository.findById(id_activity).get();
+        String resp="The company doesn´t contain this machine";
+        if(company.getMachines().contains(machine)) {
+            if(machine.getActivities().contains(activity)){
+                activityRepository.delete(activity);
+                resp="Deleted";
+            }else{
+                resp="The machine doesn´t contain the activity";
+            }
+        }
+        return resp;
+    }
+
 
 
 

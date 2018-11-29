@@ -15,7 +15,7 @@ public class Activity {
 
     @OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "ActivitiesOfMachines",
-            joinColumns = { @JoinColumn(name = "activitie_id",referencedColumnName = "id") },
+            joinColumns = { @JoinColumn(name = "activitiy_id",referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "machine_id",referencedColumnName = "id") })
     private List<Machine> machines;
     @OneToMany(cascade=CascadeType.ALL)

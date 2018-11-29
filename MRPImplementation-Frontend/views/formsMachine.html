@@ -32,7 +32,7 @@
 
 </head>
 
-<body>
+<body onload="appModule.load()"> 
 
     <div id="wrapper">
 
@@ -47,6 +47,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="index.html">MRProject</a>
+                    <a id="company" class="navbar-brand" value=""></a>
                 </div>
                 <!-- /.navbar-header -->
     
@@ -131,6 +132,9 @@
     </div>
     <!-- /#wrapper -->
 
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/axios_module.js"></script>
 
 </body>
 

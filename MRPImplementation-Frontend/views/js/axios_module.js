@@ -18,10 +18,10 @@ var axios_module=(function(){
                 console.log(err);
             })
     };
-    var getCompanies=function(response){
+    var getCompanies=function(callback){
         axios.get(host+'mrp/company')
             .then(function(resp){
-                response(resp);
+                callback(resp);
                 console.log(resp);
             })
             .catch(function(err){
@@ -29,6 +29,8 @@ var axios_module=(function(){
             })
     };
     var addMachine=function(id,name,company){
+        console.log(id);
+        console.log(name);
         axios.post(host+'mrp/company/'+company.nit+'/machine',{"id":id,"name":name,"activities":[],"companies":[]})
         .then(function(resp){
             console.log(resp);
@@ -36,11 +38,23 @@ var axios_module=(function(){
         .catch(function(err){
             console.log(err);
         })
-    }
+    };
+    var getMachinesOfCompany=function(callback,company){
+        axios.get(host+'mrp/company/'+company.nit+'/machine')
+        .then(function(resp){
+            callback(resp);
+            console.log(resp);
+        })
+        .catch(function(err){
+            console.log(err);
+        })
+    };
 
     return{
         "addCompany": addCompany,
         "getCompany":getCompany,
-        "getCompanies":getCompanies
+        "getCompanies":getCompanies,
+        "addMachine":addMachine,
+        "getMachinesOfCompany":getMachinesOfCompany
     }
 }());
