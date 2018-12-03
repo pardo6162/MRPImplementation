@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface ActivityRepository extends CrudRepository<Activity,Integer> {
     Optional<Activity> findById(String id);
-    String save(Activity activity);
+    Activity save(Activity activity);
     void delete(Activity activity);
 }

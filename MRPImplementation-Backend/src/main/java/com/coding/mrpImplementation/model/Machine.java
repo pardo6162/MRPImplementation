@@ -12,10 +12,14 @@ public class Machine {
     private String name;
 
 
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name ="company_nit")
+    private Company company;
+
     @OneToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "ActivitiesOfMachines",
+    @JoinTable(name = "Activity",
             joinColumns = { @JoinColumn(name = "machine_id",referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "activitiy_id",referencedColumnName = "id") })
+            inverseJoinColumns = { @JoinColumn(name = "id",referencedColumnName = "id") })
     private List<Activity> activities;
 
     public  Machine(){}
@@ -40,6 +44,15 @@ public class Machine {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
 
     public List<Activity> getActivities() {
         return activities;

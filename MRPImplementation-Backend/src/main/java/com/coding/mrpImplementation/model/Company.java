@@ -13,10 +13,7 @@ public class Company {
     private String name;
 
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "MachineOfCompanies",
-            joinColumns = { @JoinColumn(name = "company_nit",referencedColumnName = "nit") },
-            inverseJoinColumns = { @JoinColumn(name = "machine_id",referencedColumnName = "id") })
+    @OneToMany(cascade=CascadeType.ALL,mappedBy="company")
     private List<Machine>  machines;
 
 

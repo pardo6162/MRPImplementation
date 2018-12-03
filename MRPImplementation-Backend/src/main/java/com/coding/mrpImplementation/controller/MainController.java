@@ -52,12 +52,13 @@ public class MainController {
 
     @PostMapping(path="/company/{nit}/machine")
     public  @ResponseBody String addMachine (@PathVariable(value="nit")String nit,@RequestBody Machine machine){
-        machineRepository.save(machine);
         Company company=companyRepository.findById(nit).get();
-        List<Machine> machines=company.getMachines();
-        machines.add(machine);
-        company.setMachines(machines);
-        companyRepository.save(company);
+        //List<Machine> machines=company.getMachines();
+        //machines.add(machine);
+        //company.setMachines(machines);
+        machine.setCompany(company);
+        machineRepository.save(machine);
+        //companyRepository.save(company);
         return "Saved";
     }
 
@@ -71,12 +72,17 @@ public class MainController {
 
     @DeleteMapping(path="/company/{nit}/machine/{id}")
     public @ResponseBody String deleteMachine(@PathVariable(value = "nit")String nit,@PathVariable(value="id")String id){
+        String resp="The company doesn't contain the machine";
         Company company=companyRepository.findById(nit).get();
         Machine machine=machineRepository.findById(id).get();
-        company.getMachines().remove(machine);
-        companyRepository.save(company);
-        machineRepository.delete(machine);
-        return "Deleted";
+        if(machine.getCompany().equals(company)){
+            company.getMachines().remove(machine);
+            companyRepository.save(company);
+            machineRepository.delete(machine);
+            resp="Deleted";
+        }
+
+        return resp;
     }
 
     @PostMapping(path="/company/{nit}/machine/{id}/activity")
@@ -84,10 +90,11 @@ public class MainController {
         Company company=companyRepository.findById(nit).get();
         Machine machine=machineRepository.findById(id).get();
         String resp="The company don´t contains this machine";
-        if(company.getMachines().contains(machine)) {
+        if(machine.getCompany().equals(company)) {
             List<Activity> activities = machine.getActivities();
             activities.add(activity);
             machine.setActivities(activities);
+            activity.setMachine(machine);
             machineRepository.save(machine);
             activityRepository.save(activity);
             resp = "Saved";
@@ -101,7 +108,7 @@ public class MainController {
         Company company=companyRepository.findById(nit).get();
         Machine machine=machineRepository.findById(id).get();
         String resp="The company doesn´t contain this machine";
-        if(company.getMachines().contains(machine)) {
+        if(machine.getCompany().equals(company)) {
             activities=machine.getActivities();
         }
         return activities;
@@ -114,7 +121,7 @@ public class MainController {
         Activity activity=activityRepository.findById(id_activity).get();
         String resp="The company doesn´t contain this machine";
         if(company.getMachines().contains(machine)) {
-            if(machine.getActivities().contains(activity)){
+            if(activity.getMachine().equals(machine)){
                 activityRepository.delete(activity);
                 resp="Deleted";
             }else{

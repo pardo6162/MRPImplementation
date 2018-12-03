@@ -39,9 +39,14 @@ var appModule = {
         axios_module.getMachinesOfCompany(function(resp){
             document.getElementById("page-wrapper").innerHTML=machinesView;
             for(let i in resp.data){
-                document.getElementById("machines").innerHTML="<div class='form-group'><label>"+resp.data[i].id+"</label><label>"+resp.data[i].name+"</label></div>";
+                document.getElementById("machines").innerHTML="<div class='form-group'><label>ID: "+resp.data[i].id+"</label><label>NAME: "+resp.data[i].name+"</label><input  class='btn btn-lg btn-success btn-block'  onclick=\"appModule.deleteMachine('"+resp.data[i]+"');\" ></div>";
             }    
         },company)
         
+    },
+    deleteMachine:function(machine){
+        axios_module.deleteMachine(company,machine);
     }
+
+
 }

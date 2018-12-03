@@ -13,11 +13,9 @@ public class Activity {
     private String id;
     private String name;
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "ActivitiesOfMachines",
-            joinColumns = { @JoinColumn(name = "activitiy_id",referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "machine_id",referencedColumnName = "id") })
-    private List<Machine> machines;
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="machine_id")
+    private Machine machine;
     @OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "MaterialsOfActivities",
             joinColumns = { @JoinColumn(name = "activity_id",referencedColumnName = "id") },
@@ -48,12 +46,12 @@ public class Activity {
         this.name = name;
     }
 
-    public List<Machine> getMachines() {
-        return machines;
+    public Machine getMachine() {
+        return machine;
     }
 
-    public void setMachines(List<Machine> machines) {
-        this.machines = machines;
+    public void setMachine(Machine machine) {
+        this.machine = machine;
     }
 
     public List<Material> getMaterials() {
