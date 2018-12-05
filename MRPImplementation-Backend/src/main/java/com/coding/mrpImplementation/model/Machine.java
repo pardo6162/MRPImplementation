@@ -1,5 +1,7 @@
 package com.coding.mrpImplementation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,7 +13,7 @@ public class Machine {
     private String id;
     private String name;
 
-
+    @JsonIgnore
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name ="company_nit")
     private Company company;

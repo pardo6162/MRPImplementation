@@ -1,6 +1,8 @@
 package com.coding.mrpImplementation.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class Company {
     private String nit;
     private String name;
 
-
+    //@JsonIgnore
     @OneToMany(cascade=CascadeType.ALL,mappedBy="company")
     private List<Machine>  machines;
 

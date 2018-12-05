@@ -3,6 +3,7 @@ var axios_module=(function(){
     var addCompany=function(name,nit){
         axios.post(host+'mrp/company',{"nit":nit,"name":name,"machines":[]})
             .then(function(resp){
+                alert("The Company was added")
                 console.log(resp);
             })
             .catch(function(err){
@@ -58,10 +59,8 @@ var axios_module=(function(){
             console.log(err);
         })
     };
-    var addActivity=function(id,name,machine){
-        console.log(id);
-        console.log(name);
-        axios.post(host+'mrp/company/'+machine.company.nit+'/machine/'+machine.id+'/activity',{"id":id,"name":name,"machine":machine,"materials":[]})
+    var addActivity=function(activity,machine){
+        axios.post(host+'mrp/company/'+machine.company.nit+'/machine/'+machine.id+'/activity',{"id":activity.id,"name":activity.name,"machine":machine,"materials":[]})
         .then(function(resp){
             console.log(resp);
         })

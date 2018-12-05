@@ -77,7 +77,7 @@ public class MainController {
         Machine machine=machineRepository.findById(id).get();
         if(machine.getCompany().equals(company)){
             company.getMachines().remove(machine);
-            companyRepository.save(company);
+            machine.setCompany(null);
             machineRepository.delete(machine);
             resp="Deleted";
         }
