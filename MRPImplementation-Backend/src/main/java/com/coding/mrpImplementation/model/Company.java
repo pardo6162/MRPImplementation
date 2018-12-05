@@ -14,7 +14,7 @@ public class Company {
     private String nit;
     private String name;
 
-    //@JsonIgnore
+
     @OneToMany(cascade=CascadeType.ALL,mappedBy="company")
     private List<Machine>  machines;
 

@@ -1,4 +1,5 @@
 package com.coding.mrpImplementation.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -13,9 +14,11 @@ public class Activity {
     private String id;
     private String name;
 
+    @JsonIgnore
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="machine_id")
     private Machine machine;
+
     @OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "MaterialsOfActivities",
             joinColumns = { @JoinColumn(name = "activity_id",referencedColumnName = "id") },

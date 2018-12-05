@@ -4,7 +4,6 @@ package com.coding.mrpImplementation.controller;
 import com.coding.mrpImplementation.model.Activity;
 import com.coding.mrpImplementation.model.Company;
 import com.coding.mrpImplementation.model.Machine;
-import com.coding.mrpImplementation.model.Material;
 import com.coding.mrpImplementation.service.persistence.ActivityRepository;
 import com.coding.mrpImplementation.service.persistence.CompanyRepository;
 import com.coding.mrpImplementation.service.persistence.MachineRepository;
@@ -76,7 +75,6 @@ public class MainController {
         Company company=companyRepository.findById(nit).get();
         Machine machine=machineRepository.findById(id).get();
         if(machine.getCompany().equals(company)){
-            company.getMachines().remove(machine);
             machine.setCompany(null);
             machineRepository.delete(machine);
             resp="Deleted";
@@ -122,6 +120,7 @@ public class MainController {
         String resp="The company doesn´t contain this machine";
         if(company.getMachines().contains(machine)) {
             if(activity.getMachine().equals(machine)){
+                activity.setMachine(null);
                 activityRepository.delete(activity);
                 resp="Deleted";
             }else{

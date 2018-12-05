@@ -1,9 +1,6 @@
 package com.coding;
 
 
-import com.coding.mrpImplementation.model.Activity;
-import com.coding.mrpImplementation.model.Machine;
-import com.coding.mrpImplementation.model.Material;
 import com.coding.mrpImplementation.service.persistence.ActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
