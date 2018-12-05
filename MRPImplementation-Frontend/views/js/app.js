@@ -71,19 +71,26 @@ var appModule = {
         
     },
     activitiesView:function(){
+
+        let activitiesUpdate=function(){
+            var selector = document.getElementById('machines_list');
+            var machine = JSON.parse(selector[selector.selectedIndex].value);
+            console.log(machine);
+            console.log(machine.id);
+            console.log(machine.name);
+            axios_module.getActivitiesOfMachine(function(resp){   
+                for(let i in resp.data){
+                    document.getElementById("activities").innerHTML="<div><label> ID: "+resp.data[i].id+" NAME: "+resp.data[i].name+"   <button type='button' src='img/delete.png'   onclick=\"appModule.deleteActivity('"+resp.data[i].id+"','"+resp.data[i].name+"');\" ><img src='img/delete.png' /></button></label></div>"+document.getElementById("activities").innerHTML;
+                }    
+            },machine); 
+        }
         axios_module.getMachinesOfCompany(function(resp){
-            for(let i in resp.data){
-                document.getElementById("machines_list").innerHTML="<option value=\""+resp.data[i]+"\"> "+resp.data[i].name+"</option>"+document.getElementById("machines_list").innerHTML;
-            }    
-        },company);
-        axios_module.getActivitiesOfMachine(function(resp){
             document.getElementById("page-wrapper").innerHTML=activitiesView;
-            
             for(let i in resp.data){
-                document.getElementById("activities").innerHTML="<div><label> ID: "+resp.data[i].id+" NAME: "+resp.data[i].name+"   <button type='button' src='img/delete.png'   onclick=\"appModule.deleteActivity('"+resp.data[i].id+"','"+resp.data[i].name+"');\" ><img src='img/delete.png' /></button></label></div>"+document.getElementById("activities").innerHTML;
-            }    
-        },machine);
-        
+                document.getElementById("machines_list").innerHTML="<option value=\"{'id':'"+resp.data[i].id+"¿,'name':'"+resp.data[i].name+"'}\"> "+resp.data[i].name+"</option>"+document.getElementById("machines_list").innerHTML;
+            } 
+            activitiesUpdate(); 
+        },company);
     }
 
 }
