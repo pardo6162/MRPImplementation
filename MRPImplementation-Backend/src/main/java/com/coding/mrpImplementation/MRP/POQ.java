@@ -1,19 +1,17 @@
 package com.coding.mrpImplementation.MRP;
 
-import com.coding.mrpImplementation.MRP.MRP;
-import com.coding.mrpImplementation.entities.Company;
-import com.coding.mrpImplementation.entities.Material;
-import com.coding.mrpImplementation.exceptions.MRPException;
+import com.coding.mrpImplementation.model.Company;
+import com.coding.mrpImplementation.model.Material;
 import com.coding.mrpImplementation.service.Service;
 
-public class POQ implements MRP {
+public class POQ {/**implements MRP {
 
 
     @Override
     public int execute(Service service, Material material, int timeIndex, Company company) throws MRPException {
         int plannedReceptions=0;
         int period =material.getPeriod();
-        int time=service.getTime();
+        int time=company.getTime();
         int netRequirement=service.getNetRequirement(timeIndex,material);
         int sumProgramedReceptions=0;
         int sumTotalRequirement=0;
@@ -40,5 +38,5 @@ public class POQ implements MRP {
         }
         service.updateInventoryOnHand(timeIndex, material, plannedReceptions);
         return plannedReceptions;
-    }
+    }**/
 }

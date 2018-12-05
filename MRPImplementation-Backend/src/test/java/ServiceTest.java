@@ -1,14 +1,12 @@
-import com.coding.mrpImplementation.entities.Activity;
-import com.coding.mrpImplementation.entities.Company;
-import com.coding.mrpImplementation.entities.Machine;
-import com.coding.mrpImplementation.entities.Material;
-import com.coding.mrpImplementation.exceptions.MRPException;
+import com.coding.mrpImplementation.MRP.exception.MRPException;
+import com.coding.mrpImplementation.model.Activity;
+import com.coding.mrpImplementation.model.Company;
+import com.coding.mrpImplementation.model.Machine;
+import com.coding.mrpImplementation.model.Material;
 import com.coding.mrpImplementation.service.Service;
-import com.coding.mrpImplementation.service.ServiceImpl;
+import com.coding.mrpImplementation.service.impl.ServiceImpl;
 import org.junit.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 
 public class    ServiceTest{
@@ -22,15 +20,15 @@ public class    ServiceTest{
     }
 
     @Before
-    public void setUp() throws MRPException{
-
+    public void setUp() throws MRPException {}
+/**
         // add material
         int initialInventoryOnHand= 19;//(int) (Math.random()*(7)+19);
         int orderingCost= 5;//(int) (Math.random()*(6)+4);
         int maintainCost= 56;//(int) (Math.random()*(199)+2);
         int securityStock= 18;//(int)(Math.random()*(8)+1);
         int sizeOfLot=9;//(Math.random()*(10)+1);
-        int availablePrev= 3;//(int)(Math.random()*(8)+1);
+        int availablePrev= ;//(int)(Math.random()*(8)+1);
         int period= 5;//(int)(Math.random()*(7));
         material =new Material("MT1","Material "+(1),initialInventoryOnHand,orderingCost,maintainCost,securityStock,sizeOfLot,availablePrev,period);
 
@@ -45,7 +43,7 @@ public class    ServiceTest{
         service= ServiceImpl.getInstance(company);
         service.addProgramedReceptions(0,material,3);
     }
-
+**/
     /**
     @Test
     public  void planningTest() throws MRPException{
