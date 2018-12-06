@@ -88,6 +88,78 @@ var axios_module=(function(){
         })
     };
 
+    var addMaterialToActivity=function(activity,material){
+        var material={"id":material.id,"name":material.name,"orderingCost":material.orderingCost,"maintainCost":material.maintainCost,"activities":[],"suppliers":[]};
+        axios.put(host+'mrp/company/'+activity.machine.company.nit+'/machine/'+activity.machine.id+'/activity/'+activity.id+'/material/'+material.id)
+        .then(function(resp){
+            alert("Material added to activity")
+        })
+        .catch(function(err){
+            console.log(err);
+        })
+    };
+
+    var getMaterialsOfActivity=function(callback,activity){
+        axios.get(host+'mrp/company/'+activity.machine.company.nit+'/machine/'+activity.machine.id+'/activity/'+activity.id+'/material')
+        .then(function(resp){
+            callback(resp);
+        })
+        .catch(function(err){
+            console.log(err);
+        })
+
+    };
+
+    var deleteMaterial=function(activity,material){
+        axios.delete(host+'mrp/company/'+activity.machine.company.nit+'/machine/'+activity.machine.id+'/activity/'+activity.id+'/material/'+material.id)
+        .then(function(resp){
+            alert("Material deleted")
+        })
+        .catch(function(err){
+            console.log(err);
+        })
+    };
+
+    var addMaterial=function(supplier,material){
+        axios.post(host+"mrp/supplier/"+supplier.id+"/material",material)
+        .then(function(resp){
+            alert("Material added");
+        })
+        .catch(function(err){
+            console.log(err);
+        })
+    };
+
+    var addSupplier=function(suplier){
+        axios.post(host+"/mrp/supplier",supplier)
+        .then(function(resp){
+            alert("Supplier added");
+        })
+        .catch(function(err){
+            console.log(err);
+        })
+    };
+
+    var deleteSupplier=function(suplier){
+        axios.delete(host+"/mrp/supplier")
+        .then(function(resp){
+            alert("Supplier deleted");
+        })
+        .catch(function(err){
+            console.log(err);
+        })
+    };
+
+    var getSuppliers=function(callback){
+        axios.get(host+"/mrp/supplier")
+        .then(function(resp){
+            callback(resp);
+        })
+        .catch(function(err){
+            console.log(err);
+        })
+    }
+
     return{
         "addCompany": addCompany,
         "getCompany":getCompany,
@@ -97,6 +169,13 @@ var axios_module=(function(){
         "deleteMachine":deleteMachine,
         "addActivity":addActivity,
         "getActivitiesOfMachine":getActivitiesOfMachine,
-        "deleteActivity":deleteActivity
+        "deleteActivity":deleteActivity,
+        "addMaterialToActivity":addMaterialToActivity,
+        "getMaterialsOfActivity":getMaterialsOfActivity,
+        "deleteMaterial":deleteMaterial,
+        "addMaterial":addMaterial,
+        "addSupplier":addSupplier,
+        "deleteSupplier":deleteSupplier,
+        "getSuppliers":getSuppliers
     }
 }());
