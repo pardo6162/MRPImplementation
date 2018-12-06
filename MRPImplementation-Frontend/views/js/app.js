@@ -107,6 +107,12 @@ var appModule = {
                 document.getElementById("machines_list").innerHTML="<option value='{\"id\":\""+resp.data[i].id+"\",\"name\":\""+resp.data[i].name+"\"}'> "+resp.data[i].name+"</option>"+document.getElementById("machines_list").innerHTML;
             }  
         },company);
+    },
+
+    suppliersView:function(){
+        axios_module.getSuppliers(function(resp){
+        
+        })
     }
 
 }
