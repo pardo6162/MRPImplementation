@@ -10,7 +10,7 @@ import java.util.List;
 public class Supplier {
     @Id
     private String id;
-    private String bussinessName;
+    private String businessName;
     private String country;
     private String address;
     private int deliveryTime;
@@ -25,7 +25,7 @@ public class Supplier {
 
 
     public Supplier(String businessName,String country,String address,int deliveryTime, int phone, String id){
-        this.bussinessName=businessName;
+        this.businessName=businessName;
         this.country=country;
         this.address=address;
         this.deliveryTime=deliveryTime;
@@ -42,11 +42,11 @@ public class Supplier {
     }
 
     public String getBusinessName() {
-        return bussinessName;
+        return businessName;
     }
 
     public void setBusinessName(String businessName) {
-        this.bussinessName = businessName;
+        this.businessName = businessName;
     }
 
     public String getCountry() {
