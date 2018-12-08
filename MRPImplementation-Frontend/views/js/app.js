@@ -111,7 +111,10 @@ var appModule = {
 
     suppliersView:function(){
         axios_module.getSuppliers(function(resp){
-        
+            document.getElementById("page-wrapper").innerHTML=suppliersView;
+            for(let i in resp.data){
+                document.getElementById("suppliers").innerHTML="<div><label> ID: "+resp.data[i].id+" NAME: "+resp.data[i].name+"   <button type='button' src='img/delete.png'   onclick=\"appModule.deleteMachine('"+resp.data[i].id+"','"+resp.data[i].name+"');\" ><img src='img/delete.png' /></button></label></div>"+document.getElementById("machines").innerHTML;
+            }  
         })
     }
 
