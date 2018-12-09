@@ -16,7 +16,7 @@ import java.util.List;
 public class SupplierController extends MRPController {
 
     @PostMapping(path = "/supplier")
-    public @ResponseBody ResponseEntity<?> addSupplier(Supplier supplier){
+    public @ResponseBody ResponseEntity<?> addSupplier(@RequestBody Supplier supplier){
         supplierRepository.save(supplier);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
@@ -26,8 +26,8 @@ public class SupplierController extends MRPController {
         return supplierRepository.findAll();
     }
 
-    @DeleteMapping(path = "/supplier")
-    public @ResponseBody ResponseEntity<?> deleteSupplier(String id){
+    @DeleteMapping(path = "/supplier/{id}")
+    public @ResponseBody ResponseEntity<?> deleteSupplier(@PathVariable(value="id") String id){
         Supplier supplier=supplierRepository.findById(id);
         supplierRepository.delete(supplier);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);

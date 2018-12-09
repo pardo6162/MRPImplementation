@@ -1,6 +1,8 @@
 package com.coding.mrpImplementation.model;
 
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class Supplier {
     private int deliveryTime;
     private int phone;
     @OneToMany(cascade= CascadeType.ALL)
-    @JoinTable(name = "SupploersOfMaterial",
+    @JoinTable(name = "SuppliersOfMaterial",
             joinColumns = { @JoinColumn(name = "supplier_id",referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "material_id",referencedColumnName = "id") })
     private List<Material> materials;
@@ -24,13 +26,14 @@ public class Supplier {
     public Supplier(){}
 
 
-    public Supplier(String businessName,String country,String address,int deliveryTime, int phone, String id){
+    public Supplier(String id,String businessName,String country,String address,int deliveryTime, int phone){
+        this.id = id;
         this.businessName=businessName;
         this.country=country;
         this.address=address;
         this.deliveryTime=deliveryTime;
         this.phone=phone;
-        this.id = id;
+
     }
 
     public String getId() {
@@ -81,11 +84,11 @@ public class Supplier {
         this.phone = phone;
     }
 
-    public List<Material> getMasterials() {
+    public List<Material> getMaterials() {
         return materials;
     }
 
-    public void setMasterials(List<Material> masterials) {
+    public void setMaterials(List<Material> masterials) {
         this.materials = masterials;
     }
 }
