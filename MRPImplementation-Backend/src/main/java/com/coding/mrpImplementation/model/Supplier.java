@@ -81,11 +81,11 @@ public class Supplier {
         this.phone = phone;
     }
 
-    public List<Material> getMasterials() {
+    public List<Material> getMaterials() {
         return materials;
     }
 
-    public void setMasterials(List<Material> masterials) {
-        this.materials = masterials;
+    public void setMaterials(List<Material> materials) {
+        this.materials = materials;
     }
 }
