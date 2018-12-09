@@ -72,21 +72,7 @@ var appModule = {
         this.activitiesView();
     },
 
-    searchActivities:function(){
-        var selector = document.getElementById('machines_list');
-        machine = JSON.parse(selector[selector.selectedIndex].value);
-        machine.company=company;
-        document.getElementById("activities").innerHTML="";
-        axios_module.getActivitiesOfMachine(function(resp){   
-            for(let i in resp.data){
-                document.getElementById("activities").innerHTML="<div><label> ID: "+resp.data[i].id+" NAME: "+resp.data[i].name+"   <button type='button' src='img/delete.png'   onclick=\"appModule.deleteActivity('"+resp.data[i].id+"','"+resp.data[i].name+"');\" ><img src='img/delete.png' /></button></label></div>"+document.getElementById("activities").innerHTML;
-            }
-
-        },machine);
-        document.getElementById('form').innerHTML=addActivityForm;
-
-    },
-
+    //Supplier CRUD
     addSupplier:function(){
         var id=document.getElementById("id").value;
         var name=document.getElementById("name").value;
@@ -97,6 +83,14 @@ var appModule = {
         axios_module.addSupplier(id,name,country,address,delivery_time,phone);
         this.suppliersView();
     },
+
+
+    deleteSupplier:function(id){
+        axios_module.deleteSupplier(id);
+        this.suppliersView();
+    },
+
+
 
     // views 
     machinesView:function(){
@@ -120,6 +114,21 @@ var appModule = {
         },company);
     },
 
+    searchActivities:function(){
+        var selector = document.getElementById('machines_list');
+        machine = JSON.parse(selector[selector.selectedIndex].value);
+        machine.company=company;
+        document.getElementById("activities").innerHTML="";
+        axios_module.getActivitiesOfMachine(function(resp){   
+            for(let i in resp.data){
+                document.getElementById("activities").innerHTML="<div><label> ID: "+resp.data[i].id+" NAME: "+resp.data[i].name+"   <button type='button' src='img/delete.png'   onclick=\"appModule.deleteActivity('"+resp.data[i].id+"','"+resp.data[i].name+"');\" ><img src='img/delete.png' /></button></label></div>"+document.getElementById("activities").innerHTML;
+            }
+
+        },machine);
+        document.getElementById('form').innerHTML=addActivityForm;
+
+    },
+
     suppliersView:function(){
         axios_module.getSuppliers(function(resp){
             document.getElementById("page-wrapper").innerHTML=suppliersView;
@@ -127,6 +136,29 @@ var appModule = {
                 document.getElementById("suppliers").innerHTML="<div><label> ID: "+resp.data[i].id+" COMPANY NAME: "+resp.data[i].businessName+"   <button type='button' src='img/delete.png'   onclick=\"appModule.deleteSupplier('"+resp.data[i].id+"');\" ><img src='img/delete.png' /></button></label></div>"+document.getElementById("suppliers").innerHTML;
             }  
         })
+    },
+
+    materialsView:function(){
+        axios_module.getMachinesOfCompany(function(resp){
+            document.getElementById("page-wrapper").innerHTML=materialsView;
+            var list = document.getElementById("machines_list");
+            for(let i in resp.data){
+                document.getElementById("machines_list").innerHTML="<option value='{\"id\":\""+resp.data[i].id+"\",\"name\":\""+resp.data[i].name+"\"}'> "+resp.data[i].name+"</option>"+document.getElementById("machines_list").innerHTML;
+            }  
+        },company);
+    },
+
+    searchActivitiesMaterialsView:function(){
+        var selector = document.getElementById('machines_list');
+        machine = JSON.parse(selector[selector.selectedIndex].value);
+        machine.company=company;
+        axios_module.getActivitiesOfMachine(function(resp){   
+            console.log(resp);
+            for(let i in resp.data){
+                document.getElementById("activities_list").innerHTML="<option value='{\"id\":\""+resp.data[i].id+"\",\"name\":\""+resp.data[i].name+"\"}'> "+resp.data[i].name+"</option>"+document.getElementById("activities_list").innerHTML;
+            }
+
+        },machine);
     }
 
 }

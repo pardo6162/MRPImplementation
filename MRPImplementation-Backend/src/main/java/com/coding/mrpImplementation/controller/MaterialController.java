@@ -81,7 +81,7 @@ public class MaterialController extends MRPController{
     @PostMapping(path = "/supplier/{id}/material")
     public @ResponseBody ResponseEntity<?> addMaterialToSupplier(@PathVariable(value="id")String id,Material material){
         Supplier supplier=supplierRepository.findById(id);
-        List<Material> listMaterials =supplier.getMasterials();
+        List<Material> listMaterials =supplier.getMaterials();
         List<Supplier> listSupplier= material.getSuppliers();
         listMaterials.add(material);
         listSupplier.add(supplier);
