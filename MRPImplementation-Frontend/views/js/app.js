@@ -87,6 +87,17 @@ var appModule = {
 
     },
 
+    addSupplier:function(){
+        var id=document.getElementById("id").value;
+        var name=document.getElementById("name").value;
+        var country=document.getElementById("country").value;
+        var address=document.getElementById("address").value;
+        var delivery_time=document.getElementById("delivery_time").value;
+        var phone=document.getElementById("phone").value;
+        axios_module.addSupplier(id,name,country,address,delivery_time,phone);
+        this.suppliersView();
+    },
+
     // views 
     machinesView:function(){
         axios_module.getMachinesOfCompany(function(resp){
@@ -113,7 +124,7 @@ var appModule = {
         axios_module.getSuppliers(function(resp){
             document.getElementById("page-wrapper").innerHTML=suppliersView;
             for(let i in resp.data){
-                document.getElementById("suppliers").innerHTML="<div><label> ID: "+resp.data[i].id+" NAME: "+resp.data[i].name+"   <button type='button' src='img/delete.png'   onclick=\"appModule.deleteMachine('"+resp.data[i].id+"','"+resp.data[i].name+"');\" ><img src='img/delete.png' /></button></label></div>"+document.getElementById("machines").innerHTML;
+                document.getElementById("suppliers").innerHTML="<div><label> ID: "+resp.data[i].id+" COMPANY NAME: "+resp.data[i].businessName+"   <button type='button' src='img/delete.png'   onclick=\"appModule.deleteSupplier('"+resp.data[i].id+"');\" ><img src='img/delete.png' /></button></label></div>"+document.getElementById("suppliers").innerHTML;
             }  
         })
     }

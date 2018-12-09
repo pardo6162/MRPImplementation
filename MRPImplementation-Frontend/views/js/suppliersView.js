@@ -34,27 +34,27 @@ var suppliersView="<div class='row'>" +
                         "<label>Identifier</label>" +
                         "<input id='id' class='form-control'>" +
                     "</div>" +
-                    "<div class='form-group'>" +
-                        "<label>Name</label>" +
+                    "       <div class='form-group'>" +
+                        "<label>Company Name</label>" +
                         "<input id='name' class='form-control'>" +
                     "</div>" +
                     "<div class='form-group'>" +
-                        "<label>Name</label>" +
-                        "<input id='name' class='form-control'>" +
+                        "<label>Country</label>" +
+                        "<input id='country' class='form-control'>" +
                     "</div>" +
                     "<div class='form-group'>" +
-                        "<label>Name</label>" +
-                        "<input id='name' class='form-control'>" +
+                        "<label>Address</label>" +
+                        "<input id='address' class='form-control'>" +
                     "</div>" +
                     "<div class='form-group'>" +
-                        "<label>Name</label>" +
-                        "<input id='name' class='form-control'>" +
+                        "<label>Delivery Time</label>" +
+                        "<input type='number' id='delivery_time' class='form-control'>" +
                     "</div>" +
                     "<div class='form-group'>" +
-                        "<label>Name</label>" +
-                        "<input id='name' class='form-control'>" +
+                        "<label>Phone</label>" +
+                        "<input type='number' id='phone' class='form-control'>" +
                     "</div>" +
-                    "<button  class='btn btn-default' onclick='appModule.add()'>Submit Button</button>" +
+                    "<button  class='btn btn-default' onclick='appModule.addSupplier()'>Submit Button</button>" +
                     "<button type='reset' class='btn btn-default'>Reset Button</button>"+
                 "</div>" +
             "</div>" +

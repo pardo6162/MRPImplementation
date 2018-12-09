@@ -130,7 +130,9 @@ var axios_module=(function(){
         })
     };
 
-    var addSupplier=function(suplier){
+    var addSupplier=function(id,name,country,address,delivery_time,phone){
+        var supplier={"id":id,"businessName":name,"country":country,"address":address,"deliveryTime":delivery_time,"phone":phone,"materials":[]};
+        console.log(supplier);
         axios.post(host+"/mrp/supplier",supplier)
         .then(function(resp){
             alert("Supplier added");
@@ -140,8 +142,8 @@ var axios_module=(function(){
         })
     };
 
-    var deleteSupplier=function(suplier){
-        axios.delete(host+"/mrp/supplier")
+    var deleteSupplier=function(id){
+        axios.delete(host+"/mrp/supplier/"+id)
         .then(function(resp){
             alert("Supplier deleted");
         })
