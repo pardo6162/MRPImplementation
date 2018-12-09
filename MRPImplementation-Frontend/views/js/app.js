@@ -74,8 +74,8 @@ var appModule = {
 
     //Supplier CRUD
     addSupplier:function(){
-        var id=document.getElementById("id").value;
-        var name=document.getElementById("name").value;
+        var id=document.getElementById("id_material").value;
+        var name=document.getElementById("name_material").value;
         var country=document.getElementById("country").value;
         var address=document.getElementById("address").value;
         var delivery_time=document.getElementById("delivery_time").value;
@@ -89,6 +89,13 @@ var appModule = {
         axios_module.deleteSupplier(id);
         this.suppliersView();
     },
+
+    addMaterial:function(){
+        var id=document.getElementById("id").value;
+        var name=document.getElementById("name").value;
+        var country=document.getElementById("country").value;
+        var address=document.getElementById("address").value;
+    }
 
 
 
@@ -139,13 +146,22 @@ var appModule = {
     },
 
     materialsView:function(){
+        let loadSuppliers=function(){
+            axios_module.getSuppliers(function(resp){
+                for(let i in resp.data){
+                    document.getElementById("supplier_list").innerHTML="<option value='{\"id\":\""+resp.data[i].id+"\",\"businessName\":\""+resp.data[i].businessName+"\"}'> "+resp.data[i].businessName+"</option>"+document.getElementById("supplier_list").innerHTML;
+                }  
+            });
+        };
+
         axios_module.getMachinesOfCompany(function(resp){
             document.getElementById("page-wrapper").innerHTML=materialsView;
-            var list = document.getElementById("machines_list");
             for(let i in resp.data){
                 document.getElementById("machines_list").innerHTML="<option value='{\"id\":\""+resp.data[i].id+"\",\"name\":\""+resp.data[i].name+"\"}'> "+resp.data[i].name+"</option>"+document.getElementById("machines_list").innerHTML;
             }  
+            loadSuppliers();
         },company);
+        
     },
 
     searchActivitiesMaterialsView:function(){
@@ -159,6 +175,7 @@ var appModule = {
             }
 
         },machine);
+
     }
 
 }

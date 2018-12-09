@@ -1,6 +1,6 @@
 var materialsView="<div class='row'>" +
                         "<div class='col-lg-12'>" +
-                            "<h1 class='page-header'>Activity</h1>" +
+                            "<h1 class='page-header'>Material</h1>" +
                         "</div>" +
                     "</div>" +
                     "<div class='col-lg-12'>" +
@@ -19,34 +19,40 @@ var materialsView="<div class='row'>" +
                                         "<button  class='btn btn-default' onclick='appModule.searchActivitiesMaterialsView()'>Search</button>" +
                                     "</div>"+
                                 "</div>" +
-                                "<div class='row'>" +
-                                    "<div class='col-lg-6'>" +                         
+                                "<div class='row' id='materials_search'>" +
+                                "</div>" +
+                                "<div class='row' id='materials_form'>" +
+                                "</div>" ;
+
+
+
+var addMaterialForm="<div class='col-lg-6'>" +                         
                                         "<div class='form-group'>" +
-                                            "<label>Activities</label>" +
+                                            "<label>Activity</label>" +
                                                 "<select id='activities_list' class='form-control'>" +
                                                 "</select>"+
                                         "</div>" +
-                                    "</div>"+
-                                "</div>" +
-                            "</div>" +
-                        "</div>" +
-                        "<div class='col-lg-12'>" +
-                            "<div class='panel panel-default'>" +
-                                "<div class='panel-body'>" +
-                                    "<div class='row'>" +
-                                        "<div class='col-lg-6'>" +
-                                            "<div id='activities'>" +
-                                            "</div>" +
+                                        "<div class='form-group'>" +
+                                            "<label>Supplier</label>" +
+                                            "<select id='supplier_list' class='form-control'>" +
+                                            "</select>"+
                                         "</div>" +
-                                    "</div>" +
-                                "</div>" +
-                            "</div>" +
-                        "</div>" +
-                    "</div>" +
-                    "<div id='form' class='row'>" +
-                    "</div>" +
-                "</div>"+
-            "</div>" +
-        "</div>" +
-    "</div>" +
-"</div>";
+                                        "<div class='form-group'>" +
+                                            "<label>Identifier</label>" +
+                                            "<input id='id_material' class='form-control'>" +
+                                        "</div>" +
+                                        "<div class='form-group'>" +
+                                            "<label>Name</label>" +
+                                            "<input id='name_material' class='form-control'>" +
+                                        "</div>" +
+                                        "<div class='form-group'>" +
+                                            "<label>Ordering Cost</label>" +
+                                            "<input type='number' id='ordering_cost' class='form-control'>" +
+                                        "</div>" +
+                                        "<div class='form-group'>" +
+                                            "<label>Maintain Cost</label>" +
+                                            "<input type='number' id='maintain_cost' class='form-control'>" +
+                                        "</div>" +
+                                        "<button  class='btn btn-default' onclick='appModule.addMaterial()'>Submit Button</button>" +
+                                    "</div>";
+                        
