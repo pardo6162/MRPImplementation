@@ -1,5 +1,7 @@
 package com.coding.mrpImplementation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +16,12 @@ public class Material {
     private int orderingCost;
     private int maintainCost;
 
-
-    @OneToMany(cascade= CascadeType.ALL)
-    @JoinTable(name = "MaterialOfActivities",
-            joinColumns = { @JoinColumn(name = "material_id",referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "activity_id",referencedColumnName = "id") })
+    @JsonIgnore
+    @ManyToMany(mappedBy = "materials")
     private List<Activity> activities;
-    @OneToMany(cascade= CascadeType.ALL)
-    @JoinTable(name = "SuppliersOfMaterial",
-            joinColumns = { @JoinColumn(name = "material_id",referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "supplier_id",referencedColumnName = "id") })
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "materials")
     private List<Supplier> suppliers;
 
     public  Material(){}

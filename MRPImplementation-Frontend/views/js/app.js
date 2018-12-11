@@ -1,5 +1,6 @@
 var company=null;
 var machine=null;
+var activity=null;
 
 
 var appModule = {
@@ -14,7 +15,7 @@ var appModule = {
         document.getElementById("page-wrapper").innerHTML=dashboard;
 
     },
-    
+    //COMPANY 
     // company CRUD
     addCompany: function(){ 
         var name=document.getElementById("name").value;
@@ -30,6 +31,7 @@ var appModule = {
         })
     },
     
+    //MACHINE
     // machine CRUD
     addMachine:function(){
         if(company==null){
@@ -46,7 +48,19 @@ var appModule = {
         axios_module.deleteMachine(company,machine);
         this.machinesView();
     },
+    // machine view
+    machinesView:function(){
+        axios_module.getMachinesOfCompany(function(resp){
+            document.getElementById("page-wrapper").innerHTML=machinesView;
+            for(let i in resp.data){
+                document.getElementById("machines").innerHTML="<div><label> ID: "+resp.data[i].id+" NAME: "+resp.data[i].name+"   <button type='button' src='img/delete.png'   onclick=\"appModule.deleteMachine('"+resp.data[i].id+"','"+resp.data[i].name+"');\" ><img src='img/delete.png' /></button></label></div>"+document.getElementById("machines").innerHTML;
+            }    
+        },company)
+        
+    },
 
+
+    //ACTIVITY
     // activity CRUD
     addActivity:function(){
         if(machine==null){
@@ -61,7 +75,6 @@ var appModule = {
         
         
     },
-
     deleteActivity:function(id,name){
         if(machine==null){
             alert("Please select a machine");
@@ -71,46 +84,7 @@ var appModule = {
         }
         this.activitiesView();
     },
-
-    //Supplier CRUD
-    addSupplier:function(){
-        var id=document.getElementById("id_material").value;
-        var name=document.getElementById("name_material").value;
-        var country=document.getElementById("country").value;
-        var address=document.getElementById("address").value;
-        var delivery_time=document.getElementById("delivery_time").value;
-        var phone=document.getElementById("phone").value;
-        axios_module.addSupplier(id,name,country,address,delivery_time,phone);
-        this.suppliersView();
-    },
-
-
-    deleteSupplier:function(id){
-        axios_module.deleteSupplier(id);
-        this.suppliersView();
-    },
-
-    addMaterial:function(){
-        var id=document.getElementById("id").value;
-        var name=document.getElementById("name").value;
-        var country=document.getElementById("country").value;
-        var address=document.getElementById("address").value;
-    }
-
-
-
-    // views 
-    machinesView:function(){
-        axios_module.getMachinesOfCompany(function(resp){
-            document.getElementById("page-wrapper").innerHTML=machinesView;
-            for(let i in resp.data){
-                document.getElementById("machines").innerHTML="<div><label> ID: "+resp.data[i].id+" NAME: "+resp.data[i].name+"   <button type='button' src='img/delete.png'   onclick=\"appModule.deleteMachine('"+resp.data[i].id+"','"+resp.data[i].name+"');\" ><img src='img/delete.png' /></button></label></div>"+document.getElementById("machines").innerHTML;
-            }    
-        },company)
-        
-    },
-    
-
+    //activity View
     activitiesView:function(){
         axios_module.getMachinesOfCompany(function(resp){
             document.getElementById("page-wrapper").innerHTML=activitiesView;
@@ -136,6 +110,23 @@ var appModule = {
 
     },
 
+    //SUPPLIER
+    //Supplier CRUD
+    addSupplier:function(){
+        var id=document.getElementById("id_material").value;
+        var name=document.getElementById("name_material").value;
+        var country=document.getElementById("country").value;
+        var address=document.getElementById("address").value;
+        var delivery_time=document.getElementById("delivery_time").value;
+        var phone=document.getElementById("phone").value;
+        axios_module.addSupplier(id,name,country,address,delivery_time,phone);
+        this.suppliersView();
+    },
+    deleteSupplier:function(id){
+        axios_module.deleteSupplier(id);
+        this.suppliersView();
+    },
+    //Supplier View
     suppliersView:function(){
         axios_module.getSuppliers(function(resp){
             document.getElementById("page-wrapper").innerHTML=suppliersView;
@@ -145,21 +136,27 @@ var appModule = {
         })
     },
 
+    //MATERIAL
+    //Material CRUD
+    addMaterial:function(){
+        var selector = document.getElementById('machines_list');
+        supplier = JSON.parse(selector[selector.selectedIndex].value);
+        var id=document.getElementById("id_material").value;
+        var name=document.getElementById("name_material").value;
+        var ordering_cost=document.getElementById("ordering_cost").value;
+        var maintain_cost=document.getElementById("maintain_cost").value;
+        axios_module.addMaterial(supplier,id,name,ordering_cost,maintain_cost);
+    },
+    deleteMaterial:function(id){
+        axios_module.deleteMaterial(activity,id);   
+    },
+    //Material view 
     materialsView:function(){
-        let loadSuppliers=function(){
-            axios_module.getSuppliers(function(resp){
-                for(let i in resp.data){
-                    document.getElementById("supplier_list").innerHTML="<option value='{\"id\":\""+resp.data[i].id+"\",\"businessName\":\""+resp.data[i].businessName+"\"}'> "+resp.data[i].businessName+"</option>"+document.getElementById("supplier_list").innerHTML;
-                }  
-            });
-        };
-
         axios_module.getMachinesOfCompany(function(resp){
             document.getElementById("page-wrapper").innerHTML=materialsView;
             for(let i in resp.data){
                 document.getElementById("machines_list").innerHTML="<option value='{\"id\":\""+resp.data[i].id+"\",\"name\":\""+resp.data[i].name+"\"}'> "+resp.data[i].name+"</option>"+document.getElementById("machines_list").innerHTML;
             }  
-            loadSuppliers();
         },company);
         
     },
@@ -176,6 +173,28 @@ var appModule = {
 
         },machine);
 
+    },
+    searchMaterialsOfActivity:function(){
+        let loadSuppliers=function(){
+            axios_module.getSuppliers(function(resp){
+                for(let i in resp.data){
+                    document.getElementById("supplier_list").innerHTML="<option value='{\"id\":\""+resp.data[i].id+"\",\"businessName\":\""+resp.data[i].businessName+"\"}'> "+resp.data[i].businessName+"</option>"+document.getElementById("supplier_list").innerHTML;
+                }  
+            });
+        };
+
+        var selector = document.getElementById('activities_list');
+        activity = JSON.parse(selector[selector.selectedIndex].value);
+        activity.machine=machine;
+        console.log(activity);
+        document.getElementById("materials_search").innerHTML="";
+        axios_module.getMaterialsOfActivity(function(resp){   
+            for(let i in resp.data){
+                document.getElementById("materials_search").innerHTML="<div><label> ID: "+resp.data[i].id+" NAME: "+resp.data[i].name+" ORDERING COST: "+resp.data[i].orderingCost+" MAINTAIN COST: "+resp.data[i].maintainCost+"   <button type='button' src='img/delete.png'   onclick=\"appModule.deleteMaterial('"+resp.data[i].id+"');\" ><img src='img/delete.png' /></button></label></div>"+document.getElementById("materials_search").innerHTML;
+            }
+            loadSuppliers();
+        },activity); 
+        document.getElementById('materials_form').innerHTML=addMaterialForm;
     }
 
 }

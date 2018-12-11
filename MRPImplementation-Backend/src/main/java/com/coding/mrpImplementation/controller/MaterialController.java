@@ -42,12 +42,18 @@ public class MaterialController extends MRPController{
     @GetMapping(path="/company/{nit}/machine/{id_machine}/activity/{id_activity}/material")
     public @ResponseBody List<Material> getMaterials(@PathVariable(value="nit")String nit, @PathVariable(value="id_machine")String idMachine, @PathVariable(value="id_activity") String idActivity){
         List<Material> materials= new ArrayList<>();
+        List<Material> materialsResp= new ArrayList<>();
         Company company=companyRepository.findById(nit).get();
         Machine machine=machineRepository.findById(idMachine).get();
         Activity activity=activityRepository.findById(idActivity).get();
         if(machine.getCompany().equals(company)) {
             if (activity.getMachine().equals(machine)) {
                 materials=materialRepository.findAll();
+                for(Material i:materials){
+                    if(i.getActivities().contains(activity)){
+                        materialsResp.add(i);
+                    }
+                }
             }
         }
         return materials;
@@ -79,7 +85,7 @@ public class MaterialController extends MRPController{
     }
 
     @PostMapping(path = "/supplier/{id}/material")
-    public @ResponseBody ResponseEntity<?> addMaterialToSupplier(@PathVariable(value="id")String id,Material material){
+    public @ResponseBody ResponseEntity<?> addMaterialToSupplier(@PathVariable(value="id")String id,@RequestBody Material material){
         Supplier supplier=supplierRepository.findById(id);
         List<Material> listMaterials =supplier.getMaterials();
         List<Supplier> listSupplier= material.getSuppliers();

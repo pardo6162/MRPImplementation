@@ -19,10 +19,12 @@ public class Activity {
     @JoinColumn(name="machine_id")
     private Machine machine;
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "MaterialsOfActivities",
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "materials_of_activities",
             joinColumns = { @JoinColumn(name = "activity_id",referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "material_id",referencedColumnName = "id") })
+            inverseJoinColumns = { @JoinColumn(name = "material_id",referencedColumnName = "id") }
+    )
     private List<Material> materials;
 
 

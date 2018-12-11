@@ -17,6 +17,12 @@ var materialsView="<div class='row'>" +
                                                 "</select>"+
                                         "</div>" +
                                         "<button  class='btn btn-default' onclick='appModule.searchActivitiesMaterialsView()'>Search</button>" +
+                                        "<div class='form-group'>" +
+                                        "<label>Activity</label>" +
+                                            "<select id='activities_list' class='form-control'>" +
+                                            "</select>"+
+                                        "</div>" +
+                                        "<button  class='btn btn-default' onclick='appModule.searchMaterialsOfActivity()'>Search</button>" +
                                     "</div>"+
                                 "</div>" +
                                 "<div class='row' id='materials_search'>" +
@@ -27,11 +33,6 @@ var materialsView="<div class='row'>" +
 
 
 var addMaterialForm="<div class='col-lg-6'>" +                         
-                                        "<div class='form-group'>" +
-                                            "<label>Activity</label>" +
-                                                "<select id='activities_list' class='form-control'>" +
-                                                "</select>"+
-                                        "</div>" +
                                         "<div class='form-group'>" +
                                             "<label>Supplier</label>" +
                                             "<select id='supplier_list' class='form-control'>" +

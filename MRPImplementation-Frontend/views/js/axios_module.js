@@ -110,8 +110,8 @@ var axios_module=(function(){
 
     };
 
-    var deleteMaterial=function(activity,material){
-        axios.delete(host+'mrp/company/'+activity.machine.company.nit+'/machine/'+activity.machine.id+'/activity/'+activity.id+'/material/'+material.id)
+    var deleteMaterial=function(activity,id){
+        axios.delete(host+'mrp/company/'+activity.machine.company.nit+'/machine/'+activity.machine.id+'/activity/'+activity.id+'/material/'+id)
         .then(function(resp){
             alert("Material deleted")
         })
@@ -120,7 +120,8 @@ var axios_module=(function(){
         })
     };
 
-    var addMaterial=function(supplier,material){
+    var addMaterial=function(supplier,id,name,ordering_cost,maintain_cost){
+        material={"id":id,"name":name,"name":name,"orderingCost":ordering_cost,"maintainCost":maintain_cost,"activities":[],"suppliers":[]}
         axios.post(host+"mrp/supplier/"+supplier.id+"/material",material)
         .then(function(resp){
             alert("Material added");
