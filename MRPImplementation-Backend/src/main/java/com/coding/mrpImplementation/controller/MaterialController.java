@@ -69,13 +69,8 @@ public class MaterialController extends MRPController{
         Material material=materialRepository.findById(idMaterial);
         if(machine.getCompany().equals(company)) {
             if (activity.getMachine().equals(machine)) {
-                List<Material> listMaterialActivity = activity.getMaterials();
-                List<Activity> listActivityMaterial = material.getActivities();
-                listMaterialActivity.remove(material);
-                activity.setMaterials(listMaterialActivity);
-                listActivityMaterial.remove(activity);
-                material.setActivities(listActivityMaterial);
-                activityRepository.save(activity);
+                material.getActivities().clear();
+                material.getSuppliers().clear();
                 materialRepository.delete(material);
             }else{
                 responseEntity=new ResponseEntity<>("The activity doesn't exists",HttpStatus.BAD_REQUEST);
@@ -88,7 +83,7 @@ public class MaterialController extends MRPController{
     public @ResponseBody ResponseEntity<?> addMaterialToSupplier(@PathVariable(value="id")String id,@RequestBody Material material){
         Supplier supplier=supplierRepository.findById(id);
         List<Material> listMaterials =supplier.getMaterials();
-        List<Supplier> listSupplier= material.getSuppliers();
+        List<Supplier> listSupplier= new ArrayList<>();
         listMaterials.add(material);
         listSupplier.add(supplier);
         supplierRepository.save(supplier);

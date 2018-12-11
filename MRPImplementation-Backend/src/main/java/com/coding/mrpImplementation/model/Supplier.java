@@ -17,7 +17,7 @@ public class Supplier {
     private String address;
     private int deliveryTime;
     private int phone;
-    @OneToMany(cascade= CascadeType.ALL)
+    @OneToMany(cascade= {CascadeType.MERGE,CascadeType.REMOVE })
     @JoinTable(name = "SuppliersOfMaterial",
             joinColumns = { @JoinColumn(name = "supplier_id",referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "material_id",referencedColumnName = "id") })

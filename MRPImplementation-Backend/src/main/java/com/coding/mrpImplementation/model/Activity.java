@@ -19,7 +19,7 @@ public class Activity {
     @JoinColumn(name="machine_id")
     private Machine machine;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = { CascadeType.MERGE,CascadeType.REMOVE })
     @JoinTable(
             name = "materials_of_activities",
             joinColumns = { @JoinColumn(name = "activity_id",referencedColumnName = "id") },
