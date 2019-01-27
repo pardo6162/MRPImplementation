@@ -1,5 +1,6 @@
 var axios_module=(function(){
     var host="http://localhost:8080/"
+    //var host="https://mrpprojectbackend.herokuapp.com:8080/"
     var addCompany=function(name,nit){
         axios.post(host+'mrp/company',{"nit":nit,"name":name,"machines":[]})
             .then(function(resp){

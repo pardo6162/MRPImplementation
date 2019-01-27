@@ -113,8 +113,8 @@ var appModule = {
     //SUPPLIER
     //Supplier CRUD
     addSupplier:function(){
-        var id=document.getElementById("id_material").value;
-        var name=document.getElementById("name_material").value;
+        var id=document.getElementById("id_supplier").value;
+        var name=document.getElementById("name_supplier").value;
         var country=document.getElementById("country").value;
         var address=document.getElementById("address").value;
         var delivery_time=document.getElementById("delivery_time").value;
@@ -139,12 +139,13 @@ var appModule = {
     //MATERIAL
     //Material CRUD
     addMaterial:function(){
-        var selector = document.getElementById('machines_list');
+        var selector = document.getElementById('supplier_list');
         supplier = JSON.parse(selector[selector.selectedIndex].value);
         var id=document.getElementById("id_material").value;
         var name=document.getElementById("name_material").value;
         var ordering_cost=document.getElementById("ordering_cost").value;
         var maintain_cost=document.getElementById("maintain_cost").value;
+        console.log(supplier);
         axios_module.addMaterial(supplier,id,name,ordering_cost,maintain_cost);
     },
     deleteMaterial:function(id){

@@ -32,11 +32,11 @@ var suppliersView="<div class='row'>" +
                 "<div class='col-lg-6'>" +
                     "<div class='form-group'>" +
                         "<label>Identifier</label>" +
-                        "<input id='id' class='form-control'>" +
+                        "<input id='id_supplier' class='form-control'>" +
                     "</div>" +
                     "       <div class='form-group'>" +
                         "<label>Company Name</label>" +
-                        "<input id='name' class='form-control'>" +
+                        "<input id='name_supplier' class='form-control'>" +
                     "</div>" +
                     "<div class='form-group'>" +
                         "<label>Country</label>" +
